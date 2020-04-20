@@ -1,0 +1,40 @@
+version: 0.1
+phases:
+  pre_build:
+    commands:
+      - echo Installing yarn...
+      - npm install -g yarn
+      - echo Installing source Yarn dependencies...
+      - yarn install
+      - echo Running Unit tests
+      - yarn test:unit
+  build:
+    commands:
+      - echo Copying necessary files...
+      - aws s3 cp s3://atium.${ActivityName}.repo/.env .
+      - aws s3 cp s3://atium.${ActivityName}.repo/aws-exports.js ./src/
+      - echo Build started on `date`...
+      - yarn build
+  post_build:
+    commands:
+      # copy the contents of /dist to S3
+      - >
+        aws s3 cp ./dist s3://${ActivityName}.atium.app/
+        --acl public-read --recursive --exclude 'cloudformation/*'
+
+      # set the cache-control headers for index.html to prevent
+      # browser caching
+      - >
+        aws s3 cp ./dist/index.html s3://${ActivityName}.atium.app/
+        --cache-control="max-age=0, no-cache, no-store, must-revalidate"
+        --acl public-read
+
+      # invalidate the CloudFront cache for index.html to force CloudFront
+      # to update its edge locations with the new versions
+      - >
+        aws cloudfront create-invalidation --distribution-id ${CloudfrontDistribution}
+        --paths /index.html
+artifacts:
+  files:
+    - "**/*"
+  base-directory: dist

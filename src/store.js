@@ -15,17 +15,26 @@ const vuexLocal = new VuexPersistence({
 const store = new Vuex.Store({
   plugins: [vuexLocal.plugin],
   state: {
-    deviceId: null
+    deviceId: null,
+    accessToken: null,
   },
   getters: {
     deviceId(state) {
       return state.deviceId;
+    },
+    accessToken(state) {
+      return state.accessToken;
     }
   },
   mutations: {
     setDeviceId(state, value) {
       if (state.deviceId == null) {
         state.deviceId = value;
+      }
+    },
+    setAccessToken(state, value) {
+      if (state.accessToken == null) {
+        state.accessToken = value;
       }
     }
   }

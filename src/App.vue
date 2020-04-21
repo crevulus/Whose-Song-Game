@@ -2,6 +2,7 @@
   <div id="app">
     <div id="main-content">
       <Logo />
+      <SearchSong />
       <router-view />
     </div>
     <div id="footer-rules">
@@ -14,10 +15,11 @@
 import { uuid } from "vue-uuid";
 import { mapMutations } from "vuex";
 import Logo from "@/components/Logo";
+import SearchSong from "@/components/SearchSong";
 import Footer from "@/components/Footer";
 import Rules from "@/components/Rules";
 export default {
-  components: { Logo, Footer, Rules },
+  components: { Logo, Footer, Rules, SearchSong },
   name: "App",
   created() {
     const deviceId = uuid.v4();

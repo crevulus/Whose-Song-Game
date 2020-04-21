@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div id="main-content">
+      <router-link :to="{ name: 'input' }">Input</router-link>
       <Logo />
       <router-view />
     </div>
-    <SearchSong />
     <div id="footer-rules">
       <Rules />
     </div>
@@ -15,11 +15,10 @@
 import { uuid } from "vue-uuid";
 import { mapMutations } from "vuex";
 import Logo from "@/components/Logo";
-import SearchSong from "@/components/SearchSong";
 import Footer from "@/components/Footer";
 import Rules from "@/components/Rules";
 export default {
-  components: { Logo, Footer, Rules, SearchSong },
+  components: { Logo, Footer, Rules },
   name: "App",
   created() {
     const deviceId = uuid.v4();

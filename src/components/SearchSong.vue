@@ -5,7 +5,7 @@
       <button @click="searchTrack">Submit</button>
     </form>
     <ul>
-      <li class="song-card" v-for="(song, idx) in songList" v-bind:key="idx">{{song.name}} {{song.artists[0].name}} {{song.album.name}}</li>
+      <li class="song-card" v-for="(song, idx) in songList" v-bind:key="idx">{{song.title}} {{song.artists}} {{song.album}}</li>
     </ul>
   </div>
 </template>
@@ -35,9 +35,23 @@ export default {
           }
         })
         .then(res => {
-          this.songList = res.data.tracks.items;
+          this.songList = this.normalizeTrackData(res.data.tracks.items);
         });
-      // https://api.spotify.com/v1/search?q=tania%20bowra&type=artist
+    },
+    normalizeTrackData(tracks) {
+      return tracks.map((track => {
+        const title = track.name;
+        const artists = track.artists.map((artist) => artist.name).join(', ');
+        const album = track.album.name;
+        const id = track.id;
+
+        return {
+          id,
+          title,
+          artists,
+          album,
+        }
+      }));
     }
   },
   computed: {

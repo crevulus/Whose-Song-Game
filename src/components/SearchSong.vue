@@ -1,24 +1,42 @@
 <template>
   <div>
-    <iframe
-      src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3"
-      width="300"
-      height="380"
-      frameborder="0"
-      allowtransparency="true"
-      allow="encrypted-media"
-    ></iframe>
+    <form>
+      <input type="text" v-model="searchField" placeholder="Type your favourite song" />
+      <button @click="searchTrack">Submit</button>
+    </form>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "SearchSong",
+  data: function() {
+    return {
+      searchField: ""
+    };
+  },
   methods: {
-    ...mapMutations(["setAccessToken"])
+    ...mapMutations(["setAccessToken"]),
+    searchTrack: function(e) {
+      e.preventDefault();
+      const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track`;
+      axios
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + this.accessToken
+          }
+        })
+        .then(res => {
+          console.log(res.data.tracks.items);
+        });
+      // https://api.spotify.com/v1/search?q=tania%20bowra&type=artist
+    }
+  },
+  computed: {
+    ...mapGetters(["accessToken"])
   },
   created() {
     const url = "https://accounts.spotify.com/api/token";

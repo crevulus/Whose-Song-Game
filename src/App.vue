@@ -2,9 +2,9 @@
   <div id="app">
     <div id="main-content">
       <Logo />
-      <SearchSong />
       <router-view />
     </div>
+    <SearchSong />
     <div id="footer-rules">
       <Rules />
     </div>

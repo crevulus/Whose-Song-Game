@@ -22,7 +22,7 @@ export default {
     ...mapMutations(["setAccessToken"]),
     searchTrack: function(e) {
       e.preventDefault();
-      const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track`;
+      const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track,album,artist`;
       axios
         .get(url, {
           headers: {

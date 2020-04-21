@@ -4,6 +4,9 @@
       <input type="text" v-model="searchField" placeholder="Type your favourite song" />
       <button @click="searchTrack">Submit</button>
     </form>
+    <ul>
+      <li class="song-card" v-for="(song, idx) in songList" v-bind:key="idx">{{song.name}} {{song.artists[0].name}} {{song.album.name}}</li>
+    </ul>
   </div>
 </template>
 
@@ -15,7 +18,9 @@ export default {
   name: "SearchSong",
   data: function() {
     return {
-      searchField: ""
+      searchField: "",
+      songList: [],
+      isSelected: false
     };
   },
   methods: {
@@ -30,7 +35,7 @@ export default {
           }
         })
         .then(res => {
-          console.log(res.data.tracks.items);
+          this.songList = res.data.tracks.items;
         });
       // https://api.spotify.com/v1/search?q=tania%20bowra&type=artist
     }
@@ -65,4 +70,9 @@ export default {
 </script>
 
 <style>
+.song-card {
+  border: solid 1px black;
+  box-shadow: 2px 2px lightblue;
+  margin: 5px;
+}
 </style>

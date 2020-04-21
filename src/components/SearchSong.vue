@@ -1,9 +1,5 @@
 <template>
   <div>
-    <<<<<<< HEAD
-    =======
-    <button @click="getAccessToken">click</button>
-    >>>>>>> 8a6fbdb3b4fe36c45761295d51e5940d2d69f225
     <iframe
       src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3"
       width="300"

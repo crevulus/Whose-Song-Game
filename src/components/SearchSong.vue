@@ -2,7 +2,7 @@
   <div>
     <form>
       <input type="text" v-model="searchField" placeholder="Type your favourite song" />
-      <button @click="searchTrack">Submit</button>
+      <button class="submit-button" @click="searchTrack">Submit</button>
     </form>
     <ul>
       <li
@@ -22,7 +22,7 @@ export default {
   name: "SearchSong",
   data: function() {
     return {
-      searchField: "",
+      searchField: "drake",
       songList: [],
       isSelected: false
     };

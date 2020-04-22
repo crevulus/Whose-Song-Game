@@ -3,7 +3,7 @@ import Rules from '../../src/components/Rules'
 import Logo from '../../src/components/Logo'
 import Footer from '../../src/components/Footer'
 
-describe('Component Render Tests', () => {
+describe.only('Component Render Tests', () => {
   test('Rules', () => {
     const wrapper = mount(Rules)
     expect(wrapper.isVueInstance()).toBeTruthy()

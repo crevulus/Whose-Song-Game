@@ -240,3 +240,35 @@ export const cahCreateActivityInstanceData = /* GraphQL */ `
     }
   }
 `;
+export const factBucketUpdateActivityInstanceData = /* GraphQL */ `
+  mutation FactBucketUpdateActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+    $action: String!
+    $factText: String
+    $guess: String
+    $removeUserId: ID
+  ) {
+    factBucketUpdateActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+      action: $action
+      factText: $factText
+      guess: $guess
+      removeUserId: $removeUserId
+    ) {
+      activityInstanceId
+      phase
+      facts {
+        factId
+        factText
+        userId
+      }
+      score {
+        userId
+        score
+        guessed
+      }
+    }
+  }
+`;

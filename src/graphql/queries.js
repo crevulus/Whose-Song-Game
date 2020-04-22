@@ -15,6 +15,7 @@ export const getActivity = /* GraphQL */ `
       minDuration
       maxDuration
       canJoinAfterStarted
+      enabled
     }
   }
 `;
@@ -33,6 +34,7 @@ export const getActivities = /* GraphQL */ `
         minDuration
         maxDuration
         canJoinAfterStarted
+        enabled
       }
     }
   }
@@ -123,6 +125,58 @@ export const cahGetWhiteCards = /* GraphQL */ `
         cardId
         cardText
       }
+    }
+  }
+`;
+export const factBucketGetActivityInstanceData = /* GraphQL */ `
+  query FactBucketGetActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+  ) {
+    factBucketGetActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
+      phase
+      facts {
+        factId
+        factText
+        userId
+      }
+      score {
+        userId
+        score
+        guessed
+      }
+    }
+  }
+`;
+export const factBucketGetGuesses = /* GraphQL */ `
+  query FactBucketGetGuesses($activityInstanceId: ID!, $userId: ID!) {
+    factBucketGetGuesses(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
+      guesses {
+        userId
+        guesses {
+          factId
+          factText
+          userId
+        }
+      }
+    }
+  }
+`;
+export const whoseSongActivityInstanceData = /* GraphQL */ `
+  query WhoseSongActivityInstanceData($activityInstanceId: ID!, $userId: ID!) {
+    whoseSongActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
     }
   }
 `;

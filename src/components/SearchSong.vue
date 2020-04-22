@@ -5,7 +5,11 @@
       <button @click="searchTrack">Submit</button>
     </form>
     <ul>
-      <li class="song-card" v-for="(song, idx) in songList" v-bind:key="idx">{{song.title}} {{song.artists}} {{song.album}}</li>
+      <li
+        class="song-card"
+        v-for="(song, idx) in songList"
+        v-bind:key="idx"
+      >{{song.title}} {{song.artists}} {{song.album}}</li>
     </ul>
   </div>
 </template>
@@ -39,18 +43,11 @@ export default {
         });
     },
     normalizeTrackData(tracks) {
-      return tracks.map((track => {
-        const title = track.name;
-        const artists = track.artists.map((artist) => artist.name).join(', ');
-        const album = track.album.name;
-        const id = track.id;
-
-        return {
-          id,
-          title,
-          artists,
-          album,
-        }
+      return tracks.map(track => ({
+        id: track.id,
+        title: track.name,
+        artists: track.artists.map(artist => artist.name).join(", "),
+        album: track.album.name
       }));
     }
   },

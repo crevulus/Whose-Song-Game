@@ -81,3 +81,23 @@ export const cahUpdatedActivityInstanceData = /* GraphQL */ `
     }
   }
 `;
+export const factBucketUpdatedActivityInstanceData = /* GraphQL */ `
+  subscription FactBucketUpdatedActivityInstanceData($activityInstanceId: ID!) {
+    factBucketUpdatedActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+    ) {
+      activityInstanceId
+      phase
+      facts {
+        factId
+        factText
+        userId
+      }
+      score {
+        userId
+        score
+        guessed
+      }
+    }
+  }
+`;

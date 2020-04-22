@@ -33,9 +33,7 @@ const store = new Vuex.Store({
       }
     },
     setAccessToken(state, value) {
-      if (state.accessToken == null) {
-        state.accessToken = value;
-      }
+      state.accessToken = value;
     }
   }
 });

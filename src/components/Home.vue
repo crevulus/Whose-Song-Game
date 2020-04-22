@@ -1,25 +1,31 @@
 <template>
   <div class="home">
-    <div class="m-auto sm:w-1/2 w-full">
-      <p>
-        ACTIVITY_DESCRIPTION
-      </p>
+    <div class="m-auto w-full"> <!-- sm:w-1/2 -->
+        <ul class="explanation">
+          <li v-for="(item) in 5" v-bind:key="item">
+            This is the explanation for this game.
+          </li>
+        </ul>
       <h3 class="text-gray-800">Enter your name to start a game</h3>
-      <t-input
-        class="w-full mb-4"
-        v-model="name"
-        maxlength="50"
-        placeholder="Name..."
-      />
-      <t-button
-        id="create-activity_home"
-        class="w-full mb-8"
-        variant="primary"
-        @click="createActivityInstanceMutation"
-        :disabled="name.length < 1"
-        >Create activity room</t-button
-      >
+      <div class="input-container">
+        <t-input
+          class="w-full mb-4"
+          v-model="name"
+          maxlength="50"
+          placeholder="Name..."
+        />
+        <t-button
+          id="create-activity_home"
+          class="w-full mb-8"
+          variant="primary"
+          @click="createActivityInstanceMutation"
+          :disabled="name.length < 1"
+          >Create activity room</t-button
+        >
+      </div>
     </div>
+
+    <iframe class="play-btn" src="https://open.spotify.com/embed/track/45DElIx0dXqUH4A88yQFdE" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
   </div>
 </template>
 <script>
@@ -59,3 +65,22 @@ export default {
   }
 };
 </script>
+<style>
+.home {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-container {
+  justify-content: center;
+  width: 90%;
+}
+
+.play-btn {
+  display: inline;
+}
+
+.explanation {
+  display: inline;
+}
+</style>

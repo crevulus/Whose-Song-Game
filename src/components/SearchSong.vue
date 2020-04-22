@@ -2,7 +2,7 @@
   <div>
     <form>
       <input type="text" v-model="searchField" placeholder="Type your favourite song" />
-      <button class="submit-button" @click="searchTrack">Submit</button>
+      <button @click="searchTrack">Submit</button>
     </form>
     <ul>
       <li
@@ -39,6 +39,7 @@ export default {
           }
         })
         .then(res => {
+          console.log(res.data.tracks.items);
           this.songList = this.normalizeTrackData(res.data.tracks.items);
         });
     },

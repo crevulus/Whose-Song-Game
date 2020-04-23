@@ -170,13 +170,39 @@ export const factBucketGetGuesses = /* GraphQL */ `
     }
   }
 `;
-export const whoseSongActivityInstanceData = /* GraphQL */ `
-  query WhoseSongActivityInstanceData($activityInstanceId: ID!, $userId: ID!) {
-    whoseSongActivityInstanceData(
+export const whoseSongGetActivityInstanceData = /* GraphQL */ `
+  query WhoseSongGetActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+  ) {
+    whoseSongGetActivityInstanceData(
       activityInstanceId: $activityInstanceId
       userId: $userId
     ) {
       activityInstanceId
+      score {
+        userId
+        score
+      }
+      voteCount
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
     }
   }
 `;

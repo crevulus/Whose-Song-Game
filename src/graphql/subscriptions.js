@@ -101,3 +101,35 @@ export const factBucketUpdatedActivityInstanceData = /* GraphQL */ `
     }
   }
 `;
+export const whoseSongUpdatedActivityInstanceData = /* GraphQL */ `
+  subscription WhoseSongUpdatedActivityInstanceData($activityInstanceId: ID!) {
+    whoseSongUpdatedActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+    ) {
+      activityInstanceId
+      score {
+        userId
+        score
+      }
+      voteCount
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+    }
+  }
+`;

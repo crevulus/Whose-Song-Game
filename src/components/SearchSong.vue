@@ -35,7 +35,7 @@ import axios from "axios";
 import { mapMutations, mapGetters } from "vuex";
 import { API, graphqlOperation } from "aws-amplify";
 import commonMethods from "@/mixins/commonMethods";
-import mutations from "@/graphql/mutations";
+import * as mutations from "@/graphql/mutations";
 
 export default {
   name: "SearchSong",
@@ -51,7 +51,7 @@ export default {
   methods: {
     dontKnowWhatToCallTheseFunctions() {
       API.graphql(
-        graphqlOperation(mutations.WhoseSongUpdateActivityInstanceData, {
+        graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
           activityInstanceId: this.activityInstanceId,
           userId: this.userId,
           action: "submitNewSong",

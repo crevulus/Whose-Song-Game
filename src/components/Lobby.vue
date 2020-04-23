@@ -2,13 +2,8 @@
   <div class="lobby">
     <div class="flex flex-wrap">
       <div class="sm:w-1/2 w-full sm:pr-4 sm:mb-0 mb-4">
-        <p class="text-gray-800">
-          Invite your colleagues and wait for them to join the game.
-        </p>
-        <Share
-          :activityInstanceId="activityInstanceId"
-          :elementId="'copy-link_lobby'"
-        />
+        <p class="text-gray-800">Invite your colleagues and wait for them to join the game.</p>
+        <Share :activityInstanceId="activityInstanceId" :elementId="'copy-link_lobby'" />
       </div>
       <div class="sm:w-1/2 w-full sm:pl-4">
         <UsersList
@@ -18,9 +13,7 @@
           :hostId="hostId"
           class="mb-4"
         />
-        <p v-if="isHost" class="text-gray-800">
-          Press start when everyone is ready!
-        </p>
+        <p v-if="isHost" class="text-gray-800">Press start when everyone is ready!</p>
         <t-button
           class="w-full"
           id="start-activity_lobby"
@@ -32,8 +25,7 @@
               users.length < activity.minPlayers ||
               users.length > activity.maxPlayers
           "
-          >Start</t-button
-        >
+        >Start</t-button>
       </div>
     </div>
   </div>

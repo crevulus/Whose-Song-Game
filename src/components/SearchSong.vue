@@ -76,9 +76,11 @@ export default {
       );
     },
     ...mapMutations(["setAccessToken"]),
-    searchTrack: function(e) {
+    searchTrack(e) {
+      const throttleSpeed = 400; // ms
       e.preventDefault();
       clearTimeout(this.timeoutId);
+
       this.timeoutId = setTimeout(() => {
         if (!this.searchField.length) return;
 
@@ -92,7 +94,7 @@ export default {
           .then(res => {
             this.songList = this.normalizeTrackData(res.data.tracks.items);
           });
-      }, 400);
+      }, throttleSpeed);
     },
     normalizeTrackData(tracks) {
       return tracks.map(track => ({
@@ -157,7 +159,7 @@ export default {
   box-shadow: 2px 2px #aaa;
   margin: 10px;
   padding: 15px;
-  width: 250px;
+  width: 350px;
 }
 .selected {
   background-color: rgb(137, 214, 137);

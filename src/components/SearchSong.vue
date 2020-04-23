@@ -9,15 +9,20 @@
         class="w-full mb-4"
         maxlength="50"
       />
-      <t-button @click="searchTrack" class="w-full mb-8" variant="primary">Submit</t-button>
-      <t-button :to="{ name: 'lobby' }" class="w-full mb-8" variant="primary">Confirm</t-button>
+      <t-button
+        @click="confirm()"
+        :to="{ name: 'lobby' }"
+        class="w-full mb-8"
+        variant="primary"
+        :disabled="selectedSong.length === 0"
+      >Confirm</t-button>
     </form>
     <ul>
       <li
         class="song-card"
         v-for="(song, idx) in songList"
         v-bind:class="{ selected: song.isSelected }"
-        @click="$set(song, 'isSelected', !song.isSelected);selectSong(song)"
+        @click="$set(song, 'isSelected', !song.isSelected);selectSong(song, idx)"
         v-bind:key="idx"
       >{{song.title}} {{song.artists}} {{song.album}}</li>
     </ul>
@@ -41,7 +46,6 @@ export default {
     ...mapMutations(["setAccessToken"]),
     searchTrack: function(e) {
       e.preventDefault();
-      if (this.searchField.length < 3) return;
       const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track,album,artist`;
       axios
         .get(url, {
@@ -62,8 +66,14 @@ export default {
         isSelected: false
       }));
     },
-    selectSong(song) {
+    selectSong(song, idx) {
+      this.songList.forEach((song, i) => (song.isSelected = idx === i));
+
       this.selectedSong = song.title;
+    },
+    confirm() {
+      console.log(this.selectedSong);
+      // DB.store(this.song)
     }
   },
   computed: {
@@ -102,6 +112,6 @@ export default {
   margin: 5px;
 }
 .selected {
-  background-color: green;
+  background-color: rgb(137, 214, 137);
 }
 </style>

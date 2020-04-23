@@ -46,22 +46,33 @@ export default {
     ...mapGetters(["deviceId"])
   },
   methods: {
-    createActivityInstanceMutation() {
-      API.graphql(
+    async createActivityInstanceMutation() {
+      const res = await API.graphql(
         graphqlOperation(mutations.createActivityInstance, {
           activityId: variables.activityId,
           hostId: this.deviceId,
           hostName: this.name
         })
-      ).then(response => {
-        this.$router.push({
-          name: "input",
-          params: {
-            activityInstanceId:
-              response.data.createActivityInstance.activityInstanceId
-          }
+      );
+      console.log(res);
+      try {
+        await API.graphql(mutations.whoseSongCreateActivityInstanceData, {
+          activityInstanceId:
+            res.data.createActivityInstance.activityInstanceId,
+          userId: this.deviceId
+        }).then(response => {
+          console.log(response);
+          this.$router.push({
+            name: "input",
+            params: {
+              activityInstanceId:
+                response.data.createActivityInstance.activityInstanceId
+            }
+          });
         });
-      });
+      } catch (err) {
+        console.log(err.message);
+      }
     }
   }
 };

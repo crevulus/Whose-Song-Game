@@ -33,8 +33,9 @@
 <script>
 import axios from "axios";
 import { mapMutations, mapGetters } from "vuex";
-// import { API, graphqlOperation } from "aws-amplify";
-// import * as queries from "@/graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
+import commonMethods from "@/mixins/commonMethods";
+import mutations from "@/graphql/mutations";
 
 export default {
   name: "SearchSong",
@@ -42,11 +43,24 @@ export default {
     return {
       searchField: "",
       songList: [],
-      selectedSong: "",
-      activityInstanceId: this.$route.params.activityInstanceId
+      selectedSong: ""
+      // activityInstanceId: this.$route.params.activityInstanceId
     };
   },
+  mixins: [commonMethods],
   methods: {
+    dontKnowWhatToCallTheseFunctions() {
+      API.graphql(
+        graphqlOperation(mutations.WhoseSongUpdateActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.userId,
+          action: "submitNewSong",
+          trackId: 123,
+          trackTitle: this.selectedSong,
+          trackArtist: "Chris"
+        }).then(console.log)
+      );
+    },
     ...mapMutations(["setAccessToken"]),
     searchTrack: function(e) {
       e.preventDefault();
@@ -83,6 +97,7 @@ export default {
     ...mapGetters(["accessToken"])
   },
   created() {
+    this.getActivityInstanceQuery();
     const url = "https://accounts.spotify.com/api/token";
     // const pair = ["grant_type", "client_credentials"];
     const client_id = "f27c6cba06be4c7691eadadeb40bb8a8";

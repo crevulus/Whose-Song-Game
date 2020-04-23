@@ -26,12 +26,15 @@
         v-bind:key="idx"
       >{{song.title}} {{song.artists}} {{song.album}}</li>
     </ul>
+    <t-button :to="{ name: 'home' }" class="w-full" variant="primary">Home</t-button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { mapMutations, mapGetters } from "vuex";
+// import { API, graphqlOperation } from "aws-amplify";
+// import * as queries from "@/graphql/queries";
 
 export default {
   name: "SearchSong",
@@ -39,7 +42,8 @@ export default {
     return {
       searchField: "",
       songList: [],
-      selectedSong: ""
+      selectedSong: "",
+      activityInstanceId: this.$route.params.activityInstanceId
     };
   },
   methods: {
@@ -72,8 +76,7 @@ export default {
       this.selectedSong = song.title;
     },
     confirm() {
-      console.log(this.selectedSong);
-      // DB.store(this.song)
+      // add song to correct user/songlist?
     }
   },
   computed: {

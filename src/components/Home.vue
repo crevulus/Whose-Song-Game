@@ -9,7 +9,6 @@
       <div class="input-container">
         <t-input class="w-full mb-4" v-model="name" maxlength="50" placeholder="Name..." />
         <t-button
-          :to="{ name: 'input' }"
           id="create-activity_home"
           class="w-full mb-8"
           variant="primary"
@@ -56,7 +55,7 @@ export default {
         })
       ).then(response => {
         this.$router.push({
-          name: "lobby",
+          name: "input",
           params: {
             activityInstanceId:
               response.data.createActivityInstance.activityInstanceId

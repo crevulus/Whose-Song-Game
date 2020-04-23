@@ -17,14 +17,27 @@
         :disabled="selectedSong.length === 0"
       >Confirm</t-button>
     </form>
-    <ul>
+    <ul class="song-list">
       <li
         class="song-card"
         v-for="(song, idx) in songList"
         v-bind:class="{ selected: song.isSelected }"
         @click="$set(song, 'isSelected', !song.isSelected);selectSong(song, idx)"
         v-bind:key="idx"
-      >{{song.title}} {{song.artists}} {{song.album}}</li>
+      >
+        <p>
+          <strong>Title:</strong>
+          {{song.title}}
+        </p>
+        <p>
+          <strong>Artists:</strong>
+          {{song.artists}}
+        </p>
+        <p>
+          <strong>Album:</strong>
+          {{song.album}}
+        </p>
+      </li>
     </ul>
     <t-button :to="{ name: 'home' }" class="w-full" variant="primary">Home</t-button>
   </div>
@@ -43,7 +56,8 @@ export default {
     return {
       searchField: "",
       songList: [],
-      selectedSong: ""
+      selectedSong: "",
+      timeoutId: null
       // activityInstanceId: this.$route.params.activityInstanceId
     };
   },
@@ -64,16 +78,21 @@ export default {
     ...mapMutations(["setAccessToken"]),
     searchTrack: function(e) {
       e.preventDefault();
-      const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track,album,artist`;
-      axios
-        .get(url, {
-          headers: {
-            Authorization: "Bearer " + this.accessToken
-          }
-        })
-        .then(res => {
-          this.songList = this.normalizeTrackData(res.data.tracks.items);
-        });
+      clearTimeout(this.timeoutId);
+      this.timeoutId = setTimeout(() => {
+        if (!this.searchField.length) return;
+
+        const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track,album,artist`;
+        axios
+          .get(url, {
+            headers: {
+              Authorization: "Bearer " + this.accessToken
+            }
+          })
+          .then(res => {
+            this.songList = this.normalizeTrackData(res.data.tracks.items);
+          });
+      }, 400);
     },
     normalizeTrackData(tracks) {
       return tracks.map(track => ({
@@ -124,10 +143,21 @@ export default {
 </script>
 
 <style>
+.song-list {
+  overflow-y: scroll;
+  max-height: 400px;
+  margin: 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .song-card {
   border: solid 1px black;
-  box-shadow: 2px 2px lightblue;
-  margin: 5px;
+  border-radius: 15px;
+  box-shadow: 2px 2px #aaa;
+  margin: 10px;
+  padding: 15px;
+  width: 250px;
 }
 .selected {
   background-color: rgb(137, 214, 137);

@@ -12,7 +12,7 @@
           id="create-activity_home"
           class="w-full mb-8"
           variant="primary"
-          @click="createActivityInstanceMutation"
+          @click="createActivityInstance"
           :disabled="name.length < 1"
         >Create activity room</t-button>
       </div>
@@ -46,7 +46,7 @@ export default {
     ...mapGetters(["deviceId"])
   },
   methods: {
-    async createActivityInstanceMutation() {
+    async createActivityInstance() {
       const res = await API.graphql(
         graphqlOperation(mutations.createActivityInstance, {
           activityId: variables.activityId,
@@ -54,20 +54,19 @@ export default {
           hostName: this.name
         })
       );
-      console.log(res);
+      const { activityInstanceId } = res.data.createActivityInstance;
 
-      await API.graphql(mutations.whoseSongCreateActivityInstanceData, {
-        activityInstanceId: res.data.createActivityInstance.activityInstanceId,
-        userId: this.deviceId
-      }).then(response => {
-        console.log(response);
-        this.$router.push({
-          name: "input",
-          params: {
-            activityInstanceId:
-              response.data.createActivityInstance.activityInstanceId
-          }
-        });
+      // const data = await API.graphql(
+      //   graphqlOperation(mutations.whoseSongCreateActivityInstanceData, {
+      //     activityInstanceId: activityInstanceId,
+      //     userId: this.deviceId
+      //   })
+      // );
+      // console.log(data);
+
+      this.$router.push({
+        name: "input",
+        params: { activityInstanceId }
       });
     }
   }

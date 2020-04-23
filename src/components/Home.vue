@@ -55,24 +55,20 @@ export default {
         })
       );
       console.log(res);
-      try {
-        await API.graphql(mutations.whoseSongCreateActivityInstanceData, {
-          activityInstanceId:
-            res.data.createActivityInstance.activityInstanceId,
-          userId: this.deviceId
-        }).then(response => {
-          console.log(response);
-          this.$router.push({
-            name: "input",
-            params: {
-              activityInstanceId:
-                response.data.createActivityInstance.activityInstanceId
-            }
-          });
+
+      await API.graphql(mutations.whoseSongCreateActivityInstanceData, {
+        activityInstanceId: res.data.createActivityInstance.activityInstanceId,
+        userId: this.deviceId
+      }).then(response => {
+        console.log(response);
+        this.$router.push({
+          name: "input",
+          params: {
+            activityInstanceId:
+              response.data.createActivityInstance.activityInstanceId
+          }
         });
-      } catch (err) {
-        console.log(err.message);
-      }
+      });
     }
   }
 };

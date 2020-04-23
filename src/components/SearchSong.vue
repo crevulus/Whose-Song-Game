@@ -1,8 +1,16 @@
 <template>
   <div>
     <form>
-      <input type="text" v-model="searchField" placeholder="Type your favourite song" />
-      <button @click="searchTrack">Submit</button>
+      <t-input 
+        type="text" 
+        v-model="searchField" 
+        placeholder="Type your favourite song" 
+        class="w-full mb-4" 
+        maxlength="50"/>
+      <t-button 
+        @click="searchTrack"
+        class="w-full mb-8"
+        variant="primary">Submit</t-button>
     </form>
     <ul>
       <li

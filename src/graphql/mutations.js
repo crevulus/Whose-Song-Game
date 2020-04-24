@@ -352,3 +352,39 @@ export const whoseSongUpdateActivityInstanceData = /* GraphQL */ `
     }
   }
 `;
+export const whoseSongStartActivityInstanceData = /* GraphQL */ `
+  mutation WhoseSongStartActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+  ) {
+    whoseSongStartActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
+      score {
+        userId
+        score
+      }
+      voteCount
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+    }
+  }
+`;

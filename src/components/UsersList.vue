@@ -15,8 +15,7 @@
               size="sm"
               variant="danger"
               v-if="isHost && deviceId != props.row.userId"
-              >Remove</t-button
-            >
+            >Remove</t-button>
           </td>
         </tr>
       </template>

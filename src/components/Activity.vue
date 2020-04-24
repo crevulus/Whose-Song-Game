@@ -22,6 +22,7 @@
 import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "@/graphql/mutations";
 import * as subscriptions from "@/graphql/subscriptions";
+import * as queries from "@/graphql/queries";
 import commonMethods from "@/mixins/commonMethods";
 import UsersList from "@/components/UsersList";
 
@@ -38,6 +39,7 @@ export default {
   },
   created() {
     this.getActivityInstanceQuery();
+    this.getActivityInstanceData();
     this.updatedActivityInstanceDataSubscription();
   },
   methods: {
@@ -47,6 +49,29 @@ export default {
           activityInstanceId: this.activityInstanceId
         })
       );
+    },
+    getActivityInstanceData() {
+      console.log(this.activityInstanceId);
+      API.graphql(
+        graphqlOperation(queries.whoseSongGetActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId
+        })
+      ).then(response => {
+        // refactor later
+        const {
+          currentSong,
+          playedSongs,
+          score,
+          songs,
+          voteCount
+        } = response.data.whoseSongGetActivityInstanceData;
+        this.currentSong = currentSong;
+        this.playedSongs = playedSongs;
+        this.score = score;
+        this.songs = songs;
+        this.voteCount = voteCount;
+      });
     },
     updatedActivityInstanceDataSubscription() {
       API.graphql(

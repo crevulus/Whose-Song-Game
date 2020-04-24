@@ -6,6 +6,7 @@
       :isHost="this.isHost"
       :deviceId="this.deviceId"
       :hostId="this.hostId"
+      :isActivityPage="true"
     />
   </div>
 </template>

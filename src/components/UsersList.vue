@@ -16,6 +16,7 @@
               variant="danger"
               v-if="isHost && deviceId != props.row.userId"
             >Remove</t-button>
+            <t-button v-if="isActivityPage">Select</t-button>
           </td>
         </tr>
       </template>
@@ -28,7 +29,7 @@ import * as mutations from "@/graphql/mutations";
 
 export default {
   name: "UsersList",
-  props: ["users", "isHost", "deviceId", "hostId"],
+  props: ["users", "isHost", "deviceId", "hostId", "isActivityPage"],
   data() {
     let headers = [
       {

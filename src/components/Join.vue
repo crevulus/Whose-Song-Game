@@ -1,16 +1,9 @@
 <template>
   <div class="home">
     <div class="m-auto sm:w-1/2 w-full">
-      <p>
-        ACTIVITY_DESCRIPTION
-      </p>
+      <p>ACTIVITY_DESCRIPTION</p>
       <h3 class="text-gray-800">Enter your name to join the game</h3>
-      <t-input
-        class="w-full mb-4"
-        v-model="name"
-        maxlength="50"
-        placeholder="Name..."
-      />
+      <t-input class="w-full mb-4" v-model="name" maxlength="50" placeholder="Name..." />
       <t-button
         class="w-full mb-8"
         id="join-activity_join"
@@ -22,8 +15,7 @@
             users.length >= activity.maxPlayers ||
             (status != 'waiting' && !activity.canJoinAfterStarted)
         "
-        >Join</t-button
-      >
+      >Join</t-button>
     </div>
   </div>
 </template>
@@ -72,7 +64,7 @@ export default {
       ).then(response => {
         const data = response.data.updateActivityInstanceUsers;
         this.$router.push({
-          name: "lobby",
+          name: "input",
           params: {
             activityInstanceId: data.activityInstanceId
           }

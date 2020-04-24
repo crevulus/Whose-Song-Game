@@ -63,18 +63,7 @@ export default {
   },
   mixins: [commonMethods],
   methods: {
-    dontKnowWhatToCallTheseFunctions() {
-      API.graphql(
-        graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
-          activityInstanceId: this.activityInstanceId,
-          userId: this.userId,
-          action: "submitNewSong",
-          trackId: 123,
-          trackTitle: this.selectedSong,
-          trackArtist: "Chris"
-        }).then(console.log)
-      );
-    },
+    // dontKnowWhatToCallTheseFunctions() {},
     ...mapMutations(["setAccessToken"]),
     searchTrack(e) {
       const throttleSpeed = 400; // ms
@@ -108,10 +97,20 @@ export default {
     selectSong(song, idx) {
       this.songList.forEach((song, i) => (song.isSelected = idx === i));
 
-      this.selectedSong = song.title;
+      this.selectedSong = song;
     },
     confirm() {
-      // add song to correct user/songlist?
+      const { id, title, artists } = this.selectedSong;
+      API.graphql(
+        graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId,
+          action: "submitNewSong",
+          trackId: id,
+          trackTitle: title,
+          trackArtists: artists
+        })
+      ).then(console.log);
     }
   },
   computed: {

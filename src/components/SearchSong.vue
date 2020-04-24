@@ -11,7 +11,6 @@
       />
       <t-button
         @click="confirm()"
-        :to="{ name: 'lobby' }"
         class="w-full mb-8"
         variant="primary"
         :disabled="selectedSong.length === 0"
@@ -110,7 +109,14 @@ export default {
           trackTitle: title,
           trackArtists: artists
         })
-      ).then(console.log);
+      ).then(() => {
+        this.$router.push({
+          name: "lobby",
+          params: {
+            activityInstanceId: this.activityInstanceId
+          }
+        });
+      });
     }
   },
   computed: {

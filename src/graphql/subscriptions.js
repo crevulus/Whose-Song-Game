@@ -81,3 +81,55 @@ export const cahUpdatedActivityInstanceData = /* GraphQL */ `
     }
   }
 `;
+export const factBucketUpdatedActivityInstanceData = /* GraphQL */ `
+  subscription FactBucketUpdatedActivityInstanceData($activityInstanceId: ID!) {
+    factBucketUpdatedActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+    ) {
+      activityInstanceId
+      phase
+      facts {
+        factId
+        factText
+        userId
+      }
+      score {
+        userId
+        score
+        guessed
+      }
+    }
+  }
+`;
+export const whoseSongUpdatedActivityInstanceData = /* GraphQL */ `
+  subscription WhoseSongUpdatedActivityInstanceData($activityInstanceId: ID!) {
+    whoseSongUpdatedActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+    ) {
+      activityInstanceId
+      score {
+        userId
+        score
+      }
+      voteCount
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+    }
+  }
+`;

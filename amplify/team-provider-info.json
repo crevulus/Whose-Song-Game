@@ -1,15 +1,15 @@
 {
-    "spotifydev": {
+    "dev": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-atium-spotify-spotifydev-155543-authRole",
-            "UnauthRoleArn": "arn:aws:iam::141059692392:role/amplify-atium-spotify-spotifydev-155543-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::141059692392:role/amplify-atium-spotify-spotifydev-155543-authRole",
+            "AuthRoleName": "amplify-atium-spotify-dev-93547-authRole",
+            "UnauthRoleArn": "arn:aws:iam::141059692392:role/amplify-atium-spotify-dev-93547-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::141059692392:role/amplify-atium-spotify-dev-93547-authRole",
             "Region": "eu-west-1",
-            "DeploymentBucketName": "amplify-atium-spotify-spotifydev-155543-deployment",
-            "UnauthRoleName": "amplify-atium-spotify-spotifydev-155543-unauthRole",
-            "StackName": "amplify-atium-spotify-spotifydev-155543",
-            "StackId": "arn:aws:cloudformation:eu-west-1:141059692392:stack/amplify-atium-spotify-spotifydev-155543/cc61a4e0-83d7-11ea-b25e-02162fdbb6ee",
-            "AmplifyAppId": "d3civx3q0sregz"
+            "DeploymentBucketName": "amplify-atium-spotify-dev-93547-deployment",
+            "UnauthRoleName": "amplify-atium-spotify-dev-93547-unauthRole",
+            "StackName": "amplify-atium-spotify-dev-93547",
+            "StackId": "arn:aws:cloudformation:eu-west-1:141059692392:stack/amplify-atium-spotify-dev-93547/e32dfb30-846b-11ea-b001-0adcb29bafe2",
+            "AmplifyAppId": "d26f5lekiruyt1"
         }
     }
 }

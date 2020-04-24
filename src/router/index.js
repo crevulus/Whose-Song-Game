@@ -37,7 +37,7 @@ let router = new Router({
       component: End
     },
     {
-      path: "/input", // add activity instance ID
+      path: "/input/:activityInstanceId", // add activity instance ID
       name: "input",
       component: InputSong
     }

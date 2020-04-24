@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Search for your favourite song!</h1>
+    <h1 class="title">Search for your favourite song!</h1>
     <SearchSong />
   </div>
 </template>
@@ -14,5 +14,8 @@ export default {
 </script>
 
 <style>
-
+h1 {
+  @apply text-2xl;
+  text-align: center;
+}
 </style>

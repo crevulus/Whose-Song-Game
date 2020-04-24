@@ -15,6 +15,7 @@ export const getActivity = /* GraphQL */ `
       minDuration
       maxDuration
       canJoinAfterStarted
+      enabled
     }
   }
 `;
@@ -33,6 +34,7 @@ export const getActivities = /* GraphQL */ `
         minDuration
         maxDuration
         canJoinAfterStarted
+        enabled
       }
     }
   }
@@ -122,6 +124,84 @@ export const cahGetWhiteCards = /* GraphQL */ `
       whiteCards {
         cardId
         cardText
+      }
+    }
+  }
+`;
+export const factBucketGetActivityInstanceData = /* GraphQL */ `
+  query FactBucketGetActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+  ) {
+    factBucketGetActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
+      phase
+      facts {
+        factId
+        factText
+        userId
+      }
+      score {
+        userId
+        score
+        guessed
+      }
+    }
+  }
+`;
+export const factBucketGetGuesses = /* GraphQL */ `
+  query FactBucketGetGuesses($activityInstanceId: ID!, $userId: ID!) {
+    factBucketGetGuesses(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
+      guesses {
+        userId
+        guesses {
+          factId
+          factText
+          userId
+        }
+      }
+    }
+  }
+`;
+export const whoseSongGetActivityInstanceData = /* GraphQL */ `
+  query WhoseSongGetActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+  ) {
+    whoseSongGetActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
+      score {
+        userId
+        score
+      }
+      voteCount
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
       }
     }
   }

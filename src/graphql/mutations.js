@@ -240,3 +240,115 @@ export const cahCreateActivityInstanceData = /* GraphQL */ `
     }
   }
 `;
+export const factBucketUpdateActivityInstanceData = /* GraphQL */ `
+  mutation FactBucketUpdateActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+    $action: String!
+    $factText: String
+    $guess: String
+    $removeUserId: ID
+  ) {
+    factBucketUpdateActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+      action: $action
+      factText: $factText
+      guess: $guess
+      removeUserId: $removeUserId
+    ) {
+      activityInstanceId
+      phase
+      facts {
+        factId
+        factText
+        userId
+      }
+      score {
+        userId
+        score
+        guessed
+      }
+    }
+  }
+`;
+export const whoseSongCreateActivityInstanceData = /* GraphQL */ `
+  mutation WhoseSongCreateActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+  ) {
+    whoseSongCreateActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
+      score {
+        userId
+        score
+      }
+      voteCount
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+    }
+  }
+`;
+export const whoseSongUpdateActivityInstanceData = /* GraphQL */ `
+  mutation WhoseSongUpdateActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+    $action: String!
+    $trackId: String
+    $trackTitle: String
+    $trackArtists: String
+  ) {
+    whoseSongUpdateActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+      action: $action
+      trackId: $trackId
+      trackTitle: $trackTitle
+      trackArtists: $trackArtists
+    ) {
+      activityInstanceId
+      score {
+        userId
+        score
+      }
+      voteCount
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+    }
+  }
+`;

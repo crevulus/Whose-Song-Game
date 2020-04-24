@@ -56,13 +56,12 @@ export default {
       );
       const { activityInstanceId } = res.data.createActivityInstance;
 
-      const { data } = await API.graphql(
+      await API.graphql(
         graphqlOperation(mutations.whoseSongCreateActivityInstanceData, {
           activityInstanceId: activityInstanceId,
           userId: this.deviceId
         })
       );
-      console.log(data.whoseSongCreateActivityInstanceData);
 
       this.$router.push({
         name: "input",

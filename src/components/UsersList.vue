@@ -18,7 +18,10 @@
             >Remove</t-button>
           </td>
           <td>
-            <t-button v-if="isActivityPage && deviceId != props.row.userId">Select</t-button>
+            <t-button
+              v-if="isActivityPage && deviceId != props.row.userId"
+              @click="submitSelection"
+            >Select</t-button>
           </td>
         </tr>
       </template>
@@ -59,6 +62,9 @@ export default {
           removedUserId: userId
         })
       );
+    },
+    submitSelection() {
+      console.log("clicked");
     }
   }
 };

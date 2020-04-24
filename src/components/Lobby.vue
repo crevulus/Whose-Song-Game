@@ -64,7 +64,13 @@ export default {
         }
       });
     },
-    startActivityInstanceMutation() {
+    async startActivityInstanceMutation() {
+      await API.graphql(
+        graphqlOperation(mutations.whoseSongStartActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId
+        })
+      );
       API.graphql(
         graphqlOperation(mutations.startActivityInstance, {
           activityInstanceId: this.activityInstanceId

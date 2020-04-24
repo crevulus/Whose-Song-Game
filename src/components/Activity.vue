@@ -13,6 +13,7 @@
 <script>
 import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "@/graphql/mutations";
+import * as subscriptions from "@/graphql/subscriptions";
 import commonMethods from "@/mixins/commonMethods";
 import UsersList from "@/components/UsersList";
 
@@ -22,6 +23,7 @@ export default {
   mixins: [commonMethods],
   created() {
     this.getActivityInstanceQuery();
+    this.updatedActivityInstanceDataSubscription();
   },
   methods: {
     endActivityInstanceMutation() {
@@ -30,6 +32,15 @@ export default {
           activityInstanceId: this.activityInstanceId
         })
       );
+    },
+    updatedActivityInstanceDataSubscription() {
+      API.graphql(
+        graphqlOperation(subscriptions.whoseSongUpdatedActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId
+        })
+      ).subscribe(response => {
+        console.log(response.value.data.whoseSongUpdatedActivityInstanceData);
+      });
     }
   }
 };

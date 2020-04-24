@@ -16,7 +16,9 @@
               variant="danger"
               v-if="isHost && deviceId != props.row.userId"
             >Remove</t-button>
-            <t-button v-if="isActivityPage">Select</t-button>
+          </td>
+          <td>
+            <t-button v-if="isActivityPage && deviceId != props.row.userId">Select</t-button>
           </td>
         </tr>
       </template>

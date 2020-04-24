@@ -1,6 +1,14 @@
 <template>
   <div class="activity">
     <t-button variant="primary" @click="endActivityInstanceMutation">End</t-button>
+    <iframe
+      :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
+      width="300"
+      height="380"
+      frameborder="0"
+      allowtransparency="true"
+      allow="encrypted-media"
+    ></iframe>
     <UsersList
       :users="this.users"
       :isHost="this.isHost"
@@ -21,6 +29,13 @@ export default {
   name: "Activity",
   components: { UsersList },
   mixins: [commonMethods],
+  data() {
+    return {
+      currentSong: {
+        trackId: "3caMfJGFp53NAH2TuigdNj"
+      }
+    };
+  },
   created() {
     this.getActivityInstanceQuery();
     this.updatedActivityInstanceDataSubscription();
@@ -39,7 +54,19 @@ export default {
           activityInstanceId: this.activityInstanceId
         })
       ).subscribe(response => {
-        console.log(response.value.data.whoseSongUpdatedActivityInstanceData);
+        const {
+          currentSong,
+          playedSongs,
+          score,
+          songs,
+          voteCount
+        } = response.value.data.whoseSongUpdatedActivityInstanceData;
+        this.currentSong = currentSong;
+        this.playedSongs = playedSongs;
+        this.score = score;
+        this.songs = songs;
+        this.voteCount = voteCount;
+        console.log(currentSong);
       });
     }
   }

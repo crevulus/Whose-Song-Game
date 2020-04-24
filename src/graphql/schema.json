@@ -1691,12 +1691,16 @@
           "description" : null,
           "args" : [ ],
           "type" : {
-            "kind" : "LIST",
+            "kind" : "NON_NULL",
             "name" : null,
             "ofType" : {
-              "kind" : "OBJECT",
-              "name" : "SongSelection",
-              "ofType" : null
+              "kind" : "LIST",
+              "name" : null,
+              "ofType" : {
+                "kind" : "OBJECT",
+                "name" : "SongSelection",
+                "ofType" : null
+              }
             }
           },
           "isDeprecated" : false,
@@ -1717,12 +1721,16 @@
           "description" : null,
           "args" : [ ],
           "type" : {
-            "kind" : "LIST",
+            "kind" : "NON_NULL",
             "name" : null,
             "ofType" : {
-              "kind" : "OBJECT",
-              "name" : "SongSelection",
-              "ofType" : null
+              "kind" : "LIST",
+              "name" : null,
+              "ofType" : {
+                "kind" : "OBJECT",
+                "name" : "SongSelection",
+                "ofType" : null
+              }
             }
           },
           "isDeprecated" : false,
@@ -3451,23 +3459,6 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "deprecated",
-        "description" : null,
-        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
-        "args" : [ {
-          "name" : "reason",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : "\"No longer supported\""
-        } ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
         "name" : "aws_auth",
         "description" : "Directs the schema to enforce authorization on a field",
         "locations" : [ "FIELD_DEFINITION" ],
@@ -3534,6 +3525,23 @@
             }
           },
           "defaultValue" : null
+        } ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "deprecated",
+        "description" : null,
+        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
+        "args" : [ {
+          "name" : "reason",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : "\"No longer supported\""
         } ],
         "onOperation" : false,
         "onFragment" : false,

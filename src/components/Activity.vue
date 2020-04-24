@@ -58,7 +58,7 @@ export default {
           userId: this.deviceId
         })
       ).then(response => {
-        // refactor later
+        // refactor later - famous last words...
         const {
           currentSong,
           playedSongs,

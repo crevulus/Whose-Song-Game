@@ -20,12 +20,13 @@
           <td>
             <t-button
               v-if="isActivityPage && deviceId != props.row.userId"
-              @click="submitSelection"
+              @click="selectUser(props.row.userId)"
             >Select</t-button>
           </td>
         </tr>
       </template>
     </t-table>
+    <t-button v-if="isActivityPage" @click="submitSelection" :disabled="hasVoted">Submit</t-button>
   </section>
 </template>
 <script>
@@ -51,10 +52,15 @@ export default {
 
     return {
       activityInstanceId: this.$route.params.activityInstanceId,
-      headers: headers
+      headers: headers,
+      selectedUserId: "",
+      hasVoted: false
     };
   },
   methods: {
+    selectUser(selectedUserId) {
+      this.selectedUserId = selectedUserId;
+    },
     removeUser(userId) {
       API.graphql(
         graphqlOperation(mutations.removeUserFromActivityInstance, {
@@ -64,7 +70,15 @@ export default {
       );
     },
     submitSelection() {
-      console.log("clicked");
+      this.hasVoted = true;
+      API.graphql(
+        graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId,
+          action: "submitSelection",
+          selectedUserId: this.selectedUserId
+        })
+      ).then(console.log);
     }
   }
 };

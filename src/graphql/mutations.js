@@ -316,6 +316,7 @@ export const whoseSongUpdateActivityInstanceData = /* GraphQL */ `
     $trackId: String
     $trackTitle: String
     $trackArtists: String
+    $selectedUserId: String
   ) {
     whoseSongUpdateActivityInstanceData(
       activityInstanceId: $activityInstanceId
@@ -324,6 +325,7 @@ export const whoseSongUpdateActivityInstanceData = /* GraphQL */ `
       trackId: $trackId
       trackTitle: $trackTitle
       trackArtists: $trackArtists
+      selectedUserId: $selectedUserId
     ) {
       activityInstanceId
       score {

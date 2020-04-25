@@ -22,7 +22,6 @@
           @click="startActivityInstanceMutation"
           :disabled="
             !activity ||
-              users.length > activity.minPlayers ||
               users.length > activity.maxPlayers
           "
         >Start</t-button>

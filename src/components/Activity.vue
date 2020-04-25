@@ -1,20 +1,26 @@
 <template>
   <div class="activity">
     <t-button variant="primary" @click="endActivityInstanceMutation">End</t-button>
-    <iframe
-      :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
-      width="300"
-      height="380"
-      frameborder="0"
-      allowtransparency="true"
-      allow="encrypted-media"
-    ></iframe>
-    <UsersList
+    <div class="media-player">
+      <iframe
+        :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
+        width="300"
+        height="380"
+        frameborder="0"
+        allowtransparency="true"
+        allow="encrypted-media"
+      ></iframe>
+      <t-button v-if="isHost" variant="primary" @click="showNextSong">Show next song</t-button>
+      <PlayerSelectionList :users="this.users" :userId="this.deviceId" />
+    </div>
+    <!-- Component that shows instance data in tables -->
+    <ActivityDebugger
+      v-if="this.showDebugger"
       :users="this.users"
-      :isHost="this.isHost"
-      :deviceId="this.deviceId"
-      :hostId="this.hostId"
-      :isActivityPage="true"
+      :score="this.score"
+      :currentSong="this.currentSong"
+      :songs="this.songs"
+      :playedSongs="this.playedSongs"
     />
   </div>
 </template>
@@ -24,18 +30,27 @@ import * as mutations from "@/graphql/mutations";
 import * as subscriptions from "@/graphql/subscriptions";
 import * as queries from "@/graphql/queries";
 import commonMethods from "@/mixins/commonMethods";
-import UsersList from "@/components/UsersList";
+import ActivityDebugger from "@/components/ActivityDebugger";
+import PlayerSelectionList from "@/components/PlayerSelectionList";
 
 export default {
   name: "Activity",
-  components: { UsersList },
+  components: { ActivityDebugger, PlayerSelectionList },
   mixins: [commonMethods],
   data() {
     return {
-      currentSong: {
-        trackId: "3caMfJGFp53NAH2TuigdNj"
-      }
+      currentSong: {},
+      songs: [],
+      playedSongs: [],
+      score: [],
+      voteCount: 0,
+      showDebugger: true
     };
+  },
+  computed: {
+    hasNextSong() {
+      return this.songs.length > 0;
+    }
   },
   created() {
     this.getActivityInstanceQuery();
@@ -58,20 +73,18 @@ export default {
           userId: this.deviceId
         })
       ).then(response => {
-        // refactor later - famous last words...
-        const {
-          currentSong,
-          playedSongs,
-          score,
-          songs,
-          voteCount
-        } = response.data.whoseSongGetActivityInstanceData;
-        this.currentSong = currentSong;
-        this.playedSongs = playedSongs;
-        this.score = score;
-        this.songs = songs;
-        this.voteCount = voteCount;
+        const data = response.data.whoseSongGetActivityInstanceData;
+        this.setVariables(data);
       });
+    },
+    showNextSong() {
+      API.graphql(
+        graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
+          action: "setNextSong",
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId
+        })
+      );
     },
     updatedActivityInstanceDataSubscription() {
       API.graphql(
@@ -79,20 +92,16 @@ export default {
           activityInstanceId: this.activityInstanceId
         })
       ).subscribe(response => {
-        const {
-          currentSong,
-          playedSongs,
-          score,
-          songs,
-          voteCount
-        } = response.value.data.whoseSongUpdatedActivityInstanceData;
-        this.currentSong = currentSong;
-        this.playedSongs = playedSongs;
-        this.score = score;
-        this.songs = songs;
-        this.voteCount = voteCount;
-        console.log(currentSong);
+        const data = response.value.data.whoseSongUpdatedActivityInstanceData;
+        this.setVariables(data);
       });
+    },
+    setVariables(data) {
+      this.currentSong = data.currentSong;
+      this.playedSongs = data.playedSongs;
+      this.score = data.score;
+      this.songs = data.songs;
+      this.voteCount = data.voteCount;
     }
   }
 };

@@ -286,7 +286,10 @@ export const whoseSongCreateActivityInstanceData = /* GraphQL */ `
         userId
         score
       }
-      voteCount
+      guesses {
+        trackId
+        users
+      }
       songs {
         userId
         trackId
@@ -332,7 +335,10 @@ export const whoseSongUpdateActivityInstanceData = /* GraphQL */ `
         userId
         score
       }
-      voteCount
+      guesses {
+        trackId
+        users
+      }
       songs {
         userId
         trackId
@@ -368,7 +374,10 @@ export const whoseSongStartActivityInstanceData = /* GraphQL */ `
         userId
         score
       }
-      voteCount
+      guesses {
+        trackId
+        users
+      }
       songs {
         userId
         trackId

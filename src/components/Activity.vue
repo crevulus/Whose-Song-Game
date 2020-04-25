@@ -11,7 +11,7 @@
         allow="encrypted-media"
       ></iframe>
       <t-button v-if="isHost" variant="primary" @click="showNextSong">Show next song</t-button>
-      <PlayerSelectionList :users="this.users" :userId="this.deviceId" />
+      <PlayerSelectionList :users="this.users" :userId="this.deviceId" :hasVoted="hasVoted" />
     </div>
     <!-- Component that shows instance data in tables -->
     <ActivityDebugger
@@ -43,8 +43,9 @@ export default {
       songs: [],
       playedSongs: [],
       score: [],
-      voteCount: 0,
-      showDebugger: true
+      guesses: [],
+      showDebugger: true,
+      hasVoted: false
     };
   },
   computed: {
@@ -101,7 +102,12 @@ export default {
       this.playedSongs = data.playedSongs;
       this.score = data.score;
       this.songs = data.songs;
-      this.voteCount = data.voteCount;
+      this.guesses = data.guesses;
+      // filters out correct object from guessedList
+      this.guessedList = this.guesses.find(
+        song => song.trackId === this.currentSong.trackId
+      ).users;
+      this.hasVoted = this.guessedList.includes(this.deviceId);
     }
   }
 };

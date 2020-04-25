@@ -21,6 +21,7 @@
       :currentSong="this.currentSong"
       :songs="this.songs"
       :playedSongs="this.playedSongs"
+      :guesses="this.guesses"
     />
   </div>
 </template>
@@ -95,6 +96,12 @@ export default {
       ).subscribe(response => {
         const data = response.value.data.whoseSongUpdatedActivityInstanceData;
         this.setVariables(data);
+        if (this.songs.length === 0) {
+          console.log("no more songs..");
+        }
+        if (this.guessedList.length === this.users.length) {
+          this.showNextSong();
+        }
       });
     },
     setVariables(data) {

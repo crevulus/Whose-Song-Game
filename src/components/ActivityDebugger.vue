@@ -26,6 +26,18 @@
           <td>{{user.userId}}</td>
         </tr>
       </table>
+      <!-- Add guesses -->
+      <table>
+        <caption>Player select submissions</caption>
+        <tr>
+          <th>name</th>
+          <th>userId</th>
+        </tr>
+        <tr v-for="s in selections" :key="s.userId">
+          <td>{{s.name}}</td>
+          <td>{{s.userId}}</td>
+        </tr>
+      </table>
       <table>
         <caption>Scores</caption>
         <tr>
@@ -71,7 +83,7 @@
 <script>
 export default {
   name: "ActivityDebugger",
-  props: ["users", "score", "currentSong", "songs", "playedSongs"],
+  props: ["users", "score", "currentSong", "songs", "playedSongs", "guesses"],
   data() {
     return {
       showData: false
@@ -80,7 +92,6 @@ export default {
   computed: {
     scores() {
       if (!this.score.length) return [];
-
       return this.users.map(user => {
         const { score } = this.score.find(
           ({ userId }) => userId === user.userId
@@ -89,6 +100,19 @@ export default {
           name: user.name,
           userId: user.userId,
           score: score
+        };
+      });
+    },
+    selections() {
+      const { users } = this.guesses.find(
+        ({ trackId }) => trackId === this.currentSong.trackId
+      );
+      if (!users) return [];
+      return users.map(user => {
+        const { name } = this.users.find(({ userId }) => userId === user);
+        return {
+          name: name,
+          userId: user
         };
       });
     }
@@ -110,40 +134,33 @@ export default {
   color: #fff;
   padding: 15px;
   border-bottom: 3px solid #111;
-
   h3 {
     font-size: 1rem;
     text-align: center;
     width: 100%;
     cursor: pointer;
   }
-
   * {
     color: inherit;
     margin-bottom: 0;
   }
-
   table {
     width: 100%;
     background-color: #f5f5f5;
     color: #111;
     margin-bottom: 10px;
-
     tr,
     td,
     th {
       padding: 5px;
     }
-
     tr {
       border-bottom: 1px solid #111;
     }
-
     td:nth-child(n + 2),
     th:nth-child(n + 2) {
       border-left: 1px solid #111;
     }
-
     caption {
       font-weight: 700;
       color: #fff;

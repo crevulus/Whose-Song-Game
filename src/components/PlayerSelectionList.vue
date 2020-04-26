@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     selectPlayer(playerId) {
-      if (this.selectedPlayer !== false) {
+      if (this.selectedPlayer === playerId) {
         this.selectedPlayer = false;
         return;
       }

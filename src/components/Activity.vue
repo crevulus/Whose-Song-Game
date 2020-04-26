@@ -99,11 +99,8 @@ export default {
         if (this.songs.length === 0) {
           console.log("no more songs..");
         }
-        if (this.guessedList.length === this.users.length) {
-          console.log('guess list = ', this.guessedList.length);
-          console.log('users list = ', this.users.length);
+        if ((this.guessedList.length === this.users.length) && this.isHost) {
           this.showNextSong();
-          this.guessedList = [];
         }
       });
     },

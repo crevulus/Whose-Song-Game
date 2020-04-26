@@ -10,7 +10,6 @@
         allow="encrypted-media"
       ></iframe>
       <t-button v-if="isHost && (this.songs.length > 0)" variant="primary" @click="showNextSong">Show next song</t-button>
-      <!--  -->
       <PlayerSelectionList :users="this.users" :userId="this.deviceId" :hasVoted="hasVoted" />
       <t-button variant="primary" @click="endActivityInstanceMutation">End</t-button>
     </div>
@@ -88,7 +87,6 @@ export default {
           userId: this.deviceId
         })
       );
-      // location.reload();
     },
     updatedActivityInstanceDataSubscription() {
       API.graphql(
@@ -102,7 +100,10 @@ export default {
           console.log("no more songs..");
         }
         if (this.guessedList.length === this.users.length) {
+          console.log('guess list = ', this.guessedList.length);
+          console.log('users list = ', this.users.length);
           this.showNextSong();
+          this.guessedList = [];
         }
       });
     },

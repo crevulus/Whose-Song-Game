@@ -13,6 +13,7 @@
           :isHost="isHost"
           :deviceId="deviceId"
           :hostId="hostId"
+          :songs="songs"
           class="mb-4"
         />
         <p v-if="isHost" class="text-gray-800">Press start when everyone is ready!</p>
@@ -47,8 +48,8 @@ export default {
   components: { Share, UsersList },
   data() {
     return {
-      songs: [],
-    }
+      songs: []
+    };
   },
   created() {
     this.getActivityQuery();
@@ -99,17 +100,21 @@ export default {
     },
     async updatedActivityInstanceDataSubscription() {
       await API.graphql(
-        graphqlOperation(subscriptions.whoseSongUpdatedActivityInstanceData,
-        {
-          activityInstanceId: this.activityInstanceId,
+        graphqlOperation(subscriptions.whoseSongUpdatedActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId
         })
       ).subscribe({
         next: res => {
-          this.songs = res.value.data.whoseSongUpdatedActivityInstanceData.songs;
-      }});
+          this.songs =
+            res.value.data.whoseSongUpdatedActivityInstanceData.songs;
+        }
+      });
     }
   },
   computed: {
+    findSong: function() {
+      return this.songs.find(song => song.userId === this.deviceId);
+    },
     isUserComputed: function() {
       const deviceId = this.deviceId;
       return this.users.filter(function(user) {
@@ -127,8 +132,10 @@ export default {
       });
     },
     filteredUsers: function() {
-      return this.users.filter((u) => this.songs.find((s) => s.userId === u.userId))
+      return this.users.filter(u =>
+        this.songs.find(s => s.userId === u.userId)
+      );
     }
-  },
+  }
 };
 </script>

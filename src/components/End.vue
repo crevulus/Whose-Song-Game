@@ -67,9 +67,9 @@ export default {
         });
       });
       this.formattedUsers.sort((a, b) => {
-        if (a.score > b.score) return 1;
+        if (a.score > b.score) return -1;
         if (a.score === b.score) return 0;
-        if (a.score < b.score) return -1;
+        if (a.score < b.score) return 1;
       });
     },
     async getActivityInstance() {

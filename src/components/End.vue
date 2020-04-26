@@ -1,9 +1,12 @@
 <template>
   <div class="end">
-    <p
-      v-for="(user, i) in formattedUser"
-      v-bind:key="i"
-    >{{ user.name }}: {{ user.score }}, {{ user.song.trackTitle }}, {{ user.song.trackArtists }}</p>
+    <ul>
+      <li
+        v-for="user in formattedUsers"
+        v-bind:key="user.userId"
+      >name: {{ user.name }} score: {{ user.score }} song: {{ user.song.trackTitle }} by: {{ user.song.trackArtists }}</li>
+    </ul>
+
     <t-button
       variant="primary"
       id="start-new-activity_end"
@@ -46,7 +49,8 @@ export default {
   data() {
     return {
       email: null,
-      submitted: false
+      submitted: false,
+      formattedUsers: []
     };
   },
   created() {
@@ -54,21 +58,20 @@ export default {
     this.getActivityInstance();
     this.getActivityInstanceData();
   },
-  computed: {
-    formattedUser() {
-      console.log(this.songs);
-      return this.users.map(({ name, userId }) => {
-        return {
+  methods: {
+    formatUsers() {
+      return this.users.forEach(({ name, userId }) => {
+        console.log(name, userId);
+        this.formattedUsers.push({
           name: name,
           song: this.songs.find(song => song.userId === userId),
-          score: this.score.find(score => score.userId === userId).score
-        };
+          score: this.score.find(score => score.userId === userId).score,
+          userId: userId
+        });
       });
-    }
-  },
-  methods: {
-    getActivityInstance() {
-      API.graphql(
+    },
+    async getActivityInstance() {
+      await API.graphql(
         graphqlOperation(queries.getActivityInstance, {
           activityInstanceId: this.activityInstanceId
         })
@@ -87,6 +90,7 @@ export default {
         const data = res.data.whoseSongGetActivityInstanceData;
         this.songs = data.playedSongs;
         this.score = data.score;
+        this.formatUsers();
       });
     },
     submitEmail() {

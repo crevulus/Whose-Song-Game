@@ -2,9 +2,9 @@
   <div class="lobby">
     <div class="flex flex-wrap">
       <div class="sm:w-1/2 w-full sm:pr-4 sm:mb-0 mb-4">
-        <p v-for="user in isHostComputed" :key="user.userId">{{user.name}}</p>
+        <p v-for="user in isHostComputed" :key="`host_${user.userId}`">{{user.name}}</p>
         <p class="text-gray-800">Invite your colleagues and wait for them to join the game.</p>
-        <p v-for="user in isUserComputed" :key="user.userId">{{user.name}}</p>
+        <p v-for="user in isUserComputed" :key="`user_${user.userId}`">{{user.name}}</p>
         <Share :activityInstanceId="activityInstanceId" :elementId="'copy-link_lobby'" />
       </div>
       <div class="sm:w-1/2 w-full sm:pl-4">

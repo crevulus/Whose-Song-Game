@@ -1,13 +1,6 @@
 <template>
   <div class="end">
     <ScoreBoard :users="formattedUsers" />
-    <ul>
-      <li
-        v-for="user in formattedUsers"
-        v-bind:key="user.userId"
-      >name: {{ user.name }} score: {{ user.score }} song: {{ user.song.trackTitle }} by: {{ user.song.trackArtists }}</li>
-    </ul>
-
     <t-button
       on
       variant="primary"
@@ -64,7 +57,7 @@ export default {
   },
   methods: {
     formatUsers() {
-      return this.users.forEach(({ name, userId }) => {
+      this.users.forEach(({ name, userId }) => {
         console.log(name, userId);
         this.formattedUsers.push({
           name: name,
@@ -72,6 +65,11 @@ export default {
           score: this.score.find(score => score.userId === userId).score,
           userId: userId
         });
+      });
+      this.formattedUsers.sort((a, b) => {
+        if (a.score > b.score) return 1;
+        if (a.score === b.score) return 0;
+        if (a.score < b.score) return -1;
       });
     },
     async getActivityInstance() {

@@ -47,12 +47,13 @@ export default {
           action: "submitSelection"
         })
       );
+      this.selectedPlayer = false;
     }
   }
 };
 </script>
 <style lang="scss">
-.player.list {
+.player-list {
   li.selected {
     background-color: lime;
   }

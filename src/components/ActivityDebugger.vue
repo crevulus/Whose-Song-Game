@@ -107,6 +107,7 @@ export default {
       const { users } = this.guesses.find(
         ({ trackId }) => trackId === this.currentSong.trackId
       );
+      console.log(users);
       if (!users) return [];
       return users.map(user => {
         const { name } = this.users.find(({ userId }) => userId === user);

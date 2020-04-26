@@ -15,7 +15,6 @@
           v-for="(song, idx) in songList"
           v-bind:class="{ selected: song.isSelected}"
           @click="$set(song, 'isSelected', !song.isSelected);selectSong(song, idx)"
-          :disabled="!!isSelected"
           v-bind:key="idx"
         >
           <div class="card-info">

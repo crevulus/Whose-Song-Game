@@ -17,10 +17,6 @@
               v-if="isHost && deviceId != props.row.userId"
             >Remove</t-button>
           </td>
-            <!-- <t-button
-              v-if="isActivityPage && deviceId != props.row.userId"
-              @click="selectUser(props.row.userId)"
-            >Select</t-button> -->
         </tr>
       </template>
     </t-table>

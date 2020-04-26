@@ -2,10 +2,21 @@
   <div class="lobby">
     <div class="flex flex-wrap">
       <div class="sm:w-1/2 w-full sm:pr-4 sm:mb-0 mb-4">
-        <p v-for="user in isHostComputed" :key="`host_${user.userId}`">{{user.name}}</p>
+        <h3>Welcome, {{currentUser.name}}!</h3>
+        <p v-if="!isHost">The host of this round of "Whose Fave Song is That?" is <strong>{{currentHost.name}}</strong>.</p>
+        <p v-else>You're the host of this round of "Whose Fave Song is That?"</p>
         <p class="text-gray-800">Invite your colleagues and wait for them to join the game.</p>
-        <p v-for="user in isUserComputed" :key="`user_${user.userId}`">{{user.name}}</p>
         <Share :activityInstanceId="activityInstanceId" :elementId="'copy-link_lobby'" />
+        <h3>Your Song:</h3>
+        <iframe
+          class="play-btn"
+          :src="`https://open.spotify.com/embed/track/${findSong.trackId}`"
+          width="300"
+          height="80"
+          frameborder="0"
+          allowtransparency="true"
+          allow="encrypted-media"
+        ></iframe>
       </div>
       <div class="sm:w-1/2 w-full sm:pl-4">
         <UsersList
@@ -13,7 +24,6 @@
           :isHost="isHost"
           :deviceId="deviceId"
           :hostId="hostId"
-          :songs="songs"
           class="mb-4"
         />
         <p v-if="isHost" class="text-gray-800">Press start when everyone is ready!</p>
@@ -115,21 +125,11 @@ export default {
     findSong: function() {
       return this.songs.find(song => song.userId === this.deviceId);
     },
-    isUserComputed: function() {
-      const deviceId = this.deviceId;
-      return this.users.filter(function(user) {
-        if (user.userId === deviceId) {
-          return user.name;
-        }
-      });
+    currentUser: function() {
+      return this.users.find(user => user.userId === this.deviceId)
     },
-    isHostComputed: function() {
-      const hostId = this.hostId;
-      return this.users.filter(function(user) {
-        if (user.userId === hostId) {
-          return user.name;
-        }
-      });
+    currentHost: function() {
+      return this.users.find(user => user.userId === this.hostId)
     },
     filteredUsers: function() {
       return this.users.filter(u =>

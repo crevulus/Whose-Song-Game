@@ -17,13 +17,10 @@
               v-if="isHost && deviceId != props.row.userId"
             >Remove</t-button>
           </td>
-          <td :class="props.tdClass" v-if="deviceId === userSong.userId">{{ userSong.trackTitle }}</td>
-          <td>
-            <t-button
+            <!-- <t-button
               v-if="isActivityPage && deviceId != props.row.userId"
               @click="selectUser(props.row.userId)"
-            >Select</t-button>
-          </td>
+            >Select</t-button> -->
         </tr>
       </template>
     </t-table>
@@ -48,11 +45,6 @@ export default {
         value: "actions",
         id: "actions",
         text: "Actions"
-      },
-      {
-        value: "songs",
-        id: "songs",
-        text: "Song"
       }
     ];
 
@@ -62,11 +54,6 @@ export default {
       selectedUserId: "",
       hasVoted: false
     };
-  },
-  compute: {
-    userSong: function() {
-      return this.songs.find(song => song.userId === this.deviceId);
-    }
   },
   methods: {
     selectUser(selectedUserId) {

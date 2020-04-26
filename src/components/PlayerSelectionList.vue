@@ -32,6 +32,10 @@ export default {
   },
   methods: {
     selectPlayer(playerId) {
+      if (this.selectedPlayer !== false) {
+        this.selectedPlayer = false;
+        return;
+      }
       this.selectedPlayer = playerId;
     },
     submitSelection() {

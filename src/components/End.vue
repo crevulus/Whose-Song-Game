@@ -1,5 +1,9 @@
 <template>
   <div class="end">
+    <p
+      v-for="(user, i) in formattedUser"
+      v-bind:key="i"
+    >{{ user.name }}: {{ user.score }}, {{ user.song.trackTitle }}, {{ user.song.trackArtists }}</p>
     <t-button
       variant="primary"
       id="start-new-activity_end"
@@ -49,6 +53,18 @@ export default {
     this.startedNewActivityInstanceSubscription();
     this.getActivityInstance();
     this.getActivityInstanceData();
+  },
+  computed: {
+    formattedUser() {
+      console.log(this.songs);
+      return this.users.map(({ name, userId }) => {
+        return {
+          name: name,
+          song: this.songs.find(song => song.userId === userId),
+          score: this.score.find(score => score.userId === userId).score
+        };
+      });
+    }
   },
   methods: {
     getActivityInstance() {

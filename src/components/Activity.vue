@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div class="activity">
     <div class="media-player">
       <iframe
@@ -14,12 +14,7 @@
         variant="primary"
         @click="showNextSong"
       >Show next song</t-button>
-      <PlayerSelectionList
-        :users="this.users"
-        :userId="this.deviceId"
-        :hasVoted="hasVoted"
-        :nextSong="gameOverOrNextSong"
-      />
+      <PlayerSelectionList :users="this.users" :userId="this.deviceId" :hasVoted="hasVoted" />
       <t-button variant="primary" @click="endActivityInstanceMutation">End</t-button>
     </div>
     <!-- Component that shows instance data in tables -->
@@ -97,19 +92,6 @@ export default {
         })
       );
     },
-    gameOverOrNextSong() {
-      if (this.guessedList.length === this.users.length) {
-        if (this.songs.length === 0) {
-          API.graphql(
-            graphqlOperation(mutations.endActivityInstance, {
-              activityInstanceId: this.activityInstanceId
-            })
-          );
-          return;
-        }
-        if (this.isHost) this.showNextSong();
-      }
-    },
     updatedActivityInstanceDataSubscription() {
       API.graphql(
         graphqlOperation(subscriptions.whoseSongUpdatedActivityInstanceData, {
@@ -119,17 +101,19 @@ export default {
         const data = response.value.data.whoseSongUpdatedActivityInstanceData;
         this.setVariables(data);
 
-        // if (this.guessedList.length === this.users.length) {
-        //   if (this.songs.length === 0) {
-        //     API.graphql(
-        //       graphqlOperation(mutations.endActivityInstance, {
-        //         activityInstanceId: this.activityInstanceId
-        //       })
-        //     );
-        //     return;
-        //   }
-        //   if (this.isHost) this.showNextSong();
-        // }
+        if (this.guessedList.length === this.users.length) {
+          console.log("songs length", this.songs.length);
+          if (this.songs.length === 0) {
+            console.log("are we getting here?");
+            API.graphql(
+              graphqlOperation(mutations.endActivityInstance, {
+                activityInstanceId: this.activityInstanceId
+              })
+            );
+            return;
+          }
+          if (this.isHost) this.showNextSong();
+        }
       });
     },
     setVariables(data) {

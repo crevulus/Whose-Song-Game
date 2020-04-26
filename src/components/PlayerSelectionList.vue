@@ -23,7 +23,7 @@ import * as mutations from "@/graphql/mutations";
 
 export default {
   name: "PlayerSelectionList",
-  props: ["users", "userId", "hasVoted", "nextSong"],
+  props: ["users", "userId", "hasVoted"],
   data() {
     return {
       activityInstanceId: this.$route.params.activityInstanceId,
@@ -48,7 +48,6 @@ export default {
         })
       );
       this.selectedPlayer = false;
-      this.props.nextSong();
     }
   }
 };

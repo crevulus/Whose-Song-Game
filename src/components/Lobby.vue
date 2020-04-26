@@ -9,7 +9,7 @@
       </div>
       <div class="sm:w-1/2 w-full sm:pl-4">
         <UsersList
-          :users="users"
+          :users="filteredUsers"
           :isHost="isHost"
           :deviceId="deviceId"
           :hostId="hostId"
@@ -36,6 +36,7 @@
 import { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "@/graphql/subscriptions";
 import * as mutations from "@/graphql/mutations";
+import * as queries from "@/graphql/queries";
 import Share from "@/components/Share";
 import UsersList from "@/components/UsersList";
 import commonMethods from "@/mixins/commonMethods";
@@ -44,11 +45,29 @@ export default {
   name: "Lobby",
   mixins: [commonMethods],
   components: { Share, UsersList },
+  data() {
+    return {
+      songs: [],
+    }
+  },
   created() {
     this.getActivityQuery();
+    this.getActivityInstanceData();
     this.updatedActivityInstanceSubscription();
+    this.updatedActivityInstanceDataSubscription();
   },
   methods: {
+    async getActivityInstanceData() {
+      await API.graphql(
+        graphqlOperation(queries.whoseSongGetActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId
+        })
+      ).then(res => {
+        const data = res.data.whoseSongGetActivityInstanceData;
+        this.songs = data.songs;
+      });
+    },
     async updatedActivityInstanceSubscription() {
       await API.graphql(
         graphqlOperation(subscriptions.updatedActivityInstance, {
@@ -77,12 +96,23 @@ export default {
           activityInstanceId: this.activityInstanceId
         })
       );
+    },
+    async updatedActivityInstanceDataSubscription() {
+      await API.graphql(
+        graphqlOperation(subscriptions.whoseSongUpdatedActivityInstanceData,
+        {
+          activityInstanceId: this.activityInstanceId,
+        })
+      ).subscribe({
+        next: res => {
+          this.songs = res.value.data.whoseSongUpdatedActivityInstanceData.songs;
+      }});
     }
   },
   computed: {
     isUserComputed: function() {
       const deviceId = this.deviceId;
-      return this.users.filter(function (user) {
+      return this.users.filter(function(user) {
         if (user.userId === deviceId) {
           return user.name;
         }
@@ -90,11 +120,14 @@ export default {
     },
     isHostComputed: function() {
       const hostId = this.hostId;
-      return this.users.filter(function (user) {
+      return this.users.filter(function(user) {
         if (user.userId === hostId) {
           return user.name;
         }
       });
+    },
+    filteredUsers: function() {
+      return this.users.filter((u) => this.songs.find((s) => s.userId === u.userId))
     }
   },
 };

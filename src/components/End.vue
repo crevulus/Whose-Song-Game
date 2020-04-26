@@ -1,5 +1,6 @@
 <template>
   <div class="end">
+    <ScoreBoard :users="formattedUsers" />
     <ul>
       <li
         v-for="user in formattedUsers"
@@ -8,6 +9,7 @@
     </ul>
 
     <t-button
+      on
       variant="primary"
       id="start-new-activity_end"
       @click="startNewActivity"
@@ -42,10 +44,12 @@ import * as subscriptions from "@/graphql/subscriptions";
 import * as queries from "@/graphql/queries";
 import axios from "axios";
 import commonMethods from "@/mixins/commonMethods";
+import ScoreBoard from "@/components/ScoreBoard";
 
 export default {
   name: "End",
   mixins: [commonMethods],
+  components: { ScoreBoard },
   data() {
     return {
       email: null,

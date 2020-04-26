@@ -104,12 +104,14 @@ export default {
       });
     },
     selections() {
-      const { users } = this.guesses.find(
+      if (!this.guesses) return [];
+
+      const guess = this.guesses.find(
         ({ trackId }) => trackId === this.currentSong.trackId
       );
-      console.log(users);
-      if (!users) return [];
-      return users.map(user => {
+      if (!guess) return [];
+
+      return guess.users.map(user => {
         const { name } = this.users.find(({ userId }) => userId === user);
         return {
           name: name,

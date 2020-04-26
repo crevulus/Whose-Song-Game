@@ -1,6 +1,5 @@
 <template>
   <div class="activity">
-    <t-button variant="primary" @click="endActivityInstanceMutation">End</t-button>
     <div class="media-player">
       <iframe
         :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
@@ -10,8 +9,10 @@
         allowtransparency="true"
         allow="encrypted-media"
       ></iframe>
-      <t-button v-if="isHost" variant="primary" @click="showNextSong">Show next song</t-button>
+      <t-button v-if="isHost && (this.songs.length > 0)" variant="primary" @click="showNextSong">Show next song</t-button>
+      <!--  -->
       <PlayerSelectionList :users="this.users" :userId="this.deviceId" :hasVoted="hasVoted" />
+      <t-button variant="primary" @click="endActivityInstanceMutation">End</t-button>
     </div>
     <!-- Component that shows instance data in tables -->
     <ActivityDebugger
@@ -87,6 +88,7 @@ export default {
           userId: this.deviceId
         })
       );
+      // location.reload();
     },
     updatedActivityInstanceDataSubscription() {
       API.graphql(
@@ -119,3 +121,4 @@ export default {
   }
 };
 </script>
+

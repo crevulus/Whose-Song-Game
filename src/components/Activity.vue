@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="activity">
     <div class="media-player">
       <iframe
@@ -14,7 +14,12 @@
         variant="primary"
         @click="showNextSong"
       >Show next song</t-button>
-      <PlayerSelectionList :users="this.users" :userId="this.deviceId" :hasVoted="hasVoted" />
+      <PlayerSelectionList
+        :users="this.users"
+        :userId="this.deviceId"
+        :hasVoted="hasVoted"
+        :nextSong="gameOverOrNextSong"
+      />
       <t-button variant="primary" @click="endActivityInstanceMutation">End</t-button>
     </div>
     <!-- Component that shows instance data in tables -->
@@ -92,6 +97,19 @@ export default {
         })
       );
     },
+    gameOverOrNextSong() {
+      if (this.guessedList.length === this.users.length) {
+        if (this.songs.length === 0) {
+          API.graphql(
+            graphqlOperation(mutations.endActivityInstance, {
+              activityInstanceId: this.activityInstanceId
+            })
+          );
+          return;
+        }
+        if (this.isHost) this.showNextSong();
+      }
+    },
     updatedActivityInstanceDataSubscription() {
       API.graphql(
         graphqlOperation(subscriptions.whoseSongUpdatedActivityInstanceData, {
@@ -101,17 +119,17 @@ export default {
         const data = response.value.data.whoseSongUpdatedActivityInstanceData;
         this.setVariables(data);
 
-        if (this.guessedList.length === this.users.length) {
-          if (this.songs.length === 0) {
-            API.graphql(
-              graphqlOperation(mutations.endActivityInstance, {
-                activityInstanceId: this.activityInstanceId
-              })
-            );
-            return;
-          }
-          if (this.isHost) this.showNextSong();
-        }
+        // if (this.guessedList.length === this.users.length) {
+        //   if (this.songs.length === 0) {
+        //     API.graphql(
+        //       graphqlOperation(mutations.endActivityInstance, {
+        //         activityInstanceId: this.activityInstanceId
+        //       })
+        //     );
+        //     return;
+        //   }
+        //   if (this.isHost) this.showNextSong();
+        // }
       });
     },
     setVariables(data) {

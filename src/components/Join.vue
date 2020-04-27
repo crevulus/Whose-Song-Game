@@ -1,7 +1,10 @@
 <template>
   <div class="home">
     <div class="m-auto sm:w-1/2 w-full">
-      <p>ACTIVITY_DESCRIPTION</p>
+      <ul>
+        <li>Search for your favourite song and press confirm once you've chosen.</li>
+        <li>Wait for your colleagues to join, and then {{currentHost.name}} will start the game!</li>
+      </ul>
       <h3 class="text-gray-800">Enter your name to join the game</h3>
       <t-input 
         class="w-full mb-4" 
@@ -74,6 +77,11 @@ export default {
           }
         });
       });
+    }
+  },
+  computed: {
+    currentHost: function() {
+      return this.users.find(user => user.userId === this.hostId);
     }
   }
 };

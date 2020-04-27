@@ -13,12 +13,12 @@
         v-if="isHost && songs.length > 0"
         variant="primary"
         @click="showNextSong"
-      >Show next song</t-button>
+      >Skip Song</t-button>
       <t-button
         v-else-if="isHost"
         variant="primary"
         @click="endActivityInstanceMutation"
-      >Skip to results</t-button>
+      >Skip to Results</t-button>
       <PlayerSelectionList
         :users="this.users"
         :userId="this.deviceId"

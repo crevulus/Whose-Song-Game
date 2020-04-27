@@ -10,7 +10,7 @@
         <p>{{u.name}}</p>
       </li>
     </ul>
-    <t-button variant="primary" @click="submitSelection" :disabled="!!this.guess">Confirm selection</t-button>
+    <t-button variant="primary" @click="submitSelection" :disabled="!!this.guess">Confirm Selection</t-button>
   </div>
 </template>
 <script>

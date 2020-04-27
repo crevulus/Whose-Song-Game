@@ -3,7 +3,11 @@
     <div class="m-auto sm:w-1/2 w-full">
       <p>ACTIVITY_DESCRIPTION</p>
       <h3 class="text-gray-800">Enter your name to join the game</h3>
-      <t-input class="w-full mb-4" v-model="name" maxlength="50" placeholder="Name..." />
+      <t-input 
+        class="w-full mb-4" 
+        v-model="name" maxlength="50" 
+        placeholder="Name..." 
+        @keyup.enter="updateActivityInstanceUsersMutation" />
       <t-button
         class="w-full mb-8"
         id="join-activity_join"

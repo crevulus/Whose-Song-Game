@@ -6,7 +6,7 @@
       </ul>
       <h3 class="text-gray-800">Enter your name to start a game</h3>
       <div class="input-container">
-        <t-input class="w-full mb-4" v-model="name" maxlength="50" placeholder="Name..." />
+        <t-input class="w-full mb-4" v-model="name" maxlength="50" placeholder="Name..." @keyup.enter="createActivityInstance" />
         <t-button
           id="create-activity_home"
           class="w-full mb-8"

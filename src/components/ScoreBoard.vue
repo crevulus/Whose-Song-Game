@@ -12,7 +12,7 @@
           <strong>{{ props.row.song.trackTitle }}</strong>
           - {{ props.row.song.trackArtists }}
         </td>
-        <td :class="props.tdClass">{{ props.row.obscurity = 0 }}</td>
+        <td :class="props.tdClass">{{ props.row.obscurity }}</td>
         <td :class="props.tdClass">{{ props.row.score }}</td>
       </tr>
     </template>

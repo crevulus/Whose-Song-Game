@@ -73,7 +73,7 @@ export default {
           name: name,
           song: this.songs.find(song => song.userId === userId),
           score: this.score.find(score => score.userId === userId).score,
-          obscurity: obscurities[userId],
+          obscurity: obscurities[userId] || 0,
           userId: userId
         });
       });

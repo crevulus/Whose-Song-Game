@@ -100,6 +100,12 @@ export default {
       });
     },
     async startActivityInstanceMutation() {
+      const usersWithoutSong = this.users.filter(
+        ({ userId }) => !this.songs.find(s => s.userId === userId)
+      );
+      await Promise.all(
+        usersWithoutSong.map(user => this.removeUser(user.userId))
+      );
       await API.graphql(
         graphqlOperation(mutations.whoseSongStartActivityInstanceData, {
           activityInstanceId: this.activityInstanceId,
@@ -123,6 +129,14 @@ export default {
             res.value.data.whoseSongUpdatedActivityInstanceData.songs;
         }
       });
+    },
+    removeUser(userId) {
+      return API.graphql(
+        graphqlOperation(mutations.removeUserFromActivityInstance, {
+          activityInstanceId: this.activityInstanceId,
+          removedUserId: userId
+        })
+      );
     }
   },
   computed: {

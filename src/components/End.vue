@@ -140,7 +140,7 @@ export default {
         })
       ).then(response => {
         const data = response.data.updateActivityInstanceUsers;
-        this.redirectTo("lobby", data.activityInstanceId);
+        this.redirectTo("input", data.activityInstanceId);
       });
     },
     async startedNewActivityInstanceSubscription() {

@@ -8,12 +8,12 @@
           ]"
       >
         <td :class="props.tdClass">{{ props.row.name }}</td>
-        <td :class="props.tdClass">{{ props.row.familiarity }}</td>
-        <td :class="props.tdClass">{{ props.row.obscurity }}</td>
         <td :class="props.tdClass">
           <strong>{{ props.row.song.trackTitle }}</strong>
           - {{ props.row.song.trackArtists }}
         </td>
+        <td :class="props.tdClass">{{ props.row.obscurity = 0 }}</td>
+        <td :class="props.tdClass">{{ props.row.score }}</td>
       </tr>
     </template>
   </t-table>
@@ -26,14 +26,14 @@ export default {
   data() {
     const headers = [
       {
-        value: "name",
-        id: "name",
-        text: "Name"
+        value: "participant",
+        id: "participant",
+        text: "Participant"
       },
       {
-        value: "familiarity",
-        id: "familiarity",
-        text: "Familiarity"
+        value: "song",
+        id: "song",
+        text: "Song"
       },
       {
         value: "obscurity",
@@ -41,9 +41,9 @@ export default {
         text: "Obscurity"
       },
       {
-        value: "song",
-        id: "song",
-        text: "Song"
+        value: "score",
+        id: "familiarity",
+        text: "Familiarity"
       }
     ];
     return {

@@ -15,7 +15,7 @@ const TButton = {
 }
 
 const TInput = {
-  baseClass: 'block w-full rounded-lg bg-white border m-auto focus:outline-none focus:shadow-outline',
+  baseClass: 'block .w-8/12 rounded-lg bg-white m-auto focus:outline-none focus:shadow-outline',
   inlinebuttonClass: 'rounded-r-none',
   defaultStatusClass: 'bg-white',
   warningStatusClass: 'border-yellow-400 bg-yellow-100',

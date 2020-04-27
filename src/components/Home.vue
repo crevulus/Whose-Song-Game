@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <div class="m-auto w-full">
-      <!-- sm:w-1/2 -->
       <ul class="explanation">
         <li v-for="(item) in 5" v-bind:key="item">This is the explanation for this game.</li>
       </ul>
@@ -17,7 +16,6 @@
         >Create activity room</t-button>
       </div>
     </div>
-
     <iframe
       class="play-btn"
       src="https://open.spotify.com/embed/track/45DElIx0dXqUH4A88yQFdE"
@@ -56,13 +54,12 @@ export default {
       );
       const { activityInstanceId } = res.data.createActivityInstance;
 
-      const { data } = await API.graphql(
+      await API.graphql(
         graphqlOperation(mutations.whoseSongCreateActivityInstanceData, {
           activityInstanceId: activityInstanceId,
           userId: this.deviceId
         })
       );
-      console.log(data.whoseSongCreateActivityInstanceData);
 
       this.$router.push({
         name: "input",

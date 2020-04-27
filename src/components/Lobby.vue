@@ -2,12 +2,25 @@
   <div class="lobby">
     <div class="flex flex-wrap">
       <div class="sm:w-1/2 w-full sm:pr-4 sm:mb-0 mb-4">
+        <h3>Welcome, {{currentUser.name}}!</h3>
+        <p v-if="!isHost">The host of this round of "Whose Fave Song is That?" is <strong>{{currentHost.name}}</strong>.</p>
+        <p v-else>You're the host of this round of "Whose Fave Song is That?"</p>
         <p class="text-gray-800">Invite your colleagues and wait for them to join the game.</p>
         <Share :activityInstanceId="activityInstanceId" :elementId="'copy-link_lobby'" />
+        <h3>Your Song:</h3>
+        <iframe
+          class="play-btn"
+          :src="`https://open.spotify.com/embed/track/${findSong.trackId}`"
+          width="300"
+          height="80"
+          frameborder="0"
+          allowtransparency="true"
+          allow="encrypted-media"
+        ></iframe>
       </div>
       <div class="sm:w-1/2 w-full sm:pl-4">
         <UsersList
-          :users="users"
+          :users="filteredUsers"
           :isHost="isHost"
           :deviceId="deviceId"
           :hostId="hostId"
@@ -22,7 +35,6 @@
           @click="startActivityInstanceMutation"
           :disabled="
             !activity ||
-              users.length > activity.minPlayers ||
               users.length > activity.maxPlayers
           "
         >Start</t-button>
@@ -35,6 +47,7 @@
 import { API, graphqlOperation } from "aws-amplify";
 import * as subscriptions from "@/graphql/subscriptions";
 import * as mutations from "@/graphql/mutations";
+import * as queries from "@/graphql/queries";
 import Share from "@/components/Share";
 import UsersList from "@/components/UsersList";
 import commonMethods from "@/mixins/commonMethods";
@@ -43,11 +56,29 @@ export default {
   name: "Lobby",
   mixins: [commonMethods],
   components: { Share, UsersList },
+  data() {
+    return {
+      songs: []
+    };
+  },
   created() {
     this.getActivityQuery();
+    this.getActivityInstanceData();
     this.updatedActivityInstanceSubscription();
+    this.updatedActivityInstanceDataSubscription();
   },
   methods: {
+    async getActivityInstanceData() {
+      await API.graphql(
+        graphqlOperation(queries.whoseSongGetActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId
+        })
+      ).then(res => {
+        const data = res.data.whoseSongGetActivityInstanceData;
+        this.songs = data.songs;
+      });
+    },
     async updatedActivityInstanceSubscription() {
       await API.graphql(
         graphqlOperation(subscriptions.updatedActivityInstance, {
@@ -64,11 +95,45 @@ export default {
         }
       });
     },
-    startActivityInstanceMutation() {
+    async startActivityInstanceMutation() {
+      await API.graphql(
+        graphqlOperation(mutations.whoseSongStartActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId
+        })
+      );
       API.graphql(
         graphqlOperation(mutations.startActivityInstance, {
           activityInstanceId: this.activityInstanceId
         })
+      );
+    },
+    async updatedActivityInstanceDataSubscription() {
+      await API.graphql(
+        graphqlOperation(subscriptions.whoseSongUpdatedActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId
+        })
+      ).subscribe({
+        next: res => {
+          this.songs =
+            res.value.data.whoseSongUpdatedActivityInstanceData.songs;
+        }
+      });
+    }
+  },
+  computed: {
+    findSong: function() {
+      return this.songs.find(song => song.userId === this.deviceId);
+    },
+    currentUser: function() {
+      return this.users.find(user => user.userId === this.deviceId)
+    },
+    currentHost: function() {
+      return this.users.find(user => user.userId === this.hostId)
+    },
+    filteredUsers: function() {
+      return this.users.filter(u =>
+        this.songs.find(s => s.userId === u.userId)
       );
     }
   }

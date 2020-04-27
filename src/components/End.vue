@@ -1,12 +1,13 @@
 <template>
   <div class="end">
+    <ScoreBoard :users="formattedUsers" />
     <t-button
+      on
       variant="primary"
       id="start-new-activity_end"
       @click="startNewActivity"
       v-if="isHost"
-      >Play again?</t-button
-    >
+    >Play again?</t-button>
     <p>
       Do you want to get early access and product updates? Feel free to drop us
       your email
@@ -21,9 +22,7 @@
         v-if="!submitted"
         required
       />
-      <t-button @click="submitEmail" :disabled="!email" id="sign-up_end"
-        >Submit</t-button
-      >
+      <t-button @click="submitEmail" :disabled="!email" id="sign-up_end">Submit</t-button>
     </section>
     <p v-if="submitted">
       ✅ Thank you! You're added to the waiting list and will be one of the
@@ -35,22 +34,67 @@
 import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "@/graphql/mutations";
 import * as subscriptions from "@/graphql/subscriptions";
+import * as queries from "@/graphql/queries";
 import axios from "axios";
 import commonMethods from "@/mixins/commonMethods";
+import ScoreBoard from "@/components/ScoreBoard";
 
 export default {
   name: "End",
   mixins: [commonMethods],
+  components: { ScoreBoard },
   data() {
     return {
       email: null,
-      submitted: false
+      submitted: false,
+      formattedUsers: []
     };
   },
   created() {
     this.startedNewActivityInstanceSubscription();
+    this.getActivityInstance();
+    this.getActivityInstanceData();
   },
   methods: {
+    formatUsers() {
+      this.users.forEach(({ name, userId }) => {
+        console.log(name, userId);
+        this.formattedUsers.push({
+          name: name,
+          song: this.songs.find(song => song.userId === userId),
+          score: this.score.find(score => score.userId === userId).score,
+          userId: userId
+        });
+      });
+      this.formattedUsers.sort((a, b) => {
+        if (a.score > b.score) return -1;
+        if (a.score === b.score) return 0;
+        if (a.score < b.score) return 1;
+      });
+    },
+    async getActivityInstance() {
+      await API.graphql(
+        graphqlOperation(queries.getActivityInstance, {
+          activityInstanceId: this.activityInstanceId
+        })
+      ).then(res => {
+        const data = res.data.getActivityInstance;
+        this.users = data.users;
+      });
+    },
+    getActivityInstanceData() {
+      API.graphql(
+        graphqlOperation(queries.whoseSongGetActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId
+        })
+      ).then(res => {
+        const data = res.data.whoseSongGetActivityInstanceData;
+        this.songs = data.playedSongs;
+        this.score = data.score;
+        this.formatUsers();
+      });
+    },
     submitEmail() {
       var p = this;
       var bodyFormData = new FormData();

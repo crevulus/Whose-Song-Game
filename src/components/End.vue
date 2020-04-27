@@ -47,7 +47,8 @@ export default {
     return {
       email: null,
       submitted: false,
-      formattedUsers: []
+      formattedUsers: [],
+      guesses: [],
     };
   },
   created() {
@@ -57,11 +58,22 @@ export default {
   },
   methods: {
     formatUsers() {
+      const obscurities = this.guesses.reduce((acc, guess) => {
+        const { trackOwnerId, selectedUserId } = guess;
+        if (acc[trackOwnerId] == undefined) {
+          acc[trackOwnerId] = 0;
+        }
+        if (selectedUserId !== trackOwnerId) {
+          acc[trackOwnerId] += 1;
+        }
+        return acc;
+      }, {});
       this.users.forEach(({ name, userId }) => {
         this.formattedUsers.push({
           name: name,
           song: this.songs.find(song => song.userId === userId),
           score: this.score.find(score => score.userId === userId).score,
+          obscurity: obscurities[userId],
           userId: userId
         });
       });
@@ -91,6 +103,7 @@ export default {
         const data = res.data.whoseSongGetActivityInstanceData;
         this.songs = data.playedSongs;
         this.score = data.score;
+        this.guesses = data.guesses;
         this.formatUsers();
       });
     },

@@ -8,7 +8,8 @@
           ]"
       >
         <td :class="props.tdClass">{{ props.row.name }}</td>
-        <td :class="props.tdClass">{{ props.row.score }}</td>
+        <td :class="props.tdClass">{{ props.row.familiarity }}</td>
+        <td :class="props.tdClass">{{ props.row.obscurity }}</td>
         <td :class="props.tdClass">
           <strong>{{ props.row.song.trackTitle }}</strong>
           - {{ props.row.song.trackArtists }}
@@ -30,9 +31,14 @@ export default {
         text: "Name"
       },
       {
-        value: "score",
-        id: "score",
-        text: "Score"
+        value: "familiarity",
+        id: "familiarity",
+        text: "Familiarity"
+      },
+      {
+        value: "obscurity",
+        id: "obscurity",
+        text: "Obscurity"
       },
       {
         value: "song",

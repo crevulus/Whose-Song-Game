@@ -2,13 +2,17 @@
   <div class="lobby">
     <div class="flex flex-wrap">
       <div class="sm:w-1/2 w-full sm:pr-4 sm:mb-0 mb-4">
-        <h3>Welcome, {{currentUser.name}}!</h3>
-        <p v-if="!isHost">The host of this round of "Whose Fave Song is That?" is <strong>{{currentHost.name}}</strong>.</p>
+        <h3 v-if="currentUser">Welcome, {{currentUser.name}}!</h3>
+        <p v-if="!isHost && currentHost">
+          The host of this round of "Whose Fave Song is That?" is
+          <strong>{{currentHost.name}}</strong>.
+        </p>
         <p v-else>You're the host of this round of "Whose Fave Song is That?"</p>
         <p class="text-gray-800">Invite your colleagues and wait for them to join the game.</p>
         <Share :activityInstanceId="activityInstanceId" :elementId="'copy-link_lobby'" />
         <h3>Your Song:</h3>
         <iframe
+          v-if="findSong"
           class="play-btn"
           :src="`https://open.spotify.com/embed/track/${findSong.trackId}`"
           width="300"
@@ -126,10 +130,10 @@ export default {
       return this.songs.find(song => song.userId === this.deviceId);
     },
     currentUser: function() {
-      return this.users.find(user => user.userId === this.deviceId)
+      return this.users.find(user => user.userId === this.deviceId);
     },
     currentHost: function() {
-      return this.users.find(user => user.userId === this.hostId)
+      return this.users.find(user => user.userId === this.hostId);
     },
     filteredUsers: function() {
       return this.users.filter(u =>

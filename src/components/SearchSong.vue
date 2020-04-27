@@ -19,17 +19,15 @@
         >
           <div class="card-info">
             <p class="card-text">
-              <strong>Title:</strong>
-              {{song.title}}
+              <strong>{{song.title}}</strong>
             </p>
             <p class="card-text">
-              <strong>Artists:</strong>
               {{song.artists}}
             </p>
-            <p class="card-text">
+            <!-- <p class="card-text">
               <strong>Album:</strong>
               {{song.album}}
-            </p>
+            </p> -->
           </div>
           <div class="confirm" v-bind:class="{ hiddeny: !song.isSelected}">
             <svg
@@ -108,7 +106,7 @@ export default {
       this.timeoutId = setTimeout(() => {
         if (!this.searchField.length) return;
 
-        const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track,album,artist`;
+        const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track,album,artist&limit=6`;
         axios
           .get(url, {
             headers: {

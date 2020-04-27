@@ -58,7 +58,6 @@ export default {
   methods: {
     formatUsers() {
       this.users.forEach(({ name, userId }) => {
-        console.log(name, userId);
         this.formattedUsers.push({
           name: name,
           song: this.songs.find(song => song.userId === userId),

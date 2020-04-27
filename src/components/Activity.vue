@@ -72,7 +72,6 @@ export default {
       );
     },
     getActivityInstanceData() {
-      console.log(this.activityInstanceId);
       API.graphql(
         graphqlOperation(queries.whoseSongGetActivityInstanceData, {
           activityInstanceId: this.activityInstanceId,
@@ -102,9 +101,7 @@ export default {
         this.setVariables(data);
 
         if (this.guessedList.length === this.users.length) {
-          console.log("songs length", this.songs.length);
           if (this.songs.length === 0) {
-            console.log("are we getting here?");
             API.graphql(
               graphqlOperation(mutations.endActivityInstance, {
                 activityInstanceId: this.activityInstanceId

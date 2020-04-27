@@ -22,10 +22,6 @@
               <strong>{{song.title}}</strong>
             </p>
             <p class="card-text">{{song.artists}}</p>
-            <!-- <p class="card-text">
-              <strong>Album:</strong>
-              {{song.album}}
-            </p>-->
           </div>
           <div class="confirm" v-bind:class="{ hiddeny: !song.isSelected}">
             <svg

@@ -21,7 +21,7 @@
           <th>name</th>
           <th>userId</th>
         </tr>
-        <tr v-for="user in users" :key="user.userId">
+        <tr v-for="user in users" :key="'users' + user.userId">
           <td>{{user.name}}</td>
           <td>{{user.userId}}</td>
         </tr>
@@ -34,7 +34,7 @@
           <th>selectedUser</th>
           <th>trackOwner</th>
         </tr>
-        <tr v-for="s in selections" :key="s.trackId">
+        <tr v-for="s in selections" :key="s.userName">
           <td>{{s.userName}}</td>
           <td>{{s.selectedUser}}</td>
           <td>{{s.trackOwner}}</td>
@@ -47,7 +47,7 @@
           <th>userId</th>
           <th>score</th>
         </tr>
-        <tr v-for="s in scores" :key="s.userId">
+        <tr v-for="s in scores" :key="'scores' + s.userId">
           <td>{{s.name}}</td>
           <td>{{s.userId}}</td>
           <td>{{s.score}}</td>
@@ -60,7 +60,7 @@
           <th>userId</th>
           <th>trackId</th>
         </tr>
-        <tr v-for="s in songs" :key="s.userId">
+        <tr v-for="s in songs" :key="'songs' + s.userId">
           <td>{{s.trackTitle}}</td>
           <td>{{s.userId}}</td>
           <td>{{s.trackId}}</td>
@@ -73,7 +73,7 @@
           <th>userId</th>
           <th>trackId</th>
         </tr>
-        <tr v-for="s in playedSongs" :key="s.userId">
+        <tr v-for="s in playedSongs" :key="'played' + s.userId">
           <td>{{s.trackTitle}}</td>
           <td>{{s.userId}}</td>
           <td>{{s.trackId}}</td>

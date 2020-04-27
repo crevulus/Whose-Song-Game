@@ -288,7 +288,9 @@ export const whoseSongCreateActivityInstanceData = /* GraphQL */ `
       }
       guesses {
         trackId
-        users
+        userId
+        selectedUserId
+        trackOwnerId
       }
       songs {
         userId
@@ -337,7 +339,9 @@ export const whoseSongUpdateActivityInstanceData = /* GraphQL */ `
       }
       guesses {
         trackId
-        users
+        userId
+        selectedUserId
+        trackOwnerId
       }
       songs {
         userId
@@ -376,7 +380,9 @@ export const whoseSongStartActivityInstanceData = /* GraphQL */ `
       }
       guesses {
         trackId
-        users
+        userId
+        selectedUserId
+        trackOwnerId
       }
       songs {
         userId

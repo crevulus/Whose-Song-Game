@@ -113,7 +113,9 @@ export const whoseSongUpdatedActivityInstanceData = /* GraphQL */ `
       }
       guesses {
         trackId
-        users
+        userId
+        selectedUserId
+        trackOwnerId
       }
       songs {
         userId

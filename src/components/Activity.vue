@@ -123,9 +123,10 @@ export default {
       this.songs = data.songs;
       this.guesses = data.guesses;
       // filters out correct object from guessedList
-      this.guessedList = this.guesses.find(
-        song => song.trackId === this.currentSong.trackId
-      ).users;
+      this.guessedList = this.guesses.filter(guess => {
+        const { trackId, userId } = this.currentSong;
+        return guess.trackId === trackId && guess.trackOwnerId === userId;
+      });
       this.hasVoted = this.guessedList.includes(this.deviceId);
     }
   }

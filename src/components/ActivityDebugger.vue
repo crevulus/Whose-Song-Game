@@ -30,12 +30,14 @@
       <table>
         <caption>Player select submissions</caption>
         <tr>
-          <th>name</th>
-          <th>userId</th>
+          <th>userName</th>
+          <th>selectedUser</th>
+          <th>trackOwner</th>
         </tr>
-        <tr v-for="s in selections" :key="s.userId">
-          <td>{{s.name}}</td>
-          <td>{{s.userId}}</td>
+        <tr v-for="s in selections" :key="s.trackId">
+          <td>{{s.userName}}</td>
+          <td>{{s.selectedUser}}</td>
+          <td>{{s.trackOwner}}</td>
         </tr>
       </table>
       <table>
@@ -106,18 +108,21 @@ export default {
     selections() {
       if (!this.guesses) return [];
 
-      const guess = this.guesses.find(
-        ({ trackId }) => trackId === this.currentSong.trackId
-      );
-      if (!guess) return [];
-
-      return guess.users.map(user => {
-        const { name } = this.users.find(({ userId }) => userId === user);
-        return {
-          name: name,
-          userId: user
-        };
+      const guesses = this.guesses.filter(guess => {
+        const { trackId, userId } = this.currentSong;
+        return guess.trackId === trackId && guess.trackOwnerId === userId;
       });
+
+      return guesses.map(guess => ({
+        trackId: guess.trackId,
+        userName: this.users.find(({ userId }) => userId === guess.userId).name,
+        trackOwner: this.users.find(
+          ({ userId }) => userId === guess.trackOwnerId
+        ).name,
+        selectedUser: this.users.find(
+          ({ userId }) => userId === guess.selectedUserId
+        ).name
+      }));
     }
   },
   methods: {

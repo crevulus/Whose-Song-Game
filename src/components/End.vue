@@ -109,14 +109,20 @@ export default {
         return response;
       });
     },
-    startNewActivity() {
-      API.graphql(
+    async startNewActivity() {
+      const res = await API.graphql(
         graphqlOperation(mutations.startNewActivityInstance, {
           oldActivityInstanceId: this.activityInstanceId
         })
-      ).then(response => {
-        const data = response.data.startNewActivityInstance;
-        this.redirectTo("lobby", data.newActivityInstanceId);
+      );
+      const { newActivityInstanceId } = res.data.startNewActivityInstance;
+      API.graphql(
+        graphqlOperation(mutations.whoseSongCreateActivityInstanceData, {
+          activityInstanceId: newActivityInstanceId,
+          userId: this.deviceId
+        })
+      ).then(() => {
+        this.redirectTo("input", newActivityInstanceId);
       });
     },
     updateActivityInstanceUsersMutation(activityInstanceId) {

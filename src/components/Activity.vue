@@ -14,7 +14,12 @@
         variant="primary"
         @click="showNextSong"
       >Show next song</t-button>
-      <PlayerSelectionList :users="this.users" :userId="this.deviceId" :hasVoted="hasVoted" />
+      <PlayerSelectionList
+        :users="this.users"
+        :userId="this.deviceId"
+        :guess="currentGuess"
+        :currentSong="currentSong"
+      />
       <t-button variant="primary" @click="endActivityInstanceMutation">End</t-button>
     </div>
     <!-- Component that shows instance data in tables -->
@@ -50,7 +55,7 @@ export default {
       score: [],
       guesses: [],
       showDebugger: true,
-      hasVoted: false
+      currentGuess: null
     };
   },
   computed: {
@@ -124,7 +129,9 @@ export default {
         const { trackId, userId } = this.currentSong;
         return guess.trackId === trackId && guess.trackOwnerId === userId;
       });
-      this.hasVoted = this.guessedList.includes(this.deviceId);
+      this.currentGuess = this.guessedList.find(
+        guess => guess.userId === this.deviceId
+      );
     }
   }
 };

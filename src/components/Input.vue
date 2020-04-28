@@ -1,45 +1,47 @@
 <template>
   <div>
-    <form>
+    <div class="w-full max-w-lg">
       <h4 class="title text-left font-semibold p-1">Search for your favourite song:</h4>
       <t-input
         v-on:keyup="searchTrack"
         type="text"
         v-model="searchField"
         placeholder="Artists, tracks, or albums"
-        class="w-8/12 mb-4"
+        class="w-full mb-4"
         maxlength="50"
       />
-      <ul class="song-list">
+      <ul>
         <li
-          class="card"
+          class="flex bg-white p-3 rounded-md relative items-center"
           v-for="(song, idx) in songList"
           v-bind:class="{ selected: song.isSelected}"
           @click="$set(song, 'isSelected', !song.isSelected);selectSong(song, idx)"
           v-bind:key="idx"
         >
-          <img class="card-album" :src="song.image" />
-          <div class="card-info">
-            <p class="card-text" style="color:#667eea;">
+          <img class="rounded h-12 w-12" :src="song.image" />
+          <div class="flex flex-col justify-center ml-4 pr-12">
+            <p class="m-0" style="color:#667eea;">
               <strong>{{song.title}}</strong>
             </p>
-            <p class="card-text">{{song.artists}}</p>
-            <div class="confirm" v-bind:class="{ hidden: !song.isSelected}">
-              <Checkbox />
-            </div>
+            <p class="m-0">{{song.artists}}</p>
+          </div>
+          <div
+            class="absolute right-0 top-0 h-full flex items-center"
+            v-bind:class="{ hidden: !song.isSelected}"
+          >
+            <Checkbox />
           </div>
         </li>
-        <div class="buttons">
-          <!-- <t-button :to="{ name: 'home' }" variant="primary" style="width: 45%">Home</t-button> -->
-          <t-button
-            @click="confirm()"
-            style="width: 45%"
-            variant="primary"
-            :disabled="selectedSong.length === 0"
-          >Submit song</t-button>
-        </div>
       </ul>
-    </form>
+      <div class="text-right">
+        <t-button
+          @click="confirm()"
+          class="ml-auto w-48"
+          variant="primary"
+          :disabled="selectedSong.length === 0"
+        >Submit song</t-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -172,72 +174,58 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/styles/checkbox.scss";
-h1 {
-  @apply text-2xl;
-  text-align: center;
-}
+// .title {
+//   width: 66.66%;
+//   margin-left: calc(100% / 6);
+// }
+// .song-list {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
 
-.warning-msg {
-  text-align: center;
-}
+//   .buttons {
+//     justify-content: flex-end;
+//   }
+// }
 
-.hidden {
-  display: none;
-}
+// .song-card {
+// }
 
-.title {
-  width: 66.66%;
-  margin-left: calc(100% / 6);
-}
-.song-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+// .card-album {
+//   width: 50px;
+//   height: 50px;
+//   border-radius: 3px;
+// }
+// .card-info {
+//   padding-left: 10px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   flex-grow: 1;
+// }
 
-  .buttons {
-    justify-content: flex-end;
-  }
-}
+// .card-text {
+//   margin: 1px;
+//   font-size: 90%;
+// }
 
-.song-card {
-}
+// .confirm {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   height: 100%;
+// }
 
-.card-album {
-  width: 50px;
-  height: 50px;
-  border-radius: 3px;
-}
-.card-info {
-  padding-left: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 1;
-}
+// #successAnimation {
+//   height: 100%;
+// }
 
-.card-text {
-  margin: 1px;
-  font-size: 90%;
-}
-
-.confirm {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-}
-
-#successAnimation {
-  height: 100%;
-}
-
-.buttons {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 66.66%;
-  height: 49px;
-}
+// .buttons {
+//   margin-top: 20px;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   width: 66.66%;
+//   height: 49px;
+// }
 </style>

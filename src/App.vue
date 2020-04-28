@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="main-content">
-      <router-link :to="{ name: 'input' }">Input</router-link>
+      <!-- <router-link :to="{ name: 'input' }">Input</router-link> -->
       <Logo />
       <router-view />
     </div>

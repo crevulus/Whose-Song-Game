@@ -272,3 +272,136 @@ export const factBucketUpdateActivityInstanceData = /* GraphQL */ `
     }
   }
 `;
+export const whoseSongCreateActivityInstanceData = /* GraphQL */ `
+  mutation WhoseSongCreateActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+  ) {
+    whoseSongCreateActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
+      score {
+        userId
+        score
+      }
+      guesses {
+        trackId
+        userId
+        selectedUserId
+        trackOwnerId
+      }
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+    }
+  }
+`;
+export const whoseSongUpdateActivityInstanceData = /* GraphQL */ `
+  mutation WhoseSongUpdateActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+    $action: String!
+    $trackId: String
+    $trackTitle: String
+    $trackArtists: String
+    $selectedUserId: String
+  ) {
+    whoseSongUpdateActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+      action: $action
+      trackId: $trackId
+      trackTitle: $trackTitle
+      trackArtists: $trackArtists
+      selectedUserId: $selectedUserId
+    ) {
+      activityInstanceId
+      score {
+        userId
+        score
+      }
+      guesses {
+        trackId
+        userId
+        selectedUserId
+        trackOwnerId
+      }
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+    }
+  }
+`;
+export const whoseSongStartActivityInstanceData = /* GraphQL */ `
+  mutation WhoseSongStartActivityInstanceData(
+    $activityInstanceId: ID!
+    $userId: ID!
+  ) {
+    whoseSongStartActivityInstanceData(
+      activityInstanceId: $activityInstanceId
+      userId: $userId
+    ) {
+      activityInstanceId
+      score {
+        userId
+        score
+      }
+      guesses {
+        trackId
+        userId
+        selectedUserId
+        trackOwnerId
+      }
+      songs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      currentSong {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+      playedSongs {
+        userId
+        trackId
+        trackTitle
+        trackArtists
+      }
+    }
+  }
+`;

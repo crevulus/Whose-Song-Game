@@ -15,12 +15,12 @@
               size="sm"
               variant="danger"
               v-if="isHost && deviceId != props.row.userId"
-              >Remove</t-button
-            >
+            >Remove</t-button>
           </td>
         </tr>
       </template>
     </t-table>
+    <t-button v-if="isActivityPage" @click="submitSelection" :disabled="hasVoted">Submit</t-button>
   </section>
 </template>
 <script>
@@ -29,7 +29,7 @@ import * as mutations from "@/graphql/mutations";
 
 export default {
   name: "UsersList",
-  props: ["users", "isHost", "deviceId", "hostId"],
+  props: ["users", "isHost", "deviceId", "hostId", "isActivityPage", "songs"],
   data() {
     let headers = [
       {
@@ -46,10 +46,15 @@ export default {
 
     return {
       activityInstanceId: this.$route.params.activityInstanceId,
-      headers: headers
+      headers: headers,
+      selectedUserId: "",
+      hasVoted: false
     };
   },
   methods: {
+    selectUser(selectedUserId) {
+      this.selectedUserId = selectedUserId;
+    },
     removeUser(userId) {
       API.graphql(
         graphqlOperation(mutations.removeUserFromActivityInstance, {
@@ -57,6 +62,17 @@ export default {
           removedUserId: userId
         })
       );
+    },
+    submitSelection() {
+      this.hasVoted = true;
+      API.graphql(
+        graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId,
+          action: "submitSelection",
+          selectedUserId: this.selectedUserId
+        })
+      ).then(console.log);
     }
   }
 };

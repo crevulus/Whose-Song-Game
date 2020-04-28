@@ -1,12 +1,13 @@
 <template>
   <div>
     <form>
+      <h4 class="title text-left font-semibold p-1">Search for your favourite song:</h4>
       <t-input
         v-on:keyup="searchTrack"
         type="text"
         v-model="searchField"
-        placeholder="Type your favourite song"
-        class="w-full mb-4"
+        placeholder="Artists, tracks, or albums"
+        class="w-8/12 mb-4"
         maxlength="50"
       />
       <ul class="song-list">
@@ -17,13 +18,14 @@
           @click="$set(song, 'isSelected', !song.isSelected);selectSong(song, idx)"
           v-bind:key="idx"
         >
+          <img :src="song.image" />
           <div class="card-info">
-            <p class="card-text">
+            <p class="card-text" style="color:#667eea;">
               <strong>{{song.title}}</strong>
             </p>
             <p class="card-text">{{song.artists}}</p>
           </div>
-          <div class="confirm" v-bind:class="{ hiddeny: !song.isSelected}">
+          <div class="confirm" v-bind:class="{ hidden: !song.isSelected}">
             <svg
               id="successAnimation"
               class="animated"
@@ -57,16 +59,17 @@
             </svg>
           </div>
         </li>
+        <div class="buttons">
+          <t-button :to="{ name: 'home' }" variant="primary" style="width: 45%">Home</t-button>
+          <t-button
+            @click="confirm()"
+            style="width: 45%"
+            variant="primary"
+            :disabled="selectedSong.length === 0"
+          >Submit song</t-button>
+        </div>
       </ul>
-      <t-button
-        @click="confirm()"
-        class="w-full mb-8"
-        variant="primary"
-        :disabled="selectedSong.length === 0"
-      >Confirm</t-button>
     </form>
-
-    <t-button :to="{ name: 'home' }" class="w-full" variant="primary">Home</t-button>
   </div>
 </template>
 
@@ -101,7 +104,7 @@ export default {
       this.timeoutId = setTimeout(() => {
         if (!this.searchField.length) return;
 
-        const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track,album,artist&limit=6`;
+        const url = `https://api.spotify.com/v1/search?q=${this.searchField}&type=track,album,artist&limit=4`;
         axios
           .get(url, {
             headers: {
@@ -109,6 +112,7 @@ export default {
             }
           })
           .then(res => {
+            console.log(res.data);
             this.songList = this.normalizeTrackData(res.data.tracks.items);
           });
       }, throttleSpeed);
@@ -119,6 +123,7 @@ export default {
         title: track.name,
         artists: track.artists.map(artist => artist.name).join(", "),
         album: track.album.name,
+        image: track.album.images[2].url,
         isSelected: false
       }));
     },

@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import SearchSong from "@/components/SearchSong"
+import SearchSong from "@/components/SearchSong";
 
 export default {
   components: { SearchSong }
-}
+};
 </script>
 
 <style>

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component renders correctly 1`] = `
+<div>
+  <form>
+    <input
+      placeholder="Type your favourite song"
+      type="text"
+    />
+     
+    <button>
+      Submit
+    </button>
+  </form>
+   
+  <ul />
+</div>
+`;

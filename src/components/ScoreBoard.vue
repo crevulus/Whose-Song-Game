@@ -8,11 +8,12 @@
           ]"
       >
         <td :class="props.tdClass">{{ props.row.name }}</td>
-        <td :class="props.tdClass">{{ props.row.score }}</td>
         <td :class="props.tdClass">
           <strong>{{ props.row.song.trackTitle }}</strong>
           - {{ props.row.song.trackArtists }}
         </td>
+        <td :class="props.tdClass">{{ props.row.obscurity }}</td>
+        <td :class="props.tdClass">{{ props.row.score }}</td>
       </tr>
     </template>
   </t-table>
@@ -25,19 +26,24 @@ export default {
   data() {
     const headers = [
       {
-        value: "name",
-        id: "name",
-        text: "Name"
-      },
-      {
-        value: "score",
-        id: "score",
-        text: "Score"
+        value: "participant",
+        id: "participant",
+        text: "Participant"
       },
       {
         value: "song",
         id: "song",
         text: "Song"
+      },
+      {
+        value: "obscurity",
+        id: "obscurity",
+        text: "Obscurity"
+      },
+      {
+        value: "score",
+        id: "familiarity",
+        text: "Familiarity"
       }
     ];
     return {

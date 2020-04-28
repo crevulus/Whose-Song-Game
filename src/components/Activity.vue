@@ -10,17 +10,22 @@
         allow="encrypted-media"
       ></iframe>
       <t-button
-        v-if="isHost && (this.songs.length > 0)"
+        v-if="isHost && songs.length > 0"
         variant="primary"
         @click="showNextSong"
-      >Show next song</t-button>
+      >Skip Song</t-button>
+      <t-button
+        v-else-if="isHost"
+        variant="primary"
+        @click="endActivityInstanceMutation"
+      >Skip to Results</t-button>
       <PlayerSelectionList
         :users="this.users"
         :userId="this.deviceId"
         :guess="currentGuess"
         :currentSong="currentSong"
       />
-      <t-button variant="primary" @click="endActivityInstanceMutation">End</t-button>
+      <t-button variant="primary" @click="endActivityInstanceMutation">End Game</t-button>
     </div>
     <!-- Component that shows instance data in tables -->
     <ActivityDebugger

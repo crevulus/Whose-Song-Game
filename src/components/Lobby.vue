@@ -4,10 +4,10 @@
       <div class="sm:w-1/2 w-full sm:pr-4 sm:mb-0 mb-4">
         <h3 v-if="currentUser">Welcome, {{currentUser.name}}!</h3>
         <p v-if="!isHost && currentHost">
-          The host of this round of "Whose Fave Song is That?" is
+          The host of this round of "Whose Favourite Song is That?" is
           <strong>{{currentHost.name}}</strong>.
         </p>
-        <p v-else>You're the host of this round of "Whose Fave Song is That?"</p>
+        <p v-else>You're the host of this round of "Whose Favourite Song is That?"</p>
         <p class="text-gray-800">Invite your colleagues and wait for them to join the game.</p>
         <Share :activityInstanceId="activityInstanceId" :elementId="'copy-link_lobby'" />
         <h3>Your Song:</h3>

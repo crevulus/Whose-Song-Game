@@ -24,10 +24,6 @@
               <strong>{{song.title}}</strong>
             </p>
             <p class="card-text">{{song.artists}}</p>
-            <!-- <p class="card-text">
-              <strong>Album:</strong>
-              {{song.album}}
-            </p>-->
           </div>
           <div class="confirm" v-bind:class="{ hidden: !song.isSelected}">
             <svg
@@ -83,6 +79,7 @@ import { mapMutations, mapGetters } from "vuex";
 import { API, graphqlOperation } from "aws-amplify";
 import commonMethods from "@/mixins/commonMethods";
 import * as mutations from "@/graphql/mutations";
+import * as subscriptions from "@/graphql/subscriptions";
 
 export default {
   name: "SearchSong",
@@ -136,6 +133,12 @@ export default {
       this.selectedSong = song;
     },
     confirm() {
+      if (this.status !== "waiting") {
+        this.$router.push({
+          name: "home"
+        });
+        return;
+      }
       const { id, title, artists } = this.selectedSong;
       API.graphql(
         graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
@@ -154,15 +157,25 @@ export default {
           }
         });
       });
+    },
+    updatedActivityInstanceSubscription() {
+      API.graphql(
+        graphqlOperation(subscriptions.updatedActivityInstance, {
+          activityInstanceId: this.activityInstanceId
+        })
+      ).subscribe(response => {
+        const data = response.value.data.updatedActivityInstance;
+        this.status = data.status;
+      });
     }
   },
   computed: {
     ...mapGetters(["accessToken"])
   },
   created() {
+    this.updatedActivityInstanceSubscription();
     this.getActivityInstanceQuery();
     const url = "https://accounts.spotify.com/api/token";
-    // const pair = ["grant_type", "client_credentials"];
     const client_id = "f27c6cba06be4c7691eadadeb40bb8a8";
     const client_secret = "3ed8adb1529d4d35b4dd3abfcb1ec638";
     const hash = Buffer.from(client_id + ":" + client_secret).toString(

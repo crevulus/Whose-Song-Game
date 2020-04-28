@@ -1,12 +1,16 @@
 <template>
   <div class="home">
-    <div class="m-auto w-full">
-      <ul class="explanation">
-        <li v-for="(item) in 5" v-bind:key="item">This is the explanation for this game.</li>
-      </ul>
+    <div class="list-container m-auto w-full">
+      <ol class="explanation">
+        <li>Call your colleagues! Use Hangouts, Skype, Zoom etc. and put the window to one side.</li>
+        <li>Enter your name and create a new game room.</li>
+        <li>Search for your favourite song and press confirm once you've chosen.</li>
+        <li>Copy the link and share with your colleagues, then wait for them to join.</li>
+        <li>When you're ready: hit start and play!</li>
+      </ol>
       <h3 class="text-gray-800">Enter your name to start a game</h3>
       <div class="input-container">
-        <t-input class="w-full mb-4" v-model="name" maxlength="50" placeholder="Name..." />
+        <t-input class="w-full mb-4" v-model="name" maxlength="50" placeholder="Name..." @keyup.enter="createActivityInstance" />
         <t-button
           id="create-activity_home"
           class="w-full mb-8"
@@ -75,16 +79,21 @@ export default {
   flex-direction: row;
 }
 
+.list-container {
+  max-width: 90%;
+}
+
+.explanation {
+  list-style-type: decimal;
+  padding-left: 10px;
+}
+
 .input-container {
   justify-content: center;
   width: 90%;
 }
 
 .play-btn {
-  display: inline;
-}
-
-.explanation {
   display: inline;
 }
 </style>

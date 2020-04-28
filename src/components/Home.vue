@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flex mx-auto" style="max-width: 800px">
     <div class="w-full md:w-1/2 m-auto p-5">
       <ol class="list-decimal list-inside">
         <li>

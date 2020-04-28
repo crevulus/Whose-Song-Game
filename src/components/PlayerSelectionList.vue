@@ -2,13 +2,13 @@
   <div>
     <ul class="player-list">
       <li
-        :class="{selected: selection && selection.playerId === u.userId}"
-        class="card"
+        :class="{'border-purple-600': selection.playerId === u.userId, 'hover:border-purple-200': selection.playerId !== u.userId}"
+        class="flex bg-white p-3 rounded-md relative items-center border-transparent border-2 cursor-pointer"
         v-for="u in users"
         :key="u.userId"
         @click="selectPlayer(u.userId)"
       >
-        <p class="player-name">{{u.name}}</p>
+        <p class="my-0">{{u.name}}</p>
       </li>
     </ul>
     <t-button variant="primary" @click="submitSelection" :disabled="!!this.guess">Confirm Selection</t-button>
@@ -38,7 +38,7 @@ export default {
       if (this.selected && this.selected.trackId === this.currentSong.trackId) {
         return this.selected;
       }
-      return null;
+      return {};
     }
   },
   methods: {
@@ -61,6 +61,13 @@ export default {
           action: "submitSelection"
         })
       );
+    },
+    isSelectedPlayer(playerId) {
+      console.log(playerId);
+      if (!this.currentSong) return false;
+      const { userId } = this.currentSong;
+      if (playerId === userId) return true;
+      return false;
     }
   }
 };

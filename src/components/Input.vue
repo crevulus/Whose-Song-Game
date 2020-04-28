@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mx-auto" style="max-width: 800px">
     <div class="w-full max-w-lg mx-auto">
       <h4 class="title text-left font-semibold p-1">Search for your favourite song</h4>
       <t-input
@@ -57,6 +57,7 @@ import Checkbox from "@/components/Checkbox";
 export default {
   name: "Input",
   components: { Checkbox },
+  mixins: [commonMethods],
   data: function() {
     return {
       searchField: "",
@@ -66,9 +67,15 @@ export default {
       // activityInstanceId: this.$route.params.activityInstanceId
     };
   },
-  mixins: [commonMethods],
+  computed: {
+    ...mapGetters(["accessToken"])
+  },
+  created() {
+    this.updatedActivityInstanceSubscription();
+    this.getActivityInstanceQuery();
+    this.getAccessToken();
+  },
   methods: {
-    // dontKnowWhatToCallTheseFunctions() {},
     ...mapMutations(["setAccessToken"]),
     searchTrack(e) {
       const throttleSpeed = 400; // ms
@@ -86,7 +93,6 @@ export default {
             }
           })
           .then(res => {
-            console.log(res.data);
             this.songList = this.normalizeTrackData(res.data.tracks.items);
           });
       }, throttleSpeed);
@@ -141,91 +147,30 @@ export default {
         const data = response.value.data.updatedActivityInstance;
         this.status = data.status;
       });
-    }
-  },
-  computed: {
-    ...mapGetters(["accessToken"])
-  },
-  created() {
-    this.updatedActivityInstanceSubscription();
-    this.getActivityInstanceQuery();
-    const url = "https://accounts.spotify.com/api/token";
-    const client_id = "f27c6cba06be4c7691eadadeb40bb8a8";
-    const client_secret = "3ed8adb1529d4d35b4dd3abfcb1ec638";
-    const hash = Buffer.from(client_id + ":" + client_secret).toString(
-      "base64"
-    );
-    const config = {
-      headers: {
-        Authorization: "Basic " + hash,
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
+    },
+    getAccessToken() {
+      console.log("called");
+      const url = "https://accounts.spotify.com/api/token";
+      const client_id = "f27c6cba06be4c7691eadadeb40bb8a8";
+      const client_secret = "3ed8adb1529d4d35b4dd3abfcb1ec638";
+      const hash = Buffer.from(client_id + ":" + client_secret).toString(
+        "base64"
+      );
+      const config = {
+        headers: {
+          Authorization: "Basic " + hash,
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      };
 
-    axios
-      .post(url, "grant_type=client_credentials", config)
-      .then(r => {
-        const token = r.data.access_token;
-        this.setAccessToken(token);
-      })
-      .catch(r => console.log(r));
+      axios
+        .post(url, "grant_type=client_credentials", config)
+        .then(r => {
+          const token = r.data.access_token;
+          this.setAccessToken(token);
+        })
+        .catch(r => console.log(r));
+    }
   }
 };
 </script>
-
-<style lang="scss">
-// .title {
-//   width: 66.66%;
-//   margin-left: calc(100% / 6);
-// }
-// .song-list {
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-
-//   .buttons {
-//     justify-content: flex-end;
-//   }
-// }
-
-// .song-card {
-// }
-
-// .card-album {
-//   width: 50px;
-//   height: 50px;
-//   border-radius: 3px;
-// }
-// .card-info {
-//   padding-left: 10px;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   flex-grow: 1;
-// }
-
-// .card-text {
-//   margin: 1px;
-//   font-size: 90%;
-// }
-
-// .confirm {
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   height: 100%;
-// }
-
-// #successAnimation {
-//   height: 100%;
-// }
-
-// .buttons {
-//   margin-top: 20px;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   width: 66.66%;
-//   height: 49px;
-// }
-</style>

@@ -3,11 +3,12 @@
     <ul class="player-list">
       <li
         :class="{selected: selection && selection.playerId === u.userId}"
+        class="card"
         v-for="u in users"
         :key="u.userId"
         @click="selectPlayer(u.userId)"
       >
-        <p>{{u.name}}</p>
+        <p class="player-name">{{u.name}}</p>
       </li>
     </ul>
     <t-button variant="primary" @click="submitSelection" :disabled="!!this.guess">Confirm Selection</t-button>
@@ -65,9 +66,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.player-list {
-  li.selected {
-    background-color: lime;
-  }
+.player-name {
+  margin: 0;
 }
 </style>

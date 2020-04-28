@@ -45,7 +45,7 @@ a:focus {
 }
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-
+@import "src/styles/checkbox.scss";
 #app {
   font-family: "Nunito sans", Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -63,5 +63,33 @@ a:focus {
   max-width: 800px;
   text-align: center;
   margin: 0em auto 1em auto;
+}
+
+.card {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  border-radius: 8px;
+  margin: 6px;
+  padding: 12px;
+  padding-right: 50px;
+  width: 66.66%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  border: 2px solid white;
+
+  transition: all 300ms ease;
+}
+
+.card:hover {
+  border: 2px solid rgb(202, 157, 241);
+  transition: all 450ms ease;
+}
+
+.selected:not(:focus) {
+  border: 2px solid rgb(141, 11, 255);
+  transition: all 450ms ease;
 }
 </style>

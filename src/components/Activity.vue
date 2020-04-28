@@ -3,6 +3,7 @@
     <div class="game">
       <div class="col">
         <div class="media-player">
+          <h4 class="header">Whose song is this?</h4>
           <iframe
             :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
             width="300"
@@ -156,5 +157,10 @@ export default {
   .col {
     width: 50%;
   }
+}
+
+.header {
+  padding-bottom: 5px;
+  font-weight: 600;
 }
 </style>

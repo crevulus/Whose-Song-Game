@@ -1,11 +1,62 @@
-import { mount } from "@vue/test-utils";
-import { mapMutations, mapGetters } from "vuex";
+import { mount, config, createLocalVue } from "@vue/test-utils";
 import SearchSong from "@/components/SearchSong";
+import VueTailwind from "vue-tailwind";
 
-describe('Component', () => {
-  const wrapper = mount(SearchSong, { sync: false })
-  const tracks = [{ id: 123, name: 'foo', artists: [{ name: 'Tell' }], album: { name: 'Mitch' } },
-  { id: 123, name: 'foo', artists: [{ name: 'Tell' }], album: { name: 'Mitch' } }];
+const localVue = createLocalVue();
+localVue.use(VueTailwind);
+
+config.mocks["$gtm"] = { trackView: function (name, path) { } };
+config.mocks["$route"] = { params: { activityInstanceId: '123' } };
+
+describe('SearchSong Component', () => {
+  const users = [
+    {
+      userId: '123',
+      name: 'Foo'
+    },
+    {
+      userId: '456',
+      name: 'Bar'
+    }
+  ]
+
+  function updatedActivityInstanceSubscription() {
+    return
+  };
+
+  function getActivityInstanceQuery() {
+    return
+  }
+
+  const tracks = [{
+    id: 123,
+    name: 'foo',
+    artists: [{ name: 'Tell' }],
+    album: { name: 'Mitch', images: { 2: { url: '123' } } }
+  },
+  {
+    id: 123,
+    name: 'foo',
+    artists: [{ name: 'Tell' }],
+    album: { name: 'Mitch', images: { 2: { url: '123' } } }
+  }];
+
+  const wrapper = mount(SearchSong, {
+    localVue,
+    data() {
+      return {
+        activityInstanceId: '123456789',
+        isHost: false,
+        users,
+        hostId: '456',
+        status: 'started'
+      }
+    },
+    methods: {
+      updatedActivityInstanceSubscription,
+      getActivityInstanceQuery
+    }
+  })
 
   // checks if vue component
   test('is a Vue instance', () => {
@@ -17,20 +68,15 @@ describe('Component', () => {
     expect(wrapper.element).toMatchSnapshot()
   })
 
-  // test if element exists
-  it('has a button', () => {
-    expect(wrapper.contains('button')).toBe(true)
-  })
-
   // calling methods
   it('testing normalized tracks', () => {
     const normalizedTracks = wrapper.vm.normalizeTrackData(tracks);
     expect(normalizedTracks).toEqual([{
       id: 123, title: 'foo', artists: 'Tell', album:
-        'Mitch'
+        'Mitch', "image": "123", "isSelected": false
     }, {
       id: 123, title: 'foo', artists: 'Tell', album:
-        'Mitch'
+        'Mitch', "image": "123", "isSelected": false
     }])
   })
 
@@ -40,7 +86,7 @@ describe('Component', () => {
     wrapper.setData({ songList: normalizedTracks });
     await wrapper.vm.$nextTick()
     const li = wrapper.find('li');
-    expect(li.html()).toBe('<li class="song-card">foo Tell Mitch</li>')
+    expect(li.text()).toMatch('Tell')
   })
 })
 

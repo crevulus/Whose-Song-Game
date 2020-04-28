@@ -1,6 +1,7 @@
 import { mount, config, createLocalVue } from "@vue/test-utils";
 import VueTailwind from "vue-tailwind";
-import Home from "@/components/Home";
+import App from "@/components/App";
+import VueRouter from 'vue-router'
 
 const localVue = createLocalVue();
 localVue.use(VueTailwind);
@@ -8,8 +9,8 @@ localVue.use(VueTailwind);
 config.mocks["$gtm"] = { trackView: function (name, path) { } };
 config.mocks["$route"] = {};
 
-describe("Home Component", () => {
-  const wrapper = mount(Home, { localVue });
+describe("App Component", () => {
+  const wrapper = mount(App, { localVue });
 
   it("renders Create button", () => {
     const msg = "Create";

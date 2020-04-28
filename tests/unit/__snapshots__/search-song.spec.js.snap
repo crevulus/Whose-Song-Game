@@ -3,16 +3,43 @@
 exports[`Component renders correctly 1`] = `
 <div>
   <form>
+    <h4
+      class="title text-left font-semibold p-1"
+    >
+      Search for your favourite song:
+    </h4>
+     
     <input
-      placeholder="Type your favourite song"
+      class="w-8/12 mb-4 t-input t-input-size-default t-input-status-default border block rounded p-3 bg-white"
+      maxlength="50"
+      placeholder="Artists, tracks, or albums"
       type="text"
     />
      
-    <button>
-      Submit
-    </button>
+    <ul
+      class="song-list"
+    >
+       
+      <div
+        class="buttons"
+      >
+        <button
+          class="t-button t-button-size-default border block rounded inline-flex items-center justify-center px-6 py-3 text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600"
+          style="width: 45%;"
+          type="button"
+        >
+          Home
+        </button>
+         
+        <button
+          class="t-button t-button-size-default border block rounded inline-flex items-center justify-center px-6 py-3 text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600"
+          style="width: 45%;"
+          type="button"
+        >
+          Submit song
+        </button>
+      </div>
+    </ul>
   </form>
-   
-  <ul />
 </div>
 `;

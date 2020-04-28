@@ -61,12 +61,7 @@
         </li>
         <div class="buttons">
           <t-button :to="{ name: 'home' }" variant="primary" style="width: 45%">Home</t-button>
-          <t-button
-            @click="confirm()"
-            style="width: 45%"
-            variant="primary"
-            :disabled="selectedSong.length === 0"
-          >Submit song</t-button>
+          <t-button @click="confirm()" style="width: 45%" variant="primary">Submit song</t-button>
         </div>
       </ul>
     </form>

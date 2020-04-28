@@ -1,9 +1,11 @@
 import { mount } from "@vue/test-utils";
-// import VueTailwind from "vue-tailwind";
+import { mapMutations, mapGetters } from "vuex";
 import SearchSong from "@/components/SearchSong";
 
 describe('Component', () => {
-  const wrapper = mount(SearchSong)
+  const wrapper = mount(SearchSong, { sync: false })
+  const tracks = [{ id: 123, name: 'foo', artists: [{ name: 'Tell' }], album: { name: 'Mitch' } },
+  { id: 123, name: 'foo', artists: [{ name: 'Tell' }], album: { name: 'Mitch' } }];
 
   // checks if vue component
   test('is a Vue instance', () => {
@@ -21,29 +23,25 @@ describe('Component', () => {
   })
 
   // calling methods
-  it('calling methods', () => {
-    const tracks = [{ id: 123, name: 'foo', artists: [{ name: 'Tell' }], album: { name: 'Mitch' } }];
-
-    expect(wrapper.vm.normalizeTrackData(tracks)).toEqual([{
+  it('testing normalized tracks', () => {
+    const normalizedTracks = wrapper.vm.normalizeTrackData(tracks);
+    expect(normalizedTracks).toEqual([{
+      id: 123, title: 'foo', artists: 'Tell', album:
+        'Mitch'
+    }, {
       id: 123, title: 'foo', artists: 'Tell', album:
         'Mitch'
     }])
   })
 
   // async testing
-  it('should update list of results', async () => {
-    const e = { preventDefault: () => (console.log()) };
-    await wrapper.vm.searchTrack(e);
-    console.log(wrapper.html());
+  it('testing if page updates with songs', async () => {
+    const normalizedTracks = wrapper.vm.normalizeTrackData(tracks);
+    wrapper.setData({ songList: normalizedTracks });
+    await wrapper.vm.$nextTick()
+    const li = wrapper.find('li');
+    expect(li.html()).toBe('<li class="song-card">foo Tell Mitch</li>')
   })
-
-  // // test for user input
-  // it('button click should trigger method', async () => {
-  //   const button = wrapper.find('button')
-  //   button.trigger('click')
-  //   await wrapper.vm.$nextTick()
-  //   expect(wrapper.text()).toContain('1')
-  // })
 })
 
 

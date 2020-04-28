@@ -22,7 +22,7 @@ export default {
   name: "SearchSong",
   data: function() {
     return {
-      searchField: "drake",
+      searchField: "",
       songList: [],
       isSelected: false
     };

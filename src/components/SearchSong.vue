@@ -18,15 +18,7 @@
           @click="$set(song, 'isSelected', !song.isSelected);selectSong(song, idx)"
           v-bind:key="idx"
         >
-          <iframe
-            class="play-btn"
-            :src="`https://open.spotify.com/embed/track/${song.id}`"
-            width="80"
-            height="80"
-            frameborder="0"
-            allowtransparency="true"
-            allow="encrypted-media"
-          ></iframe>
+          <img :src="song.image" />
           <div class="card-info">
             <p class="card-text" style="color:#667eea;">
               <strong>{{song.title}}</strong>
@@ -123,6 +115,7 @@ export default {
             }
           })
           .then(res => {
+            console.log(res.data);
             this.songList = this.normalizeTrackData(res.data.tracks.items);
           });
       }, throttleSpeed);
@@ -133,6 +126,7 @@ export default {
         title: track.name,
         artists: track.artists.map(artist => artist.name).join(", "),
         album: track.album.name,
+        image: track.album.images[2].url,
         isSelected: false
       }));
     },

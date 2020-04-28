@@ -8,19 +8,33 @@
         :key="u.userId"
         @click="selectPlayer(u.userId)"
       >
-        <p class="my-0">{{u.name}}</p>
+        <p class="my-0 text-indigo-600">{{u.name}}</p>
+        <div
+          class="absolute right-0 top-0 h-full flex items-center"
+          :class="{ hidden: selection.playerId !== u.userId }"
+        >
+          <Checkbox />
+        </div>
       </li>
     </ul>
-    <t-button variant="primary" @click="submitSelection" :disabled="!!this.guess">Confirm Selection</t-button>
+    <div class="text-right">
+      <t-button
+        variant="primary"
+        @click="submitSelection"
+        :disabled="!!this.guess"
+      >Confirm Selection</t-button>
+    </div>
   </div>
 </template>
 <script>
 import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "@/graphql/mutations";
+import Checkbox from "@/components/Checkbox";
 
 export default {
   name: "PlayerSelectionList",
   props: ["users", "userId", "guess", "currentSong"],
+  components: { Checkbox },
   data() {
     return {
       activityInstanceId: this.$route.params.activityInstanceId,
@@ -43,7 +57,7 @@ export default {
   },
   methods: {
     selectPlayer(playerId) {
-      if (this.selected === playerId) {
+      if (this.selected && this.selected.playerId === playerId) {
         this.selected = null;
         return;
       }
@@ -61,13 +75,6 @@ export default {
           action: "submitSelection"
         })
       );
-    },
-    isSelectedPlayer(playerId) {
-      console.log(playerId);
-      if (!this.currentSong) return false;
-      const { userId } = this.currentSong;
-      if (playerId === userId) return true;
-      return false;
     }
   }
 };

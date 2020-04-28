@@ -43,11 +43,11 @@ $check-length: 36px;
 @keyframes scaleAnimation {
   0% {
     opacity: 0;
-    transform: scale(1.5);
+    transform: scale(0);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(0.6);
   }
 }
 
@@ -89,7 +89,7 @@ $check-length: 36px;
 
 #successAnimationCircle {
   stroke-dasharray: $circle-length $circle-length;
-  stroke: #ccc;
+  stroke: rgb(141, 11, 255);
 }
 
 #successAnimationCheck {
@@ -106,17 +106,17 @@ $check-length: 36px;
   animation: 0.5s ease-out 0s 1 both scaleAnimation;
 
   #successAnimationCircle {
-    animation: 0.5s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCircle,
-      0.3s linear 0.3s 1 both fadeOut;
+    animation: 1.4s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCircle,
+      1.9s linear 0.9s 1 both fadeOut;
   }
 
   #successAnimationCheck {
-    animation: 0.5s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCheck,
-      0.3s linear 0.3s 1 both fadeOut;
+    animation: 0.9s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCheck,
+      0.9s linear 1.1s 1 both fadeOut;
   }
 
   #successAnimationResult {
-    animation: 0.3s linear 0.3s both fadeIn;
+    animation: 0.9s linear 1.3s both fadeIn;
   }
 }
 </style>

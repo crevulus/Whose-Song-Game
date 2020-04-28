@@ -1,6 +1,6 @@
 <template>
   <div class="activity flex flex-wrap mx-auto" style="max-width: 1280px">
-    <div class="flex flex-wrap w-full lg:w-2/3">
+    <div class="flex flex-wrap sm:flex-no-wrap w-full lg:w-2/3">
       <div class="w-full mx-auto sm:w-1/2 p-2" style="width: calc(300px + 1rem)">
         <h4 class="font-semibold">Whose song is this?</h4>
         <iframe
@@ -13,7 +13,7 @@
           allow="encrypted-media"
         ></iframe>
       </div>
-      <div class="w-full mx-auto sm:w-1/2 p-2">
+      <div class="w-full mx-auto sm:flex-grow p-2">
         <h4 class="font-semibold">Select a name and confirm</h4>
         <PlayerSelectionList
           :users="this.users"

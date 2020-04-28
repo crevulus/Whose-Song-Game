@@ -1,32 +1,38 @@
 <template>
   <div class="activity">
-    <div class="media-player">
-      <iframe
-        :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
-        width="300"
-        height="380"
-        frameborder="0"
-        allowtransparency="true"
-        allow="encrypted-media"
-      ></iframe>
-      <t-button
-        v-if="isHost && songs.length > 0"
-        variant="primary"
-        @click="showNextSong"
-      >Skip Song</t-button>
+    <div class="game">
+      <div class="col">
+        <div class="media-player">
+          <iframe
+            :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
+            width="300"
+            height="380"
+            frameborder="0"
+            allowtransparency="true"
+            allow="encrypted-media"
+          ></iframe>
+        </div>
+      </div>
+      <div class="col">
+        <PlayerSelectionList
+          :users="this.users"
+          :userId="this.deviceId"
+          :guess="currentGuess"
+          :currentSong="currentSong"
+        />
+      </div>
+    </div>
+    <div class="game-controls">
+      <h1>Host controls</h1>
+      <t-button v-if="isHost && songs.length > 0" variant="primary" @click="showNextSong">Skip Song</t-button>
       <t-button
         v-else-if="isHost"
         variant="primary"
         @click="endActivityInstanceMutation"
       >Skip to Results</t-button>
-      <PlayerSelectionList
-        :users="this.users"
-        :userId="this.deviceId"
-        :guess="currentGuess"
-        :currentSong="currentSong"
-      />
       <t-button variant="primary" @click="endActivityInstanceMutation">End Game</t-button>
     </div>
+
     <!-- Component that shows instance data in tables -->
     <ActivityDebugger
       v-if="this.showDebugger"
@@ -141,4 +147,14 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.game {
+  width: 800px;
+  display: flex;
+  flex-wrap: wrap;
 
+  .col {
+    width: 50%;
+  }
+}
+</style>

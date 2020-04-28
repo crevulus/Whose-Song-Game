@@ -18,7 +18,7 @@
           @click="$set(song, 'isSelected', !song.isSelected);selectSong(song, idx)"
           v-bind:key="idx"
         >
-          <img :src="song.image" />
+          <img class="card-album" :src="song.image" />
           <div class="card-info">
             <p class="card-text" style="color:#667eea;">
               <strong>{{song.title}}</strong>
@@ -60,7 +60,7 @@
           </div>
         </li>
         <div class="buttons">
-          <t-button :to="{ name: 'home' }" variant="primary" style="width: 45%">Home</t-button>
+          <!-- <t-button :to="{ name: 'home' }" variant="primary" style="width: 45%">Home</t-button> -->
           <t-button
             @click="confirm()"
             style="width: 45%"
@@ -201,4 +201,12 @@ export default {
 
 <style lang="scss">
 @import "src/styles/searchSong.scss";
+h1 {
+  @apply text-2xl;
+  text-align: center;
+}
+
+.warning-msg {
+  text-align: center;
+}
 </style>

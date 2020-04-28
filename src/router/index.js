@@ -5,7 +5,7 @@ import Home from "@/components/Home";
 import Join from "@/components/Join";
 import Lobby from "@/components/Lobby";
 import End from "@/components/End";
-import InputSong from "@/components/InputSong";
+import Input from "@/components/Input";
 
 Vue.use(Router);
 
@@ -39,7 +39,7 @@ let router = new Router({
     {
       path: "/input/:activityInstanceId", // add activity instance ID
       name: "input",
-      component: InputSong
+      component: Input
     }
   ]
 });

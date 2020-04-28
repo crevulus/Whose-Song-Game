@@ -8,7 +8,7 @@ localVue.use(VueTailwind);
 config.mocks["$gtm"] = { trackView: function (name, path) { } };
 config.mocks["$route"] = { params: { activityInstanceId: '123' } };
 
-describe('SearchSong Component', () => {
+describe.only('SearchSong Component', () => {
   const users = [
     {
       userId: '123',
@@ -20,12 +20,21 @@ describe('SearchSong Component', () => {
     }
   ]
 
-  function updatedActivityInstanceSubscription() {
-    return
-  };
+  const methods = {
+    updatedActivityInstanceSubscription() {
+      return
+    },
+    getActivityInstanceQuery() {
+      return
+    }
+  }
 
-  function getActivityInstanceQuery() {
-    return
+  const data = {
+    activityInstanceId: '123456789',
+    isHost: false,
+    users,
+    hostId: '456',
+    status: 'started'
   }
 
   const tracks = [{
@@ -44,18 +53,9 @@ describe('SearchSong Component', () => {
   const wrapper = mount(SearchSong, {
     localVue,
     data() {
-      return {
-        activityInstanceId: '123456789',
-        isHost: false,
-        users,
-        hostId: '456',
-        status: 'started'
-      }
+      return data;
     },
-    methods: {
-      updatedActivityInstanceSubscription,
-      getActivityInstanceQuery
-    }
+    methods
   })
 
   // checks if vue component

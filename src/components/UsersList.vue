@@ -20,7 +20,6 @@
         </tr>
       </template>
     </t-table>
-    <t-button v-if="isActivityPage" @click="submitSelection" :disabled="hasVoted">Submit</t-button>
   </section>
 </template>
 <script>
@@ -29,7 +28,7 @@ import * as mutations from "@/graphql/mutations";
 
 export default {
   name: "UsersList",
-  props: ["users", "isHost", "deviceId", "hostId", "isActivityPage", "songs"],
+  props: ["users", "isHost", "deviceId", "hostId"],
   data() {
     let headers = [
       {
@@ -46,15 +45,10 @@ export default {
 
     return {
       activityInstanceId: this.$route.params.activityInstanceId,
-      headers: headers,
-      selectedUserId: "",
-      hasVoted: false
+      headers: headers
     };
   },
   methods: {
-    selectUser(selectedUserId) {
-      this.selectedUserId = selectedUserId;
-    },
     removeUser(userId) {
       API.graphql(
         graphqlOperation(mutations.removeUserFromActivityInstance, {
@@ -62,17 +56,6 @@ export default {
           removedUserId: userId
         })
       );
-    },
-    submitSelection() {
-      this.hasVoted = true;
-      API.graphql(
-        graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
-          activityInstanceId: this.activityInstanceId,
-          userId: this.deviceId,
-          action: "submitSelection",
-          selectedUserId: this.selectedUserId
-        })
-      ).then(console.log);
     }
   }
 };

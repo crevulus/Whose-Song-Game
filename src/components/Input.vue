@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="w-full max-w-lg">
-      <h4 class="title text-left font-semibold p-1">Search for your favourite song:</h4>
+    <div class="w-full max-w-lg mx-auto">
+      <h4 class="title text-left font-semibold p-1">Search for your favourite song</h4>
       <t-input
         v-on:keyup="searchTrack"
         type="text"
@@ -12,11 +12,11 @@
       />
       <ul>
         <li
-          class="flex bg-white p-3 rounded-md relative items-center"
+          class="flex bg-white p-3 rounded-md relative items-center border-transparent border-2 cursor-pointer"
           v-for="(song, idx) in songList"
-          v-bind:class="{ selected: song.isSelected}"
+          :class="{ 'border-purple-600': song.isSelected, 'hover:border-purple-200': !song.isSelected }"
           @click="$set(song, 'isSelected', !song.isSelected);selectSong(song, idx)"
-          v-bind:key="idx"
+          :key="idx"
         >
           <img class="rounded h-12 w-12" :src="song.image" />
           <div class="flex flex-col justify-center ml-4 pr-12">
@@ -27,7 +27,7 @@
           </div>
           <div
             class="absolute right-0 top-0 h-full flex items-center"
-            v-bind:class="{ hidden: !song.isSelected}"
+            :class="{ hidden: !song.isSelected}"
           >
             <Checkbox />
           </div>

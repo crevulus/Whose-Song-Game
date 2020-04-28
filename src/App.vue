@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div id="main-content">
-      <!-- <router-link :to="{ name: 'input' }">Input</router-link> -->
       <Logo />
       <router-view />
     </div>
@@ -55,7 +54,7 @@ a:focus {
 #main-content {
   min-height: calc(100vh - 12rem);
   max-width: 800px;
-  margin: auto;
+  margin: 0 auto 50px;
   margin-top: 30px;
   padding: 1em 3em;
 }
@@ -64,32 +63,4 @@ a:focus {
   text-align: center;
   margin: 0em auto 1em auto;
 }
-
-// .card {
-//   position: relative;
-//   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-//     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-//   border-radius: 8px;
-//   margin: 6px;
-//   padding: 12px;
-//   padding-right: 50px;
-//   width: 100%;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   background-color: white;
-//   border: 2px solid white;
-
-//   transition: all 300ms ease;
-// }
-
-// .card:hover {
-//   border: 2px solid rgb(202, 157, 241);
-//   transition: all 450ms ease;
-// }
-
-// .selected:not(:focus) {
-//   border: 2px solid rgb(141, 11, 255);
-//   transition: all 450ms ease;
-// }
 </style>

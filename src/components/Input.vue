@@ -24,8 +24,10 @@
               <strong>{{song.title}}</strong>
             </p>
             <p class="card-text">{{song.artists}}</p>
+            <div class="confirm" v-bind:class="{ hidden: !song.isSelected}">
+              <Checkbox />
+            </div>
           </div>
-          <div class="confirm" v-bind:class="{ hidden: !song.isSelected}"></div>
         </li>
         <div class="buttons">
           <!-- <t-button :to="{ name: 'home' }" variant="primary" style="width: 45%">Home</t-button> -->
@@ -48,9 +50,11 @@ import { API, graphqlOperation } from "aws-amplify";
 import commonMethods from "@/mixins/commonMethods";
 import * as mutations from "@/graphql/mutations";
 import * as subscriptions from "@/graphql/subscriptions";
+import Checkbox from "@/components/Checkbox";
 
 export default {
-  name: "SearchSong",
+  name: "Input",
+  components: { Checkbox },
   data: function() {
     return {
       searchField: "",

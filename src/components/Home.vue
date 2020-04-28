@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <div class="list-container m-auto w-full">
+  <div class="flex">
+    <div class="sm:w-full w-1/2 m-auto">
       <ol class="explanation">
         <li>Call your colleagues! Use Hangouts, Skype, Zoom etc. and put the window to one side.</li>
         <li>Enter your name and create a new game room.</li>
@@ -10,7 +10,13 @@
       </ol>
       <h3 class="text-gray-800">Enter your name to start a game</h3>
       <div class="input-container">
-        <t-input class="w-full mb-4" v-model="name" maxlength="50" placeholder="Name..." @keyup.enter="createActivityInstance" />
+        <t-input
+          class="w-full mb-4"
+          v-model="name"
+          maxlength="50"
+          placeholder="Name..."
+          @keyup.enter="createActivityInstance"
+        />
         <t-button
           id="create-activity_home"
           class="w-full mb-8"
@@ -20,15 +26,17 @@
         >Create activity room</t-button>
       </div>
     </div>
-    <iframe
-      class="play-btn"
-      src="https://open.spotify.com/embed/track/6sT9MWlJManry3EQwf4V80"
-      width="300"
-      height="380"
-      frameborder="0"
-      allowtransparency="true"
-      allow="encrypted-media"
-    ></iframe>
+    <div class="hidden sm:block">
+      <iframe
+        class="play-btn"
+        src="https://open.spotify.com/embed/track/6sT9MWlJManry3EQwf4V80"
+        width="300"
+        height="380"
+        frameborder="0"
+        allowtransparency="true"
+        allow="encrypted-media"
+      ></iframe>
+    </div>
   </div>
 </template>
 <script>
@@ -74,14 +82,14 @@ export default {
 };
 </script>
 <style>
-.home {
+/* .home {
   display: flex;
   flex-direction: row;
-}
+} */
 
-.list-container {
+/* .list-container {
   max-width: 90%;
-}
+} */
 
 .explanation {
   list-style-type: decimal;

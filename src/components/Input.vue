@@ -149,7 +149,6 @@ export default {
       });
     },
     getAccessToken() {
-      console.log("called");
       const url = "https://accounts.spotify.com/api/token";
       const client_id = "f27c6cba06be4c7691eadadeb40bb8a8";
       const client_secret = "3ed8adb1529d4d35b4dd3abfcb1ec638";

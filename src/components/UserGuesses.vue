@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h4 class="font-semibold">What is an app? And see who guessed what</h4>
+    <h4 class="font-semibold">Shhh! The others are voting on your song</h4>
     <ul>
       <li
         class="flex bg-white p-3 rounded-md items-center border-2"
-        :class="{'border-transparent': !u.hasGuessed, 'border-red-500': !u.isCorrect, 'border-green-500': u.isCorrect}"
-        v-for="u in users"
+        :class="{'border-red-300': !u.isCorrect, 'border-transparent': !u.hasGuessed, 'border-green-300': u.isCorrect}"
+        v-for="u in users.filter((user) => user.userId !== userId)"
         :key="u.name"
       >
         <p class="my-0 text-indigo-600">{{u.name}}</p>
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: "UserGuesses",
-  props: ["users"]
+  props: ["users", "userId"]
 };
 </script>
 <style>

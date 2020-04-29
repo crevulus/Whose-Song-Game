@@ -5,7 +5,7 @@
       <li
         :class="{'border-purple-600': selection.playerId === u.userId, 'hover:border-purple-200': selection.playerId !== u.userId}"
         class="flex bg-white p-3 rounded-md relative items-center border-transparent border-2 cursor-pointer"
-        v-for="u in users"
+        v-for="u in users.filter((user => user.userId !== userId))"
         :key="u.userId"
         @click="selectPlayer(u.userId)"
       >

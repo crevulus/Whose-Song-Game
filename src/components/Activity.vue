@@ -21,7 +21,7 @@
           :guess="currentGuess"
           :currentSong="currentSong"
         />
-        <UserGuesses v-if="isSongOwner" :users="usersGuessList" />
+        <UserGuesses v-if="isSongOwner" :users="usersGuessList" :userId="deviceId" />
       </div>
     </div>
     <div class="flex flex-col w-full mx-auto lg:w-1/3 p-2 bg-purple-700 rounded-xxl px-8 py-20">
@@ -90,7 +90,7 @@ export default {
       playedSongs: [],
       score: [],
       guesses: [],
-      showDebugger: true,
+      showDebugger: false,
       currentGuess: null
     };
   },
@@ -108,7 +108,7 @@ export default {
       return this.deviceId === this.currentSong.userId;
     },
     hasGuessed() {
-      return this.userHasGuessed(this.userId);
+      return this.userHasGuessed(this.deviceId);
     },
     usersGuessList() {
       return this.users.map(user => {

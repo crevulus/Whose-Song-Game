@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Component renders correctly 1`] = `
+<div
+  class="home"
+>
+  <div
+    class="list-container m-auto w-full"
+  >
+    <ol
+      class="explanation"
+    >
+      <li>
+        Call your colleagues! Use Hangouts, Skype, Zoom etc. and put the window to one side.
+      </li>
+       
+      <li>
+        Enter your name and create a new game room.
+      </li>
+       
+      <li>
+        Search for your favourite song and press confirm once you've chosen.
+      </li>
+       
+      <li>
+        Copy the link and share with your colleagues, then wait for them to join.
+      </li>
+       
+      <li>
+        When you're ready: hit start and play!
+      </li>
+    </ol>
+     
+    <h3
+      class="text-gray-800"
+    >
+      Enter your name to start a game
+    </h3>
+     
+    <div
+      class="input-container"
+    >
+      <input
+        class="w-full mb-4 t-input t-input-size-default t-input-status-default border block rounded p-3 bg-white"
+        maxlength="50"
+        placeholder="Name..."
+        type="text"
+      />
+       
+      <button
+        class="w-full mb-8 t-button t-button-size-default border block rounded inline-flex items-center justify-center t-button-disabled cursor-not-allowed opacity-75 px-6 py-3 text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600"
+        disabled="disabled"
+        id="create-activity_home"
+        type="button"
+      >
+        Create activity room
+      </button>
+    </div>
+  </div>
+   
+  <iframe
+    allow="encrypted-media"
+    allowtransparency="true"
+    class="play-btn"
+    frameborder="0"
+    height="380"
+    src="https://open.spotify.com/embed/track/6sT9MWlJManry3EQwf4V80"
+    width="300"
+  />
+</div>
+`;

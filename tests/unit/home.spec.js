@@ -5,13 +5,19 @@ import Home from "@/components/Home";
 const localVue = createLocalVue();
 localVue.use(VueTailwind);
 
-config.mocks["$gtm"] = { trackView: function(name, path) {} };
+config.mocks["$gtm"] = { trackView: function (name, path) { } };
 config.mocks["$route"] = {};
 
-describe("Home.vue", () => {
+describe("Home Component", () => {
+  const wrapper = mount(Home, { localVue });
+
   it("renders Create button", () => {
     const msg = "Create";
-    const wrapper = mount(Home, { localVue });
     expect(wrapper.text()).toMatch(msg);
   });
+
+  // snapshot testing
+  test('renders correctly', () => {
+    expect(wrapper.element).toMatchSnapshot()
+  })
 });

@@ -21,7 +21,7 @@
           :guess="currentGuess"
           :currentSong="currentSong"
         />
-        <UserGuesses v-if="isSongOwner" :users="usersGuessList" :userId="deviceId" />
+        <UserGuesses v-if="isSongOwner" :users="usersGuessList" :userId="this.deviceId" />
       </div>
     </div>
     <div class="flex flex-col w-full mx-auto lg:w-1/3 p-2 bg-purple-700 rounded-xxl px-8 py-20">
@@ -119,6 +119,7 @@ export default {
         );
         return {
           name: user.name,
+          userId: user.userId,
           hasGuessed: !!guess,
           isCorrect: guess && guess.selectedUserId === guess.trackOwnerId
         };
@@ -167,7 +168,7 @@ export default {
         const data = response.value.data.whoseSongUpdatedActivityInstanceData;
         this.setVariables(data);
 
-        if (this.guessedList.length === this.users.length) {
+        if (this.guessedList.length === this.users.length - 1) {
           if (this.songs.length === 0) {
             API.graphql(
               graphqlOperation(mutations.endActivityInstance, {

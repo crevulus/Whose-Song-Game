@@ -4,8 +4,8 @@
     <ul>
       <li
         class="flex bg-white p-3 rounded-md items-center border-2"
-        :class="{'border-red-300': !u.isCorrect, 'border-transparent': !u.hasGuessed, 'border-green-300': u.isCorrect}"
-        v-for="u in users.filter((user) => user.userId !== userId)"
+        :class="{'border-transparent': !u.hasGuessed, 'border-green-300': u.isCorrect, 'border-red-300': u.hasGuessed && !u.isCorrect}"
+        v-for="u in users.filter(user => user.userId !== userId)"
         :key="u.name"
       >
         <p class="my-0 text-indigo-600">{{u.name}}</p>

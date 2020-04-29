@@ -2,7 +2,8 @@
 
 exports[`Lobby Component renders correctly 1`] = `
 <div
-  class="lobby"
+  class="lobby mx-auto"
+  style="max-width: 800px;"
 >
   <div
     class="flex flex-wrap"
@@ -54,30 +55,6 @@ exports[`Lobby Component renders correctly 1`] = `
       <!---->
        
       <!---->
-       
-      <t-button-stub
-        activeclass="router-link-active"
-        baseclass="border block rounded inline-flex items-center justify-center"
-        class="w-full"
-        dangerclass="text-white bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600"
-        defaultclass="bg-white border-gray-400 hover:bg-gray-100 hover:border-gray-500"
-        defaultsizeclass="px-6 py-3"
-        disabledclass="cursor-not-allowed opacity-75"
-        exactactiveclass="router-link-exact-active"
-        largesizeclass="px-8 py-4 text-lg"
-        primaryclass="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600"
-        secondaryclass="border-blue-500 text-blue-500 bg-white hover:border-blue-600 hover:text-blue-600 hover:bg-white"
-        smallsizeclass="px-4 py-2 text-sm"
-        successclass="text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600"
-        tagname="button"
-        tertiaryclass="border block underline text-blue-500 border-transparent bg-transparent hover:text-blue-600"
-        to="[object Object]"
-        type="button"
-        variant="primary"
-        warningclass="text-yellow-900 bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600"
-      >
-        Home
-      </t-button-stub>
     </div>
   </div>
 </div>

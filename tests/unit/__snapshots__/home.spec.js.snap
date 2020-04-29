@@ -2,32 +2,54 @@
 
 exports[`Home Component renders correctly 1`] = `
 <div
-  class="home"
+  class="flex mx-auto"
+  style="max-width: 800px;"
 >
   <div
-    class="list-container m-auto w-full"
+    class="w-full md:w-1/2 m-auto p-5"
   >
     <ol
-      class="explanation"
+      class="list-decimal list-inside"
     >
       <li>
-        Call your colleagues! Use Hangouts, Skype, Zoom etc. and put the window to one side.
+        <strong>
+          Call your colleagues!
+        </strong>
+         Use Hangouts, Skype, Zoom etc. and put the window to one side.
+      
       </li>
        
       <li>
-        Enter your name and create a new game room.
+        <strong>
+          Enter your name
+        </strong>
+         and create a new game room.
+      
       </li>
        
       <li>
-        Search for your favourite song and press confirm once you've chosen.
+        <strong>
+          Search for your favourite song
+        </strong>
+         and press confirm once you've chosen.
+      
       </li>
        
       <li>
-        Copy the link and share with your colleagues, then wait for them to join.
+        <strong>
+          Copy the link
+        </strong>
+         and share with your colleagues, then wait for them to join.
+      
       </li>
        
       <li>
-        When you're ready: hit start and play!
+        
+        When you're ready:
+        
+        <strong>
+          hit start and play!
+        </strong>
       </li>
     </ol>
      
@@ -41,7 +63,7 @@ exports[`Home Component renders correctly 1`] = `
       class="input-container"
     >
       <input
-        class="w-full mb-4 t-input t-input-size-default t-input-status-default border block rounded p-3 bg-white"
+        class="w-full mb-4 focus:border-black t-input t-input-size-default t-input-status-default border block rounded p-3 bg-white"
         maxlength="50"
         placeholder="Name..."
         type="text"
@@ -58,14 +80,18 @@ exports[`Home Component renders correctly 1`] = `
     </div>
   </div>
    
-  <iframe
-    allow="encrypted-media"
-    allowtransparency="true"
-    class="play-btn"
-    frameborder="0"
-    height="380"
-    src="https://open.spotify.com/embed/track/6sT9MWlJManry3EQwf4V80"
-    width="300"
-  />
+  <div
+    class="hidden md:block"
+  >
+    <iframe
+      allow="encrypted-media"
+      allowtransparency="true"
+      class="rounded-sm"
+      frameborder="0"
+      height="380"
+      src="https://open.spotify.com/embed/track/6sT9MWlJManry3EQwf4V80"
+      width="300"
+    />
+  </div>
 </div>
 `;

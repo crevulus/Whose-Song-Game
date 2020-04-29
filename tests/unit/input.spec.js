@@ -9,6 +9,8 @@ config.mocks["$gtm"] = { trackView: function (name, path) { } };
 config.mocks["$route"] = { params: { activityInstanceId: '123' } };
 
 describe.only('SearchSong Component', () => {
+  const commonMethods = {};
+
   const users = [
     {
       userId: '123',
@@ -26,6 +28,9 @@ describe.only('SearchSong Component', () => {
     },
     getActivityInstanceQuery() {
       return
+    },
+    getAccessToken() {
+      return;
     }
   }
 
@@ -55,7 +60,8 @@ describe.only('SearchSong Component', () => {
     data() {
       return data;
     },
-    methods
+    methods,
+    mixins: [commonMethods]
   })
 
   // checks if vue component

@@ -8,7 +8,7 @@
         :key="u.userId"
         @click="selectPlayer(u.userId)"
       >
-        <p class="my-0 text-indigo-600">{{u.name}}</p>
+        <p v-if="u.userId !== deviceId" class="my-0 text-indigo-600">{{u.name}}{{deviceId}}</p>
         <div
           class="absolute right-0 top-0 h-full flex items-center"
           :class="{ hidden: selection.playerId !== u.userId }"
@@ -38,7 +38,8 @@ export default {
   data() {
     return {
       activityInstanceId: this.$route.params.activityInstanceId,
-      selected: null
+      selected: null,
+      deviceId: ''
     };
   },
   computed: {

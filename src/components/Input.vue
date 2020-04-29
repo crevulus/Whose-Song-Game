@@ -114,6 +114,7 @@ export default {
     },
     confirm() {
       if (this.status !== "waiting") {
+        alert('Sorry, the game has already begun. Please start a new game or wait for the next one.')
         this.$router.push({
           name: "home"
         });

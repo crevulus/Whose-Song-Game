@@ -4,6 +4,7 @@
       <div class="w-full mx-auto sm:w-1/2 p-2" style="width: calc(300px + 1rem)">
         <h4 class="font-semibold">Whose song is this?</h4>
         <iframe
+          v-if="currentSong.trackId"
           class="rounded-sm"
           :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
           width="300"

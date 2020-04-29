@@ -1,5 +1,5 @@
 import { mount, config, createLocalVue } from "@vue/test-utils";
-import SearchSong from "@/components/SearchSong";
+import Input from "@/components/Input";
 import VueTailwind from "vue-tailwind";
 
 const localVue = createLocalVue();
@@ -50,7 +50,7 @@ describe.only('SearchSong Component', () => {
     album: { name: 'Mitch', images: { 2: { url: '123' } } }
   }];
 
-  const wrapper = mount(SearchSong, {
+  const wrapper = mount(Input, {
     localVue,
     data() {
       return data;

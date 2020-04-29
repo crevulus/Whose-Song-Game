@@ -6,9 +6,9 @@
       role="alert"
       style="max-width: 600px; margin: 20px auto;"
     >
-      <strong class="font-bold">Too late!</strong>
+      <strong class="font-bold">Too late!&nbsp;</strong>
       <span class="block sm:inline">Game already started...</span>
-      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <span class="absolute top-0 bottom-0 right-0 px-4 py-3" style="cursor: pointer">
         <!-- <svg
           class="fill-current h-6 w-6 text-red-500"
           role="button"

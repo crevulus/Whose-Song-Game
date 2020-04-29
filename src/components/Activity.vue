@@ -25,7 +25,7 @@
     </div>
     <div class="flex flex-col w-full mx-auto lg:w-1/3 p-2 bg-purple-700 rounded-xxl px-8 py-20">
       <div class="mt-auto">
-        <h1>Host controls</h1>
+        <p class="text-white font-semibold">🕹Host controls</p>
         <t-button
           class="w-full mb-4"
           v-if="isHost && songs.length > 0"

@@ -23,6 +23,7 @@
         @click="submitSelection"
         :disabled="!!this.guess || this.userId === currentSong.userId"
       >Confirm Selection</t-button>
+      <p v-show="this.userId === currentSong.userId">You can't choose your own song! Sit this one out and wait for the next round.</p>
     </div>
   </div>
 </template>

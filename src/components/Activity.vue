@@ -21,6 +21,7 @@
           :guess="currentGuess"
           :currentSong="currentSong"
         />
+        <UserGuesses v-if="isSongOwner" :users="usersGuessList" />
       </div>
     </div>
     <div class="flex flex-col w-full mx-auto lg:w-1/3 p-2 bg-purple-700 rounded-xxl px-8 py-20">
@@ -71,10 +72,16 @@ import commonMethods from "@/mixins/commonMethods";
 import ActivityDebugger from "@/components/ActivityDebugger";
 import PlayerSelectionList from "@/components/PlayerSelectionList";
 import Participants from "@/components/Participants";
+import UserGuesses from "@/components/UserGuesses";
 
 export default {
   name: "Activity",
-  components: { ActivityDebugger, PlayerSelectionList, Participants },
+  components: {
+    ActivityDebugger,
+    PlayerSelectionList,
+    Participants,
+    UserGuesses
+  },
   mixins: [commonMethods],
   data() {
     return {
@@ -102,6 +109,20 @@ export default {
     },
     hasGuessed() {
       return this.userHasGuessed(this.userId);
+    },
+    usersGuessList() {
+      return this.users.map(user => {
+        const guess = this.guesses.find(
+          guess =>
+            guess.trackId === this.currentSong.trackId &&
+            guess.userId === user.userId
+        );
+        return {
+          name: user.name,
+          hasGuessed: !!guess,
+          isCorrect: guess && guess.selectedUserId === guess.trackOwnerId
+        };
+      });
     }
   },
   created() {

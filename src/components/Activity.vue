@@ -1,32 +1,39 @@
 <template>
-  <div class="activity">
-    <div class="media-player">
-      <iframe
-        :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
-        width="300"
-        height="380"
-        frameborder="0"
-        allowtransparency="true"
-        allow="encrypted-media"
-      ></iframe>
-      <t-button
-        v-if="isHost && songs.length > 0"
-        variant="primary"
-        @click="showNextSong"
-      >Skip Song</t-button>
+  <div class="activity flex flex-wrap mx-auto" style="max-width: 1280px">
+    <div class="flex flex-wrap sm:flex-no-wrap w-full lg:w-2/3">
+      <div class="w-full mx-auto sm:w-1/2 p-2" style="width: calc(300px + 1rem)">
+        <h4 class="font-semibold">Whose song is this?</h4>
+        <iframe
+          class="rounded-sm"
+          :src="`https://open.spotify.com/embed/track/${currentSong.trackId}`"
+          width="300"
+          height="380"
+          frameborder="0"
+          allowtransparency="true"
+          allow="encrypted-media"
+        ></iframe>
+      </div>
+      <div class="w-full mx-auto sm:flex-grow p-2">
+        <h4 class="font-semibold">Select a name and confirm</h4>
+        <PlayerSelectionList
+          :users="this.users"
+          :userId="this.deviceId"
+          :guess="currentGuess"
+          :currentSong="currentSong"
+        />
+      </div>
+    </div>
+    <div class="w-full mx-auto lg:w-1/3 p-2">
+      <h1>Host controls</h1>
+      <t-button v-if="isHost && songs.length > 0" variant="primary" @click="showNextSong">Skip Song</t-button>
       <t-button
         v-else-if="isHost"
         variant="primary"
         @click="endActivityInstanceMutation"
       >Skip to Results</t-button>
-      <PlayerSelectionList
-        :users="this.users"
-        :userId="this.deviceId"
-        :guess="currentGuess"
-        :currentSong="currentSong"
-      />
       <t-button variant="primary" @click="endActivityInstanceMutation">End Game</t-button>
     </div>
+
     <!-- Component that shows instance data in tables -->
     <ActivityDebugger
       v-if="this.showDebugger"
@@ -129,7 +136,6 @@ export default {
       this.score = data.score;
       this.songs = data.songs;
       this.guesses = data.guesses;
-      // filters out correct object from guessedList
       this.guessedList = this.guesses.filter(guess => {
         const { trackId, userId } = this.currentSong;
         return guess.trackId === trackId && guess.trackOwnerId === userId;
@@ -141,4 +147,19 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.game {
+  width: 800px;
+  display: flex;
+  flex-wrap: wrap;
 
+  .col {
+    width: 50%;
+  }
+}
+
+.header {
+  padding-bottom: 5px;
+  font-weight: 600;
+}
+</style>

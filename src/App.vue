@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div id="main-content">
-      <!-- <router-link :to="{ name: 'input' }">Input</router-link> -->
       <Logo />
       <router-view />
     </div>
@@ -54,10 +53,10 @@ a:focus {
 }
 #main-content {
   min-height: calc(100vh - 12rem);
-  max-width: 800px;
-  margin: auto;
+  // max-width: 800px;
+  margin: 0 auto 50px;
   margin-top: 30px;
-  padding: 1em 1em;
+  padding: 1em 3em;
 }
 #footer-rules {
   max-width: 800px;

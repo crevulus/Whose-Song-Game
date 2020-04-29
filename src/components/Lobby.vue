@@ -1,5 +1,5 @@
 <template>
-  <div class="lobby">
+  <div class="lobby mx-auto" style="max-width: 800px">
     <div class="flex flex-wrap">
       <div class="sm:w-1/2 w-full sm:pr-4 sm:mb-0 mb-4">
         <h3 v-if="currentUser">Welcome, {{currentUser.name}}!</h3>
@@ -42,7 +42,7 @@
               users.length > activity.maxPlayers
           "
         >Start</t-button>
-        <t-button :to="{ name: 'home' }" class="w-full" variant="primary">Home</t-button>
+        <!-- <t-button :to="{ name: 'home' }" class="w-full" variant="primary">Home</t-button> -->
       </div>
     </div>
   </div>

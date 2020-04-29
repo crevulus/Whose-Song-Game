@@ -20,28 +20,6 @@
 <script>
 export default {
   name: "Participants",
-  props: ["users", "userId", "guesses", "currentSong"],
-  computed: {
-    participants() {
-      return this.users.map(user => ({
-        name: user.name,
-        hasGuessed: this.userhasGuessed(user.userId)
-      }));
-    },
-    hasGuessed() {
-      return this.userhasGuessed(this.userId);
-    },
-    isSongOwner() {
-      return this.userId === this.currentSong.userId;
-    }
-  },
-  methods: {
-    userhasGuessed(userId) {
-      return !!this.guesses.find(
-        guess =>
-          guess.userId === userId && guess.trackId === this.currentSong.trackId
-      );
-    }
-  }
+  props: ["participants", "hasGuessed", "isSongOwner"]
 };
 </script>

@@ -14,8 +14,8 @@
         ></iframe>
       </div>
       <div class="w-full mx-auto sm:flex-grow p-2">
-        <h4 class="font-semibold">Select a name and confirm</h4>
         <PlayerSelectionList
+          v-if="!isSongOwner"
           :users="this.users"
           :userId="this.deviceId"
           :guess="currentGuess"
@@ -27,10 +27,9 @@
       <div>
         <p class="text-white font-semibold">Participants</p>
         <Participants
-          :users="users"
-          :userId="deviceId"
-          :currentSong="currentSong"
-          :guesses="guesses"
+          :participants="participants"
+          :isSongOwner="isSongOwner"
+          :hasGuessed="hasGuessed"
         />
       </div>
       <div v-if="isHost" class="mt-auto">
@@ -89,8 +88,20 @@ export default {
     };
   },
   computed: {
+    participants() {
+      return this.users.map(user => ({
+        name: user.name,
+        hasGuessed: this.userHasGuessed(user.userId)
+      }));
+    },
     hasNextSong() {
       return this.songs.length > 0;
+    },
+    isSongOwner() {
+      return this.deviceId === this.currentSong.userId;
+    },
+    hasGuessed() {
+      return this.userHasGuessed(this.userId);
     }
   },
   created() {
@@ -160,6 +171,12 @@ export default {
       });
       this.currentGuess = this.guessedList.find(
         guess => guess.userId === this.deviceId
+      );
+    },
+    userHasGuessed(userId) {
+      return !!this.guesses.find(
+        guess =>
+          guess.userId === userId && guess.trackId === this.currentSong.trackId
       );
     }
   }

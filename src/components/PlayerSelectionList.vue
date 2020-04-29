@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h4 class="font-semibold">Select a name and confirm</h4>
     <ul class="player-list">
       <li
         :class="{'border-purple-600': selection.playerId === u.userId, 'hover:border-purple-200': selection.playerId !== u.userId}"

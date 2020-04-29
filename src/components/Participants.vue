@@ -1,7 +1,18 @@
 <template>
   <div>
     <ul>
-      <li v-for="user in users"></li>
+      <li
+        class="flex bg-purple-600 p-3 rounded-md relative items-center border-transparent border-2 cursor-pointer"
+        v-for="p in participants"
+        :key="p.name"
+      >
+        <p class="m-0 text-white">{{p.name}}</p>
+        <div
+          class="rounded-full bg-white h-3 w-3 absolute"
+          style="top: 50%; right: 20px; transform: translateY(-50%)"
+          v-if="hasGuessed || isSongOwner"
+        ></div>
+      </li>
     </ul>
   </div>
 </template>
@@ -14,18 +25,18 @@ export default {
     participants() {
       return this.users.map(user => ({
         name: user.name,
-        hasVoted: userHasVoted(user.userId)
+        hasGuessed: this.userhasGuessed(user.userId)
       }));
     },
-    hasVoted() {
-      return this.userHasVoted(this.userId);
+    hasGuessed() {
+      return this.userhasGuessed(this.userId);
     },
     isSongOwner() {
       return this.userId === this.currentSong.userId;
     }
   },
   methods: {
-    userHasVoted(userId) {
+    userhasGuessed(userId) {
       return !!this.guesses.find(
         guess =>
           guess.userId === userId && guess.trackId === this.currentSong.trackId

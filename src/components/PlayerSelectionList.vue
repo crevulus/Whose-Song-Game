@@ -79,8 +79,3 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.player-name {
-  margin: 0;
-}
-</style>

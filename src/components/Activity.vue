@@ -24,18 +24,27 @@
       </div>
     </div>
     <div class="flex flex-col w-full mx-auto lg:w-1/3 p-2 bg-purple-700 rounded-xxl px-8 py-20">
-      <div class="mt-auto">
+      <div>
+        <p class="text-white font-semibold">Participants</p>
+        <Participants
+          :users="users"
+          :userId="deviceId"
+          :currentSong="currentSong"
+          :guesses="guesses"
+        />
+      </div>
+      <div v-if="isHost" class="mt-auto">
         <p class="text-white font-semibold">🕹Host controls</p>
         <t-button
           class="w-full mb-4"
-          v-if="isHost && songs.length > 0"
-          variant="primary"
+          v-if="songs.length > 0"
+          variant="warning"
           @click="showNextSong"
         >Skip Song</t-button>
         <t-button
           class="w-full mb-4"
           variant="warning"
-          v-else-if="isHost"
+          v-else
           @click="endActivityInstanceMutation"
         >Skip to Results</t-button>
         <t-button class="w-full" variant="warning" @click="endActivityInstanceMutation">End Game</t-button>
@@ -62,10 +71,11 @@ import * as queries from "@/graphql/queries";
 import commonMethods from "@/mixins/commonMethods";
 import ActivityDebugger from "@/components/ActivityDebugger";
 import PlayerSelectionList from "@/components/PlayerSelectionList";
+import Participants from "@/components/Participants";
 
 export default {
   name: "Activity",
-  components: { ActivityDebugger, PlayerSelectionList },
+  components: { ActivityDebugger, PlayerSelectionList, Participants },
   mixins: [commonMethods],
   data() {
     return {

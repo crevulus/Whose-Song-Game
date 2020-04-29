@@ -2,24 +2,39 @@
   <div>
     <ul class="player-list">
       <li
-        :class="{selected: selection && selection.playerId === u.userId}"
+        :class="{'border-purple-600': selection.playerId === u.userId, 'hover:border-purple-200': selection.playerId !== u.userId}"
+        class="flex bg-white p-3 rounded-md relative items-center border-transparent border-2 cursor-pointer"
         v-for="u in users"
         :key="u.userId"
         @click="selectPlayer(u.userId)"
       >
-        <p>{{u.name}}</p>
+        <p class="my-0 text-indigo-600">{{u.name}}</p>
+        <div
+          class="absolute right-0 top-0 h-full flex items-center"
+          :class="{ hidden: selection.playerId !== u.userId }"
+        >
+          <Checkbox />
+        </div>
       </li>
     </ul>
-    <t-button variant="primary" @click="submitSelection" :disabled="!!this.guess">Confirm Selection</t-button>
+    <div class="text-right">
+      <t-button
+        variant="primary"
+        @click="submitSelection"
+        :disabled="!!this.guess"
+      >Confirm Selection</t-button>
+    </div>
   </div>
 </template>
 <script>
 import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "@/graphql/mutations";
+import Checkbox from "@/components/Checkbox";
 
 export default {
   name: "PlayerSelectionList",
   props: ["users", "userId", "guess", "currentSong"],
+  components: { Checkbox },
   data() {
     return {
       activityInstanceId: this.$route.params.activityInstanceId,
@@ -37,12 +52,12 @@ export default {
       if (this.selected && this.selected.trackId === this.currentSong.trackId) {
         return this.selected;
       }
-      return null;
+      return {};
     }
   },
   methods: {
     selectPlayer(playerId) {
-      if (this.selected === playerId) {
+      if (this.selected && this.selected.playerId === playerId) {
         this.selected = null;
         return;
       }
@@ -65,9 +80,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.player-list {
-  li.selected {
-    background-color: lime;
-  }
+.player-name {
+  margin: 0;
 }
 </style>

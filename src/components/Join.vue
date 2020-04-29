@@ -1,16 +1,18 @@
 <template>
-  <div class="home">
+  <div class="mx-auto" style="max-width: 800px">
     <div class="m-auto sm:w-1/2 w-full">
       <ul>
         <li>Search for your favourite song and press confirm once you've chosen.</li>
         <li>Wait for your colleagues to join, and then {{currentHost.name}} will start the game!</li>
       </ul>
       <h3 class="text-gray-800">Enter your name to join the game</h3>
-      <t-input 
-        class="w-full mb-4" 
-        v-model="name" maxlength="50" 
-        placeholder="Name..." 
-        @keyup.enter="updateActivityInstanceUsersMutation" />
+      <t-input
+        class="w-full mb-4"
+        v-model="name"
+        maxlength="50"
+        placeholder="Name..."
+        @keyup.enter="updateActivityInstanceUsersMutation"
+      />
       <t-button
         class="w-full mb-8"
         id="join-activity_join"
@@ -39,6 +41,11 @@ export default {
     return {
       name: ""
     };
+  },
+  computed: {
+    currentHost: function() {
+      return this.users.find(user => user.userId === this.hostId);
+    }
   },
   created() {
     this.getActivityQuery();
@@ -77,11 +84,6 @@ export default {
           }
         });
       });
-    }
-  },
-  computed: {
-    currentHost: function() {
-      return this.users.find(user => user.userId === this.hostId);
     }
   }
 };

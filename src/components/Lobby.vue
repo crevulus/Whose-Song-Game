@@ -42,7 +42,6 @@
               users.length > activity.maxPlayers
           "
         >Start</t-button>
-        <!-- <t-button :to="{ name: 'home' }" class="w-full" variant="primary">Home</t-button> -->
       </div>
     </div>
   </div>

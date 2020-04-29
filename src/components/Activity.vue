@@ -1,6 +1,6 @@
 <template>
   <div class="activity flex flex-wrap mx-auto" style="max-width: 1280px">
-    <div class="flex flex-wrap sm:flex-no-wrap w-full lg:w-2/3">
+    <div class="flex flex-wrap sm:flex-no-wrap w-full lg:w-2/3" style="max-width: 650px">
       <div class="w-full mx-auto sm:w-1/2 p-2" style="width: calc(300px + 1rem)">
         <h4 class="font-semibold">Whose song is this?</h4>
         <iframe
@@ -23,15 +23,23 @@
         />
       </div>
     </div>
-    <div class="w-full mx-auto lg:w-1/3 p-2">
-      <h1>Host controls</h1>
-      <t-button v-if="isHost && songs.length > 0" variant="primary" @click="showNextSong">Skip Song</t-button>
-      <t-button
-        v-else-if="isHost"
-        variant="primary"
-        @click="endActivityInstanceMutation"
-      >Skip to Results</t-button>
-      <t-button variant="primary" @click="endActivityInstanceMutation">End Game</t-button>
+    <div class="flex flex-col w-full mx-auto lg:w-1/3 p-2 bg-purple-700 rounded-xxl px-8 py-20">
+      <div class="mt-auto">
+        <h1>Host controls</h1>
+        <t-button
+          class="w-full mb-4"
+          v-if="isHost && songs.length > 0"
+          variant="primary"
+          @click="showNextSong"
+        >Skip Song</t-button>
+        <t-button
+          class="w-full mb-4"
+          variant="warning"
+          v-else-if="isHost"
+          @click="endActivityInstanceMutation"
+        >Skip to Results</t-button>
+        <t-button class="w-full" variant="warning" @click="endActivityInstanceMutation">End Game</t-button>
+      </div>
     </div>
 
     <!-- Component that shows instance data in tables -->
@@ -147,19 +155,3 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.game {
-  width: 800px;
-  display: flex;
-  flex-wrap: wrap;
-
-  .col {
-    width: 50%;
-  }
-}
-
-.header {
-  padding-bottom: 5px;
-  font-weight: 600;
-}
-</style>

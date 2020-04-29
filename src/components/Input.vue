@@ -1,31 +1,22 @@
 <template>
   <div>
-    <div
-      v-show="showAlert"
-      class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative content-center"
-      role="alert"
-      style="max-width: 600px; margin: 20px auto;"
-    >
-      <strong class="font-bold">Too late!&nbsp;</strong>
-      <span class="block sm:inline">Game already started...</span>
-      <span class="absolute top-0 bottom-0 right-0 px-4 py-3" style="cursor: pointer">
-        <!-- <svg
-          class="fill-current h-6 w-6 text-red-500"
-          role="button"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-        >
-          <path
-            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
-          />
-        </svg>-->
-        <div @click="redirect">
-          <title>Close</title>OK
-        </div>
-      </span>
-    </div>
     <div class="mx-auto" style="max-width: 800px">
       <div class="w-full max-w-lg mx-auto">
+        <div
+          v-show="showAlert"
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative content-center"
+          role="alert"
+          style="max-width: 100%; margin: 20px auto;"
+        >
+          <strong class="font-bold">Too late!&nbsp;</strong>
+          <span>The game has already started...</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3 rounded-r-sm bg-red-600" style="cursor: pointer">
+            <div class="text-white" @click="redirect">
+              <title>Close</title>
+              <strong>OK</strong>
+            </div>
+          </span>
+        </div>
         <h4 class="title text-left font-semibold p-1">Search for your favourite song</h4>
         <t-input
           v-on:keyup="searchTrack"

@@ -1,7 +1,13 @@
 <template>
   <div class="end px-6 w-3/4 m-auto">
     <ScoreBoard :users="formattedUsers" />
-    <div class="text-right">
+    <div class="flex justify-between">
+      <span
+        title="Obscurity: Participants that didn't guess your song
+Familiarity: Number of songs you guessed correctly"
+      >
+        <p class="border-dotted border-b-2 border-gray-500 mt-2">What do these results mean?</p>
+      </span>
       <t-button
         on
         variant="warning"

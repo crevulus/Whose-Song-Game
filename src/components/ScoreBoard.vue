@@ -47,7 +47,7 @@ export default {
       {
         value: "participant",
         id: "participant",
-        text: "Participant"
+        text: `Participant`
       },
       {
         value: "song",

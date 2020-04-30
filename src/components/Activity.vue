@@ -64,12 +64,13 @@
           </svg>
         </button>
       </div>
+      <p class="text-white font-semibold" v-if="!collapsed">Participants</p>
       <div
+        id="participants"
         class="lg:block flex-grow mb-4"
-        style="max-height: calc(100% - (8rem - 150px)); overflow-y: auto;"
-        :class="{'hidden': collapsed}"
+        style="overflow-y: auto; width: 290px"
+        :class="{'hidden': collapsed, 'is-host': isHost}"
       >
-        <p class="text-white font-semibold">Participants</p>
         <Participants
           :songOwner="currentSong.userId"
           :participants="participants"
@@ -250,3 +251,8 @@ export default {
   }
 };
 </script>
+<style>
+participants:not(.is-host) {
+  height: calc(100% - 8rem);
+}
+</style>

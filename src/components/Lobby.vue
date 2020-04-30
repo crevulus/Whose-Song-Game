@@ -39,7 +39,7 @@
           @click="startActivityInstanceMutation"
           :disabled="
             !activity ||
-              songs.length < activity.minPlayers ||
+              songs.length < 0 ||
               songs.length > activity.maxPlayers
           "
         >Start</t-button>

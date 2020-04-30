@@ -195,10 +195,10 @@ module.exports = {
       lg:
         "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
       xl:
-        "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+        "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.06)",
       "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
       inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
-      outline: "0 0 0 3px rgba(238, 219, 255)",
+      outline: "0 0 0 3px rgba(66, 153, 225, 0.5)",
       none: "none"
     },
     container: {},
@@ -229,7 +229,9 @@ module.exports = {
       default: "1"
     },
     fontFamily: {
+      header: ["Nunito"],
       sans: [
+        "Nunito Sans",
         "system-ui",
         "-apple-system",
         "BlinkMacSystemFont",
@@ -425,6 +427,7 @@ module.exports = {
       "9/12": "75%",
       "10/12": "83.333333%",
       "11/12": "91.666667%",
+      panel: "26rem",
       full: "100%",
       screen: "100vw",
       profile: "calc(100% - 4rem)"

@@ -25,7 +25,46 @@
         <UserGuesses v-if="isSongOwner" :users="usersGuessList" :userId="this.deviceId" />
       </div>
     </div>
-    <div class="flex flex-col w-full mx-auto lg:w-1/3 p-2 bg-purple-700 rounded-xxl px-8 py-20">
+    <div
+      class="flex flex-col p-2 bg-purple-700 rounded-xxl px-8 py-20 absolute right-0"
+      style="top: 75px; min-height: calc(100vh - 225px)"
+      :class="{'rounded-r-none': collapsed}"
+    >
+      <!-- Toggle collapse participants panel -->
+      <div class="absolute left-0" style="top: 50%; transform: translateY(-50%);">
+        <button v-on:click="collapsed = !collapsed">
+          <svg
+            v-if="collapsed"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-chevron-left"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          <svg
+            v-if="!collapsed"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-chevron-right"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
       <div>
         <p class="text-white font-semibold">Participants</p>
         <Participants
@@ -93,7 +132,8 @@ export default {
       score: [],
       guesses: [],
       showDebugger: false,
-      currentGuess: null
+      currentGuess: null,
+      collapsed: false
     };
   },
   computed: {

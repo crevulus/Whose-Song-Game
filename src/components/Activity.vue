@@ -1,6 +1,6 @@
 <template>
   <div class="activity flex flex-wrap mx-auto" style="max-width: 1280px">
-    <div class="flex flex-wrap sm:flex-no-wrap w-full lg:w-2/3">
+    <div class="flex flex-wrap sm:flex-no-wrap w-full lg:w-2/3" style="max-width: 650px">
       <div class="w-full mx-auto sm:w-1/2 p-2" style="width: calc(300px + 1rem)">
         <h4 class="font-semibold">Whose song is this?</h4>
         <iframe
@@ -15,24 +15,41 @@
         ></iframe>
       </div>
       <div class="w-full mx-auto sm:flex-grow p-2">
-        <h4 class="font-semibold">Select a name and confirm</h4>
         <PlayerSelectionList
+          v-if="!isSongOwner"
           :users="this.users"
           :userId="this.deviceId"
           :guess="currentGuess"
           :currentSong="currentSong"
         />
+        <UserGuesses v-if="isSongOwner" :users="usersGuessList" :userId="this.deviceId" />
       </div>
     </div>
-    <div class="w-full mx-auto lg:w-1/3 p-2">
-      <h1>Host controls</h1>
-      <t-button v-if="isHost && songs.length > 0" variant="primary" @click="showNextSong">Skip Song</t-button>
-      <t-button
-        v-else-if="isHost"
-        variant="primary"
-        @click="endActivityInstanceMutation"
-      >Skip to Results</t-button>
-      <t-button variant="primary" @click="endActivityInstanceMutation">End Game</t-button>
+    <div class="flex flex-col w-full mx-auto lg:w-1/3 p-2 bg-purple-700 rounded-xxl px-8 py-20">
+      <div>
+        <p class="text-white font-semibold">Participants</p>
+        <Participants
+          :participants="participants"
+          :isSongOwner="isSongOwner"
+          :hasGuessed="hasGuessed"
+        />
+      </div>
+      <div v-if="isHost" class="mt-auto">
+        <p class="text-white font-semibold">🕹Host controls</p>
+        <t-button
+          class="w-full mb-4"
+          v-if="songs.length > 0"
+          variant="warning"
+          @click="showNextSong"
+        >Skip Song</t-button>
+        <t-button
+          class="w-full mb-4"
+          variant="warning"
+          v-else
+          @click="endActivityInstanceMutation"
+        >Skip to Results</t-button>
+        <t-button class="w-full" variant="warning" @click="endActivityInstanceMutation">End Game</t-button>
+      </div>
     </div>
 
     <!-- Component that shows instance data in tables -->
@@ -55,10 +72,17 @@ import * as queries from "@/graphql/queries";
 import commonMethods from "@/mixins/commonMethods";
 import ActivityDebugger from "@/components/ActivityDebugger";
 import PlayerSelectionList from "@/components/PlayerSelectionList";
+import Participants from "@/components/Participants";
+import UserGuesses from "@/components/UserGuesses";
 
 export default {
   name: "Activity",
-  components: { ActivityDebugger, PlayerSelectionList },
+  components: {
+    ActivityDebugger,
+    PlayerSelectionList,
+    Participants,
+    UserGuesses
+  },
   mixins: [commonMethods],
   data() {
     return {
@@ -67,13 +91,40 @@ export default {
       playedSongs: [],
       score: [],
       guesses: [],
-      showDebugger: true,
+      showDebugger: false,
       currentGuess: null
     };
   },
   computed: {
+    participants() {
+      return this.users.map(user => ({
+        name: user.name,
+        hasGuessed: this.userHasGuessed(user.userId)
+      }));
+    },
     hasNextSong() {
       return this.songs.length > 0;
+    },
+    isSongOwner() {
+      return this.deviceId === this.currentSong.userId;
+    },
+    hasGuessed() {
+      return this.userHasGuessed(this.deviceId);
+    },
+    usersGuessList() {
+      return this.users.map(user => {
+        const guess = this.guesses.find(
+          guess =>
+            guess.trackId === this.currentSong.trackId &&
+            guess.userId === user.userId
+        );
+        return {
+          name: user.name,
+          userId: user.userId,
+          hasGuessed: !!guess,
+          isCorrect: guess && guess.selectedUserId === guess.trackOwnerId
+        };
+      });
     }
   },
   created() {
@@ -144,23 +195,13 @@ export default {
       this.currentGuess = this.guessedList.find(
         guess => guess.userId === this.deviceId
       );
+    },
+    userHasGuessed(userId) {
+      return !!this.guesses.find(
+        guess =>
+          guess.userId === userId && guess.trackId === this.currentSong.trackId
+      );
     }
   }
 };
 </script>
-<style lang="scss">
-.game {
-  width: 800px;
-  display: flex;
-  flex-wrap: wrap;
-
-  .col {
-    width: 50%;
-  }
-}
-
-.header {
-  padding-bottom: 5px;
-  font-weight: 600;
-}
-</style>

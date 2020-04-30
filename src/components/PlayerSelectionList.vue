@@ -1,10 +1,11 @@
 <template>
   <div>
+    <h4 class="font-semibold">Select a name and confirm</h4>
     <ul class="player-list">
       <li
         :class="{'border-purple-600': selection.playerId === u.userId, 'hover:border-purple-200': selection.playerId !== u.userId}"
         class="flex bg-white p-3 rounded-md relative items-center border-transparent border-2 cursor-pointer"
-        v-for="u in filteredUsers"
+        v-for="u in users.filter((user => user.userId !== userId))"
         :key="u.userId"
         @click="selectPlayer(u.userId)"
       >
@@ -46,9 +47,6 @@ export default {
     };
   },
   computed: {
-    filteredUsers() {
-      return this.users.filter(user => user.userId !== this.userId);
-    },
     selection() {
       if (this.guess) {
         return {
@@ -86,8 +84,3 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.player-name {
-  margin: 0;
-}
-</style>

@@ -9,7 +9,8 @@
         </p>
         <p v-else>You're the host of this round of "Whose Favourite Song is That?"</p>
         <p class="text-gray-800">Invite your colleagues and wait for them to join the game.</p>
-        <Share :activityInstanceId="activityInstanceId" :elementId="'copy-link_lobby'" />
+        <p class="font-bold">Be sure to turn down your volume or put on headphones!</p>
+        <Share class="mb-2" :activityInstanceId="activityInstanceId" :elementId="'copy-link_lobby'" />
         <h3>Your Song:</h3>
         <iframe
           v-if="findSong"

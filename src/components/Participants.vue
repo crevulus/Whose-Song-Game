@@ -2,7 +2,7 @@
   <div>
     <ul>
       <li
-        class="flex bg-purple-600 p-3 rounded-md relative items-center border-transparent border-2 cursor-pointer"
+        class="flex bg-purple-600 p-3 rounded-md relative items-center border-transparent border-2"
         v-for="p in participants"
         :key="p.name"
       >

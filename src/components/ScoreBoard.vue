@@ -1,19 +1,38 @@
 <template>
-  <t-table :headers="headers" :data="users">
+  <t-table
+    :headers="headers"
+    :data="users"
+    :thead-class="{
+        thead: '',
+        th: 'text-left text-gray-700 bg-transparent p-3'
+      }"
+    class="bg-gray-100"
+    style="border-width: 0"
+  >
     <template v-slot:row="props">
-      <tr
-        :class="[
-            props.trClass,
-            props.rowIndex % 2 === 0 ? 'bg-gray-100' : ''
-          ]"
-      >
-        <td :class="props.tdClass">{{ props.row.name }}</td>
+      <tr class="bg-purple-600 mb-2 text-white">
+        <td :class="[props.tdClass, 'rounded-l-lg']">
+          <strong>{{ props.row.name }}</strong>
+        </td>
+
         <td :class="props.tdClass">
           <strong>{{ props.row.song.trackTitle }}</strong>
-          - {{ props.row.song.trackArtists }}
+          <br />
+          {{ props.row.song.trackArtists }}
         </td>
-        <td :class="props.tdClass">{{ props.row.obscurity }}</td>
-        <td :class="props.tdClass">{{ props.row.score }}</td>
+        <td :class="props.tdClass">
+          <strong>{{ props.row.obscurity }}</strong>
+        </td>
+        <td :class="[props.tdClass, 'rounded-r-lg']">
+          <strong>{{ props.row.score }}</strong>
+        </td>
+      </tr>
+      <tr class="h-2">
+        <!-- Row as a divider between the player cells-->
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </template>
   </t-table>
@@ -52,6 +71,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

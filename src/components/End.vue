@@ -1,19 +1,28 @@
 <template>
-  <div class="end">
+  <div class="end px-6 w-3/4 m-auto">
     <ScoreBoard :users="formattedUsers" />
-    <t-button
-      on
-      variant="primary"
-      id="start-new-activity_end"
-      @click="startNewActivity"
-      v-if="isHost"
-    >Play again?</t-button>
-    <p>
+    <div class="flex justify-between">
+      <span
+        title="Obscurity: Participants that didn't guess your song
+Familiarity: Number of songs you guessed correctly"
+      >
+        <p class="border-dotted border-b-2 border-gray-500 mt-2">What do these results mean?</p>
+      </span>
+      <t-button
+        on
+        variant="warning"
+        id="start-new-activity_end"
+        @click="startNewActivity"
+        v-if="isHost"
+      >Play again?</t-button>
+    </div>
+    <p class="m-8">
       Do you want to get early access and product updates? Feel free to drop us
       your email
     </p>
-    <section v-if="!submitted">
+    <section v-if="!submitted" class="flex">
       <t-input
+        class="w-full mr-2"
         placeholder="Email"
         type="email"
         icon-pack="fas"
@@ -22,7 +31,7 @@
         v-if="!submitted"
         required
       />
-      <t-button @click="submitEmail" :disabled="!email" id="sign-up_end">Submit</t-button>
+      <t-button @click="submitEmail" variant="warning" :disabled="!email" id="sign-up_end">Submit</t-button>
     </section>
     <p v-if="submitted">
       ✅ Thank you! You're added to the waiting list and will be one of the
@@ -48,7 +57,7 @@ export default {
       email: null,
       submitted: false,
       formattedUsers: [],
-      guesses: [],
+      guesses: []
     };
   },
   created() {

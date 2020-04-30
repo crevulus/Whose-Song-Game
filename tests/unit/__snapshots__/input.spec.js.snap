@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchSong Component renders correctly 1`] = `
+<div
+  class="mx-auto"
+  style="max-width: 800px;"
+>
+  <div
+    class="w-full max-w-lg mx-auto"
+  >
+    <h4
+      class="title text-left font-semibold p-1"
+    >
+      Search for your favourite song
+    </h4>
+     
+    <input
+      class="w-full mb-4 t-input t-input-size-default t-input-status-default border block rounded p-3 bg-white"
+      maxlength="50"
+      placeholder="Artists, tracks, or albums"
+      type="text"
+    />
+     
+    <ul />
+     
+    <div
+      class="text-right"
+    >
+      <button
+        class="ml-auto w-48 t-button t-button-size-default border block rounded inline-flex items-center justify-center t-button-disabled cursor-not-allowed opacity-75 px-6 py-3 text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600"
+        disabled="disabled"
+        type="button"
+      >
+        Submit song
+      </button>
+    </div>
+  </div>
+</div>
+`;

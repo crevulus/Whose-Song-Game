@@ -22,8 +22,9 @@
       <t-button
         variant="primary"
         @click="submitSelection"
-        :disabled="!!this.guess"
+        :disabled="!!this.guess || this.userId === currentSong.userId"
       >Confirm Selection</t-button>
+      <p v-show="this.userId === currentSong.userId">You can't choose your own song! Sit this one out and wait for the next round.</p>
     </div>
   </div>
 </template>
@@ -31,15 +32,18 @@
 import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "@/graphql/mutations";
 import Checkbox from "@/components/Checkbox";
+// import commonMethods from "@/mixins/commonMethods";
 
 export default {
   name: "PlayerSelectionList",
   props: ["users", "userId", "guess", "currentSong"],
+  // mixins: [commonMethods],
   components: { Checkbox },
   data() {
     return {
       activityInstanceId: this.$route.params.activityInstanceId,
-      selected: null
+      selected: null,
+      deviceId: ""
     };
   },
   computed: {

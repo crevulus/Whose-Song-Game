@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Activity Component renders correctly (snapshot) 1`] = `
+<div
+  class="activity flex flex-wrap mx-auto"
+  style="max-width: 1280px;"
+>
+  <div
+    class="flex flex-wrap sm:flex-no-wrap w-full lg:w-2/3"
+  >
+    <div
+      class="w-full mx-auto sm:w-1/2 p-2"
+    >
+      <h4
+        class="font-semibold"
+      >
+        Whose song is this?
+      </h4>
+       
+      <iframe
+        allow="encrypted-media"
+        allowtransparency="true"
+        class="rounded-sm"
+        frameborder="0"
+        height="380"
+        src="https://open.spotify.com/embed/track/undefined"
+        width="300"
+      />
+    </div>
+     
+    <div
+      class="w-full mx-auto sm:flex-grow p-2"
+    >
+      <h4
+        class="font-semibold"
+      >
+        Select a name and confirm
+      </h4>
+       
+      <playerselectionlist-stub
+        currentsong="[object Object]"
+        userid="789"
+        users="[object Object],[object Object]"
+      />
+    </div>
+  </div>
+   
+  <div
+    class="w-full mx-auto lg:w-1/3 p-2"
+  >
+    <h1>
+      Host controls
+    </h1>
+     
+    <!---->
+     
+    <t-button-stub
+      activeclass="router-link-active"
+      baseclass="border block rounded inline-flex items-center justify-center"
+      dangerclass="text-white bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600"
+      defaultclass="bg-white border-gray-400 hover:bg-gray-100 hover:border-gray-500"
+      defaultsizeclass="px-6 py-3"
+      disabledclass="cursor-not-allowed opacity-75"
+      exactactiveclass="router-link-exact-active"
+      largesizeclass="px-8 py-4 text-lg"
+      primaryclass="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600"
+      secondaryclass="border-blue-500 text-blue-500 bg-white hover:border-blue-600 hover:text-blue-600 hover:bg-white"
+      smallsizeclass="px-4 py-2 text-sm"
+      successclass="text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600"
+      tagname="button"
+      tertiaryclass="border block underline text-blue-500 border-transparent bg-transparent hover:text-blue-600"
+      type="button"
+      variant="primary"
+      warningclass="text-yellow-900 bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600"
+    >
+      End Game
+    </t-button-stub>
+  </div>
+   
+  <!---->
+</div>
+`;

@@ -10,7 +10,10 @@
         >
           <strong class="font-bold">Too late!&nbsp;</strong>
           <span>The game has already started...</span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3 rounded-r-sm bg-red-600" style="cursor: pointer">
+          <span
+            class="absolute top-0 bottom-0 right-0 px-4 py-3 rounded-r-sm bg-red-600"
+            style="cursor: pointer"
+          >
             <div class="text-white" @click="redirect">
               <title>Close</title>
               <strong>OK</strong>
@@ -54,7 +57,7 @@
             @click="confirm()"
             class="ml-auto w-48"
             variant="primary"
-            :disabled="selectedSong.length === 0"
+            :disabled="selectedSong.length === 0 || showAlert"
           >Submit song</t-button>
         </div>
       </div>
@@ -137,10 +140,7 @@ export default {
     },
     confirm() {
       if (this.status !== "waiting") {
-        this.showAlert = !this.showAlert;
-        // alert(
-        //   "Sorry, the game has already begun. Please start a new game or wait for the next one."
-        // );
+        this.showAlert = true;
         return;
       }
       const { id, title, artists } = this.selectedSong;

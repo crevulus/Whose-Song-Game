@@ -29,6 +29,7 @@
       <div>
         <p class="text-white font-semibold">Participants</p>
         <Participants
+          :songOwner="currentSong.userId"
           :participants="participants"
           :isSongOwner="isSongOwner"
           :hasGuessed="hasGuessed"
@@ -99,7 +100,8 @@ export default {
     participants() {
       return this.users.map(user => ({
         name: user.name,
-        hasGuessed: this.userHasGuessed(user.userId)
+        hasGuessed: this.userHasGuessed(user.userId),
+        userId: user.userId
       }));
     },
     hasNextSong() {

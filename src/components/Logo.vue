@@ -1,16 +1,11 @@
 <template>
-  <section class="mb-12 text-center">
+  <section class="mb-20 mx-auto" style="max-width: 1280px">
     <router-link :to="{ name: 'home' }" class="inline-block">
-      <div class="flex">
-        <div></div>
-
-        <div
-          class="bg-purple-300 text-white text-center rounded-lg m-auto items-center flex pr-6 pl-2 py-1"
-        >
-          <img src="@/assets/img/atium_mark_white@2x.png" class="-mt-1 h-12" />
-          <h2 class="text-3xl font-bold mb-0 leading-none">Whose Favourite Song is That?</h2>
-        </div>
-        <div></div>
+      <div class="flex items-center">
+        <img src="@/assets/img/atium_mark@2x.png" class="-mt-1 h-16" />
+        <h2
+          class="text-3xl font-header text-gray-700 mb-0 leading-none"
+        >Whose Favourite Song is That?</h2>
       </div>
     </router-link>
   </section>

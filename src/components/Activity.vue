@@ -1,7 +1,7 @@
 <template>
   <div class="activity flex flex-wrap mx-auto" style="max-width: 1280px">
     <div class="flex flex-wrap sm:flex-no-wrap w-full lg:w-2/3" style="max-width: 650px">
-      <div class="w-full mx-auto sm:w-1/2 p-2" style="width: calc(300px + 1rem)">
+      <div class="w-panel mx-auto p-2">
         <h4 class="font-semibold">Whose song is this?</h4>
         <iframe
           v-if="currentSong.trackId"
@@ -14,7 +14,7 @@
           allow="encrypted-media"
         ></iframe>
       </div>
-      <div class="w-full mx-auto sm:flex-grow p-2">
+      <div class="w-panel mx-auto p-2">
         <PlayerSelectionList
           v-if="!isSongOwner"
           :users="this.users"
@@ -25,8 +25,52 @@
         <UserGuesses v-if="isSongOwner" :users="usersGuessList" :userId="this.deviceId" />
       </div>
     </div>
-    <div class="flex flex-col w-full mx-auto lg:w-1/3 p-2 bg-purple-700 rounded-xxl px-8 py-20">
-      <div>
+    <div
+      class="flex flex-col p-2 bg-purple-700 rounded-xl rounded-r-none lg:rounded-r-xl lg:px-8 lg:mr-3 py-16 absolute right-0 top-0 h-full"
+      :class="{'lg:rounded-xl px-4': collapsed, 'px-8': !collapsed}"
+    >
+      <!-- Toggle collapse participants panel -->
+      <div class="lg:hidden absolute left-0" style="top: 50%; transform: translateY(-50%);">
+        <button v-on:click="collapsed = !collapsed">
+          <svg
+            v-if="collapsed"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-chevron-left focus:outline-none"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          <svg
+            v-if="!collapsed"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-chevron-right"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        id="participants"
+        class="lg:block flex-grow mb-4"
+        style="overflow-y: auto; width: 290px"
+        :class="{'hidden': collapsed, 'is-host': isHost}"
+      >
         <p class="text-white font-semibold">Participants</p>
         <Participants
           :songOwner="currentSong.userId"
@@ -35,7 +79,7 @@
           :hasGuessed="hasGuessed"
         />
       </div>
-      <div v-if="isHost" class="mt-auto">
+      <div v-if="isHost" class="mt-auto lg:block" :class="{'hidden': collapsed}">
         <p class="text-white font-semibold">🕹Host controls</p>
         <t-button
           class="w-full mb-4"
@@ -93,7 +137,8 @@ export default {
       score: [],
       guesses: [],
       showDebugger: false,
-      currentGuess: null
+      currentGuess: null,
+      collapsed: true
     };
   },
   computed: {
@@ -207,3 +252,8 @@ export default {
   }
 };
 </script>
+<style>
+participants:not(.is-host) {
+  height: calc(100% - 8rem);
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="main-content">
+    <div id="main-content" class="relative max-w-6xl">
       <Logo />
       <router-view />
     </div>

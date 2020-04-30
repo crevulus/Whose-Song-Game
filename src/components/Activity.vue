@@ -26,12 +26,11 @@
       </div>
     </div>
     <div
-      class="flex flex-col p-2 bg-purple-700 rounded-xxl px-8 py-20 absolute right-0"
-      style="top: 75px; min-height: calc(100vh - 225px)"
-      :class="{'rounded-r-none': collapsed}"
+      class="flex flex-col p-2 bg-purple-700 rounded-xl lg:px-8 py-16 absolute right-0 top-0 h-full"
+      :class="{'lg:rounded-xl rounded-r-none px-4': collapsed, 'px-8': !collapsed}"
     >
       <!-- Toggle collapse participants panel -->
-      <div class="absolute left-0" style="top: 50%; transform: translateY(-50%);">
+      <div class="lg:hidden absolute left-0" style="top: 50%; transform: translateY(-50%);">
         <button v-on:click="collapsed = !collapsed">
           <svg
             v-if="collapsed"
@@ -65,7 +64,11 @@
           </svg>
         </button>
       </div>
-      <div>
+      <div
+        class="lg:block flex-grow mb-4"
+        style="max-height: calc(100% - (8rem - 150px)); overflow-y: auto;"
+        :class="{'hidden': collapsed}"
+      >
         <p class="text-white font-semibold">Participants</p>
         <Participants
           :songOwner="currentSong.userId"
@@ -74,7 +77,7 @@
           :hasGuessed="hasGuessed"
         />
       </div>
-      <div v-if="isHost" class="mt-auto">
+      <div v-if="isHost" class="mt-auto lg:block" :class="{'hidden': collapsed}">
         <p class="text-white font-semibold">🕹Host controls</p>
         <t-button
           class="w-full mb-4"
@@ -133,7 +136,7 @@ export default {
       guesses: [],
       showDebugger: false,
       currentGuess: null,
-      collapsed: false
+      collapsed: true
     };
   },
   computed: {

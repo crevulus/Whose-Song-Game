@@ -1,5 +1,5 @@
 <template>
-  <section class="mb-20">
+  <section class="mb-20 mx-auto" style="max-width: 1280px">
     <router-link :to="{ name: 'home' }" class="inline-block">
       <div class="flex items-center">
         <img src="@/assets/img/atium_mark@2x.png" class="-mt-1 h-12" />

@@ -81,7 +81,7 @@ export default {
           selectedUserId: this.selected.playerId,
           action: "submitSelection"
         })
-      );
+      ).then(() => (this.selected = null));
     }
   }
 };

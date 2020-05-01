@@ -51,6 +51,15 @@ export default {
   methods: {
     removeUser(userId) {
       API.graphql(
+        graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
+          activityInstanceId: this.activityInstanceId,
+          userId: this.deviceId,
+          action: "removeSong",
+          targetId: userId
+        })
+      ).then(console.log);
+
+      API.graphql(
         graphqlOperation(mutations.removeUserFromActivityInstance, {
           activityInstanceId: this.activityInstanceId,
           removedUserId: userId

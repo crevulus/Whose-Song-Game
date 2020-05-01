@@ -24,7 +24,9 @@
         @click="submitSelection"
         :disabled="!!this.guess || this.userId === currentSong.userId"
       >Confirm Selection</t-button>
-      <p v-show="this.userId === currentSong.userId">You can't choose your own song! Sit this one out and wait for the next round.</p>
+      <p
+        v-show="this.userId === currentSong.userId"
+      >You can't choose your own song! Sit this one out and wait for the next round.</p>
     </div>
   </div>
 </template>
@@ -79,7 +81,7 @@ export default {
           selectedUserId: this.selected.playerId,
           action: "submitSelection"
         })
-      );
+      ).then(() => (this.selected = null));
     }
   }
 };

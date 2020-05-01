@@ -136,14 +136,6 @@ export default {
       });
     },
     async removeUser(userId) {
-      await API.graphql(
-        graphqlOperation(mutations.whoseSongUpdateActivityInstanceData, {
-          activityInstanceId: this.activityInstanceId,
-          userId: this.deviceId,
-          action: "removeSong",
-          targetId: userId
-        })
-      );
       return API.graphql(
         graphqlOperation(mutations.removeUserFromActivityInstance, {
           activityInstanceId: this.activityInstanceId,

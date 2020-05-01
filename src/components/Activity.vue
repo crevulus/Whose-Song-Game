@@ -162,8 +162,8 @@ export default {
       return this.users.map(user => {
         const guess = this.guesses.find(
           guess =>
-            guess.trackId === this.currentSong.trackId &&
-            guess.userId === user.userId
+            guess.userId === user.userId &&
+            guess.trackOwnerId === this.currentSong.userId
         );
         return {
           name: user.name,
@@ -246,7 +246,8 @@ export default {
     userHasGuessed(userId) {
       return !!this.guesses.find(
         guess =>
-          guess.userId === userId && guess.trackId === this.currentSong.trackId
+          guess.userId === userId &&
+          guess.trackOwnerId === this.currentSong.userId
       );
     }
   }

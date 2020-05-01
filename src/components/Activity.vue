@@ -174,6 +174,24 @@ export default {
       });
     }
   },
+  watch: {
+    updateRounds() {
+      if (!this.isHost) return;
+
+      const shouldUpdate = this.guessedList.length === this.users.length - 1;
+      if (shouldUpdate && this.songs.length) {
+        this.showNextSong();
+        return;
+      }
+      if (shouldUpdate) {
+        API.graphql(
+          graphqlOperation(mutations.endActivityInstance, {
+            activityInstanceId: this.activityInstanceId
+          })
+        );
+      }
+    }
+  },
   created() {
     this.getActivityInstanceQuery();
     this.getActivityInstanceData();
@@ -215,18 +233,6 @@ export default {
       ).subscribe(response => {
         const data = response.value.data.whoseSongUpdatedActivityInstanceData;
         this.setVariables(data);
-
-        if (this.guessedList.length === this.users.length - 1) {
-          if (this.songs.length === 0) {
-            API.graphql(
-              graphqlOperation(mutations.endActivityInstance, {
-                activityInstanceId: this.activityInstanceId
-              })
-            );
-            return;
-          }
-          if (this.isHost) this.showNextSong();
-        }
       });
     },
     setVariables(data) {

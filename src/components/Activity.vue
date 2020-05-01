@@ -177,6 +177,7 @@ export default {
   },
   watch: {
     guessedList: function() {
+      console.log("called");
       if (!this.isHost) return;
 
       const shouldUpdate = this.guessedList.length === this.users.length - 1;

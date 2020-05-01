@@ -1,6 +1,6 @@
 <template>
   <section>
-    <t-button class="bg-purple-600 text-white" v-clipboard:copy="url" v-clipboard:success="onCopy">
+    <t-button variant="primary" v-clipboard:copy="url" v-clipboard:success="onCopy">
       <i class="far fa-share-square mr-2"></i>
       {{ copyLinkText }}
     </t-button>

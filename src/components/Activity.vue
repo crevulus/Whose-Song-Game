@@ -138,6 +138,7 @@ export default {
       guesses: [],
       showDebugger: false,
       currentGuess: null,
+      guessedList: [],
       collapsed: true
     };
   },
@@ -175,7 +176,7 @@ export default {
     }
   },
   watch: {
-    updateRounds() {
+    guessedList: function() {
       if (!this.isHost) return;
 
       const shouldUpdate = this.guessedList.length === this.users.length - 1;

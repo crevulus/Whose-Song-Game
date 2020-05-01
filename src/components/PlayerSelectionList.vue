@@ -24,7 +24,9 @@
         @click="submitSelection"
         :disabled="!!this.guess || this.userId === currentSong.userId"
       >Confirm Selection</t-button>
-      <p v-show="this.userId === currentSong.userId">You can't choose your own song! Sit this one out and wait for the next round.</p>
+      <p
+        v-show="this.userId === currentSong.userId"
+      >You can't choose your own song! Sit this one out and wait for the next round.</p>
     </div>
   </div>
 </template>
@@ -54,7 +56,11 @@ export default {
           playerId: this.guess.selectedUserId
         };
       }
-      if (this.selected && this.selected.trackId === this.currentSong.trackId) {
+      if (
+        this.selected &&
+        this.selected.trackId === this.currentSong.trackId &&
+        this.selected.playerId === this.currentSong.userId
+      ) {
         return this.selected;
       }
       return {};

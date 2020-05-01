@@ -2,12 +2,24 @@
   <div class="end px-6 w-3/4 m-auto">
     <ScoreBoard :users="formattedUsers" />
     <div class="flex justify-between">
-      <span
-        title="Obscurity: Participants that didn't guess your song
-Familiarity: Number of songs you guessed correctly"
-      >
-        <p class="border-dotted border-b-2 border-gray-500 mt-2">What do these results mean?</p>
-      </span>
+      <p
+        class="border-dotted border-b-2 border-gray-500 mt-2"
+        @click="$refs.modal.show()"
+      >What do these results mean?</p>
+      <t-modal ref="modal">
+        <div class="flex flex-col justify-around h-full">
+          <ul class="text-left text-xl">
+            <li>
+              <strong>Obscurity:</strong>
+              <p>Participants that didn't guess your song</p>
+            </li>
+            <li>
+              <strong>Familiarity:</strong>
+              <p>Number of songs you guessed correctly</p>
+            </li>
+          </ul>
+        </div>
+      </t-modal>
       <t-button
         on
         variant="warning"

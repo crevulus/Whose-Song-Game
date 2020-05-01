@@ -56,11 +56,7 @@ export default {
           playerId: this.guess.selectedUserId
         };
       }
-      if (
-        this.selected &&
-        this.selected.trackId === this.currentSong.trackId &&
-        this.selected.playerId === this.currentSong.userId
-      ) {
+      if (this.selected && this.selected.trackId === this.currentSong.trackId) {
         return this.selected;
       }
       return {};

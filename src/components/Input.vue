@@ -174,8 +174,8 @@ export default {
     },
     getAccessToken() {
       const url = "https://accounts.spotify.com/api/token";
-      const client_id = "f27c6cba06be4c7691eadadeb40bb8a8";
-      const client_secret = "3ed8adb1529d4d35b4dd3abfcb1ec638";
+      const client_id = // Client ID
+      const client_secret = // Client Secret Key
       const hash = Buffer.from(client_id + ":" + client_secret).toString(
         "base64"
       );
